@@ -4,9 +4,9 @@ using Notiflex.Infrastructure.Data.Models.UserModels;
 
 namespace Notiflex.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<NotiflexUser>
+    public class NotiflexDbContext : IdentityDbContext<NotiflexUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public NotiflexDbContext(DbContextOptions<NotiflexDbContext> options)
             : base(options)
         {
         }

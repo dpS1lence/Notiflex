@@ -11,7 +11,7 @@ using Notiflex.Infrastructure.Data;
 
 namespace Notiflex.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(NotiflexDbContext))]
     [Migration("20230110141245_InitialCreateUser")]
     partial class InitialCreateUser
     {

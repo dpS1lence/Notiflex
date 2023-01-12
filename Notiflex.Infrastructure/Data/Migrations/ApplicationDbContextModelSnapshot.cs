@@ -10,8 +10,8 @@ using Notiflex.Infrastructure.Data;
 
 namespace Notiflex.Infrastructure.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(NotiflexDbContext))]
+    partial class NotiflexDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

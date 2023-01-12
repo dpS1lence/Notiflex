@@ -27,7 +27,7 @@ namespace Notiflex.Infrastructure.Repositories
             return this.Context.Set<T>();
         }
 
-        public Repository(ApplicationDbContext context)
+        public Repository(NotiflexDbContext context)
         {
             Context = context;
         }
