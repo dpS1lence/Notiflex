@@ -5,6 +5,8 @@ using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Notiflex.Core.Services.Contracts;
+using Notiflex.Core.Services.AccountServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,7 @@ builder.Services.AddDbContext<NotiflexDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<NotiflexUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<NotiflexUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<NotiflexDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options =>
@@ -34,6 +36,8 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 
 var app = builder.Build();
 

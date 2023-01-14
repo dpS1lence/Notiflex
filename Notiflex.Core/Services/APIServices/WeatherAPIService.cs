@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Notiflex.Core.Contracts;
+using Notiflex.Core.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notiflex.Core.Services
+namespace Notiflex.Core.Services.APIServices
 {
     public class WeatherAPIService : IWeatherApiService
     {

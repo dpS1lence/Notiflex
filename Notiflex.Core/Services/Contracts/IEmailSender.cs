@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notiflex.Core.Contracts
+namespace Notiflex.Core.Services.Contracts
 {
-    public interface IWeatherApiService
+    public interface IEmailSender
     {
-        Task<IWeatherApiService> GetDataAsync(string url);
     }
 }

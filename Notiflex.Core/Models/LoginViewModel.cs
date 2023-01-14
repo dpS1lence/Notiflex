@@ -10,7 +10,9 @@ namespace Notiflex.Core.Models
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; } = null!;
+        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; } = null!;
 
         [Required]
         [DataType(DataType.Password)]
