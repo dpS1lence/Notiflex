@@ -10,6 +10,7 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
+using Notiflex.Core.Services.APIServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IMessageSender, MessageSender>();
+builder.Services.AddScoped<IWeatherApiService, WeatherAPIService>();
 
 var app = builder.Build();
 

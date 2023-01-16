@@ -47,8 +47,6 @@ namespace Notiflex.Core.Models.APIModels
 
         [JsonProperty("cod")]
         public int Cod { get; set; }
-        
-
     }
     public class Clouds
     {
