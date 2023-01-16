@@ -118,7 +118,7 @@ namespace Notiflex.Core.Services.AccountServices
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
-        public async Task<IdentityResult> ResetPasswordAsync(string email, string code, string password)
+        public async Task<IdentityResult> ResetPassword(string email, string code, string newPassword)
         {
             NotiflexUser? user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email)
                 .FirstOrDefaultAsync();
@@ -126,8 +126,23 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new NotFoundException();
             }
+            IdentityResult result = await _userManager.ChangePasswordAsync(user, code, newPassword);
+            if (result.Succeeded)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+            }
+            return result;
+        }
+        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string code)
+        {
+            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+            string token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            return await _userManager.ConfirmEmailAsync(user, token);
 
-            return await _userManager.ResetPasswordAsync(user, code, password);
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Notiflex.Core.Services.Contracts
         Task SignOutAsync();
         Task<string> GenerateEmailConfirmationTokenAsync(string userId);
         Task<string> GeneratePasswordResetTokenAsync(string userId);
-        Task<IdentityResult> ResetPasswordAsync(string email, string code, string password);
+        Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword);
     }
 }

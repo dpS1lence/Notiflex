@@ -37,6 +37,7 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 var app = builder.Build();
