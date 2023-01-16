@@ -9,5 +9,7 @@ namespace Notiflex.Core.Services.Contracts
     public interface IMessageSender
     {
         Task<string> SendMessage(string message, string chatId);
+        Task<string> ConfigureWeatherReport(string name);
+        Task<List<string>> ConvertNameToCoordinates(string cityName);
     }
 }
