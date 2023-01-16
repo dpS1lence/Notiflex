@@ -12,9 +12,10 @@
     <PackageReference Include="MimeKit" Version="3.4.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Notiflex.Infrastructure\Notiflex.Infrastructure.csproj" />
+    <PackageReference Include="Telegram.Bot" Version="18.0.0" />
+    <PackageReference Include="Telegram.Bots.Extensions.Polling" Version="5.9.0" />
   </ItemGroup>
 
 </Project>

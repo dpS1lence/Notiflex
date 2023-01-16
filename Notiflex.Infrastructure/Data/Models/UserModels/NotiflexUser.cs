@@ -15,6 +15,7 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
         {
 
         }
+
         [Required]
         [MinLength(DbValidationConstants.NAME_MIN_LENGTH)]
         [MaxLength(DbValidationConstants.NAME_MAX_LENGTH)]

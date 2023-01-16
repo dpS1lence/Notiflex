@@ -5,8 +5,11 @@ using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.AccountServices;
+using Notiflex.Core.Services.BotServices;
+using Notiflex.Core.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +41,7 @@ builder.Services.AddAutoMapper(config =>
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-
+builder.Services.AddScoped<IMessageSender, MessageSender>();
 
 var app = builder.Build();
 
