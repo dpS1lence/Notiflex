@@ -2,21 +2,19 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Notiflex.Core.Models;
+using Notiflex.Core.Services.AccountServices;
+using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 
 namespace Notiflex.Controllers
 {
-    public class UserController : Controller
+    public class AccountController : Controller
     {
-        private readonly UserManager<NotiflexUser> userManager;
-        private readonly SignInManager<NotiflexUser> signInManager;
-        private readonly IRepository repo;
-        public UserController(UserManager<NotiflexUser> _userManager, SignInManager<NotiflexUser> _signInManager, IRepository _repo)
+        private readonly IAccountService _accountService;
+        public AccountController(IAccountService accountService)
         {
-            userManager = _userManager;
-            signInManager = _signInManager;
-            repo = _repo;
+            _accountService= accountService;            
         }
         [HttpGet]
         public IActionResult Register()
@@ -33,26 +31,13 @@ namespace Notiflex.Controllers
             {
                 return View(model);
             }
-
-            var user = new NotiflexUser()
-            {
-                Email = model.Email,
-                UserName = model.UserName,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                HomeTown = model.HomeTown,
-                DefaultTime = model.DefaultTime,
-                TelegramInfo = model.TelegramInfo,
-                ProfilePic = model.ProfilePic,
-                Gender = model.Gender,
-                Age = model.Age,
-                Description = model.Description
-            };
-
-            var result = await userManager.CreateAsync(user, model.Password);
+      
+            var result = await _accountService.CreateUserAsync(model.Email, model.FirstName, model.LastName, model.UserName, model.Password);
 
             if (result.Succeeded)
             {
+
+                //TODO: Send email confirmation
                 return RedirectToAction("Login", "User");
             }
 
@@ -80,17 +65,15 @@ namespace Notiflex.Controllers
             {
                 return View(model);
             }
-
-            var user = await userManager.FindByNameAsync(model.UserName);
-
-            if (!user.Equals(null))
+            if (!await _accountService.IsEmailConfirmedAsync(model.Email))
             {
-                var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+            }
+            var signInResult = await _accountService.SignInUserAsync(model.Email, model.Password);
+
+            if (signInResult.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Invalid Login");
@@ -100,7 +83,7 @@ namespace Notiflex.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            await _accountService.SignOutAsync();
 
             return RedirectToAction(nameof(Login));
         }

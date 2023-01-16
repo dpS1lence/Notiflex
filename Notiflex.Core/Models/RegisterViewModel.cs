@@ -22,26 +22,25 @@ namespace Notiflex.Core.Models
         [EmailAddress]
         public string Email { get; set; } = null!;
 
-        [Required]
-        public string HomeTown { get; set; } = null!;
+        //public string HomeTown { get; set; } = null!;
 
-        [Required]
-        public string DefaultTime { get; set; } = null!;
+        //[Required]
+        //public string DefaultTime { get; set; } = null!;
 
-        [Required]
-        public string TelegramInfo { get; set; } = null!;
+        //[Required]
+        //public string TelegramInfo { get; set; } = null!;
 
-        [Required]
-        public string ProfilePic { get; set; } = null!;
+        //[Required]
+        //public string ProfilePic { get; set; } = null!;
 
-        [Required]
-        public string Gender { get; set; } = null!;
+        //[Required]
+        //public string Gender { get; set; } = null!;
 
-        [Required]
-        public string Description { get; set; } = null!;
+        //[Required]
+        //public string Description { get; set; } = null!;
 
-        [Required]
-        public string Age { get; set; } = null!;
+        //[Required]
+        //public string Age { get; set; } = null!;
 
         [Required]
         [DataType(DataType.Password)]

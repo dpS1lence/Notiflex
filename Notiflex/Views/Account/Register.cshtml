@@ -7,7 +7,7 @@
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-<head>
+@*<head>
     <meta charset="utf-8">
     <title>form-v1 by Colorlib</title>
     <!-- Mobile Specific Metas -->
@@ -207,9 +207,9 @@
 </div>
 <script src="~/templates/colorlib-regform-27/js/jquery-3.3.1.min.js"></script>
 <script src="~/templates/colorlib-regform-27/js/jquery.steps.js"></script>
-<script src="~/templates/colorlib-regform-27/js/main.js"></script>
+<script src="~/templates/colorlib-regform-27/js/main.js"></script>*@
 
-@*<div class="row">
+<div class="row">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post">
             <hr />
@@ -220,21 +220,31 @@
                 <span asp-validation-for="@Model.UserName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
+                <label asp-for="@Model.FirstName">FirstName</label>
+                <input class="form-control " autocomplete="firstname" aria-required="true" asp-for="@Model.FirstName" />
+                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+            </div>
+            <div class="text-center mb-3">
+                <label asp-for="@Model.LastName">LastName</label>
+                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.LastName" />
+                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+            </div>
+            <div class="text-center mb-3">
                 <label asp-for="@Model.Email">Email</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
-            <div class="text-center mb-3">
+            @*<div class="text-center mb-3">
                 <label asp-for="@Model.HomeTown">HomeTown</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.HomeTown" />
                 <span asp-validation-for="@Model.HomeTown" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
+            </div>*@
+            @*<div class="text-center mb-3">
                 <label asp-for="@Model.DefaultTime">DefaultTime</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.DefaultTime" />
                 <span asp-validation-for="@Model.DefaultTime" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
+            </div>*@
+            @*<div class="text-center mb-3">
                 <label asp-for="@Model.TelegramInfo">TelegramInfo</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.TelegramInfo" />
                 <span asp-validation-for="@Model.TelegramInfo" class="text-danger"></span>
@@ -258,7 +268,7 @@
                 <label asp-for="@Model.Age">Age</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Age" />
                 <span asp-validation-for="@Model.Age" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="text-center mb-3">
                 <label asp-for="@Model.Password">Password</label>
                 <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
@@ -275,7 +285,7 @@
         </form>
     </div>
 </div>
-*@
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
