@@ -23,16 +23,9 @@ namespace Notiflex.Core.Services.BotServices
         {
             TelegramBotClient bot = new(config.GetValue<string>("Notiflex_botId"));
 
-            try
-            {
-                Message msg = await bot.SendTextMessageAsync(chatId, message);
+            Message msg = await bot.SendTextMessageAsync(chatId, message);
 
-                return msg.Text ?? throw new ArgumentException("Error.");
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+            return msg.Text ?? throw new ArgumentException("Error.");
         }
     }
 }

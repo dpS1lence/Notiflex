@@ -1,0 +1,16 @@
+﻿body {
+    min-height: 130vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+footer {
+    min-height: 1px;
+    background: PapayaWhip;
+}
+
+.logo {
+    width: 3%;
+    margin: 5px;
+}
