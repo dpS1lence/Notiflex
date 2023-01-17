@@ -23,9 +23,9 @@ namespace Notiflex.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IndexModel model = new()
+            List<IndexModel> model = new()
             {
-                Avalable = false
+                new IndexModel(){ Avalable = false }
             };
 
             return View(model);
@@ -38,7 +38,7 @@ namespace Notiflex.Controllers
                 return BadRequest();
             }
 
-            IndexModel model = await _modelConfigurer.ConfigureWeatherReport(value);
+            List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
 
             return View(model);
         }

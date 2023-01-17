@@ -37,23 +37,30 @@ namespace Notiflex.Core.Services.BOtServices
 
             WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
 
-            IndexModel indexModel = new()
-            {
-                Avalable = true,
-                Name = model.Name,
-                Country = model.Sys.Country,
-                Weather = model.Weather.First().Main,
-                Description = model.Weather.First().Description,
-                Temp = Math.Round((decimal)(model.Main.Temp  - 273.15), 2).ToString() + "°",
-                FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString() + "°",
-                TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString() + "°",
-                TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
-                Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
-                Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
-                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString()
-            };
+            return FillModel(model);
+        }
 
-            return indexModel;
+        public async Task<List<IndexModel>> ConfigureForecastReport(string name)
+        {
+            List<string> coors = await ConvertNameToCoordinates(name);
+
+            string lat = coors[0];
+            string lon = coors[1];
+
+            StringBuilder api = new();
+            api.Append(config.GetValue<string>("ForecastApi"));
+            api.Append($"lat={lat}&lon={lon}&appid=");
+            api.Append(config.GetValue<string>("WeatherKey"));
+
+            List<WeatherDataModel> modelList = await weatherService.GetForecastDataAsync(api.ToString());
+            List<IndexModel> indexModels = new();
+
+            foreach (var model in modelList)
+            {
+                indexModels.Add(FillModel(model));
+            }
+
+            return indexModels;
         }
 
         public async Task<List<string>> ConvertNameToCoordinates(string cityName)
@@ -70,6 +77,27 @@ namespace Notiflex.Core.Services.BOtServices
                 $"{model.Lat}",
                 $"{model.Lon}"
             };
+        }
+
+        private IndexModel FillModel(WeatherDataModel model)
+        {
+            IndexModel indexModel = new()
+            {
+                Avalable = true,
+                Name = model.Name,
+                Country = model.Sys.Country,
+                Weather = model.Weather.First().Main,
+                Description = model.Weather.First().Description,
+                Temp = Math.Round((decimal)(model.Main.Temp - 273.15), 2).ToString() + "°",
+                FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString() + "°",
+                TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString() + "°",
+                TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
+                Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
+                Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
+                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString()
+            };
+
+            return indexModel;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Notiflex.Core.Services.Contracts
     {
         Task<IndexModel> ConfigureWeatherReport(string name);
 
+        Task<List<IndexModel>> ConfigureForecastReport(string name);
+
         Task<List<string>> ConvertNameToCoordinates(string cityName);
     }
 }
