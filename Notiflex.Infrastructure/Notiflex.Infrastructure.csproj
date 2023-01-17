@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Notiflex.Common\Notiflex.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

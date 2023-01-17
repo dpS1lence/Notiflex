@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Notiflex.Core.Exceptions;
+using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
@@ -28,27 +29,19 @@ namespace Notiflex.Core.Services.AccountServices
             _signInManager = signInManager;
             _repo = repo;
         }
-        public async Task<IdentityResult> CreateUserAsync(
-           string email,
-           string firstName,
-           string lastName,
-           string userName,
-           string password)
+        public async Task<IdentityResult> CreateUserAsync(UserDto userDto, string password)
         {
             NotiflexUser user = new NotiflexUser
             {
-                Email = email,
-                FirstName = firstName,
-                LastName = lastName,
-                UserName = userName,
+                Email = userDto.Email,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                UserName = userDto.UserName,
+                Age = userDto.Age,
+                Gender = userDto.Gender               
             };
 
-            IdentityResult result = await _userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-            }
-
+            IdentityResult result = await _userManager.CreateAsync(user, password);            
             return result;
         }
         public async Task<bool> IsEmailConfirmedAsync(string email)

@@ -1,4 +1,4 @@
-namespace Notiflex.Core.Models;
+namespace Notiflex.ViewModels;
 
 public class ErrorViewModel
 {
