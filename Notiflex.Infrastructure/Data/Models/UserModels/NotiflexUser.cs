@@ -37,7 +37,7 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
         public string Gender { get; set; } = null!;
 
         [MaxLength(DbValidationConstants.PROFILE_PIC_SIZE_MAZ_LENGTH)]
-        public string ProfilePic { get; set; } = null!;
+        public string? ProfilePic { get; set; }
 
         public string? TelegramInfo { get; set; }
 

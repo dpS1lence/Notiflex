@@ -1,4 +1,4 @@
-﻿@using Notiflex.Core.Models;
+﻿@using Notiflex.ViewModels;
 @model LoginViewModel
 
 @{
@@ -23,6 +23,7 @@
                     <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
+                <a asp-action="" asp-controller="">Forgot your password?</a>
                 <div class="text-center">
                     <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
                 </div>

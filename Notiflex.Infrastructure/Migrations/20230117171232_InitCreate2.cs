@@ -4,7 +4,7 @@
 
 namespace Notiflex.Infrastructure.Migrations
 {
-    public partial class NotiflexUser : Migration
+    public partial class InitCreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

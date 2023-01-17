@@ -12,8 +12,8 @@ using Notiflex.Infrastructure.Data;
 namespace Notiflex.Infrastructure.Migrations
 {
     [DbContext(typeof(NotiflexDbContext))]
-    [Migration("20230110141245_InitialCreateUser")]
-    partial class InitialCreateUser
+    [Migration("20230117171232_InitCreate2")]
+    partial class InitCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,11 +178,9 @@ namespace Notiflex.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DefaultTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
@@ -203,7 +201,6 @@ namespace Notiflex.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HomeTown")
-                        .IsRequired()
                         .HasMaxLength(140)
                         .HasColumnType("nvarchar(140)");
 
@@ -236,7 +233,6 @@ namespace Notiflex.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePic")
-                        .IsRequired()
                         .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)");
 
@@ -244,7 +240,6 @@ namespace Notiflex.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TelegramInfo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

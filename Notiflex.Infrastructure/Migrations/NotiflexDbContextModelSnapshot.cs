@@ -8,7 +8,7 @@ using Notiflex.Infrastructure.Data;
 
 #nullable disable
 
-namespace Notiflex.Infrastructure.Data.Migrations
+namespace Notiflex.Infrastructure.Migrations
 {
     [DbContext(typeof(NotiflexDbContext))]
     partial class NotiflexDbContextModelSnapshot : ModelSnapshot
@@ -176,11 +176,9 @@ namespace Notiflex.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DefaultTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
@@ -201,7 +199,6 @@ namespace Notiflex.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HomeTown")
-                        .IsRequired()
                         .HasMaxLength(140)
                         .HasColumnType("nvarchar(140)");
 
@@ -234,7 +231,6 @@ namespace Notiflex.Infrastructure.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePic")
-                        .IsRequired()
                         .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)");
 
@@ -242,7 +238,6 @@ namespace Notiflex.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TelegramInfo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
