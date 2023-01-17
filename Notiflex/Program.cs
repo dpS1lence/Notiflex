@@ -10,6 +10,7 @@ using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.APIServices;
 using Notiflex.Core.Services.BOtServices;
+using Notiflex.MapperProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +36,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddAutoMapper(config =>
 {
-    //TODO: Add Profiles
+    config.AddProfile<AccountMapperProfile>();
 });
 
 builder.Services.AddScoped<IRepository, Repository>();

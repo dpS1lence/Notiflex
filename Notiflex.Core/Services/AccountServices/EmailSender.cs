@@ -20,7 +20,9 @@ namespace Notiflex.Core.Services.AccountServices
         public async Task SendEmailAsync(string to, string subject, string body)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(_config["FromName"], _config["FromEmail"]));
+            var email = _config.GetSection("EmailSender")["FromEmail"];
+            var name = _config.GetSection("EmailSender")["FromName"];
+            message.From.Add(new MailboxAddress(name, email));
             message.To.Add(new MailboxAddress("", to));
             message.Subject = subject;
 
@@ -33,7 +35,7 @@ namespace Notiflex.Core.Services.AccountServices
                 await client.ConnectAsync("smtp.gmail.com", 465, true);
 
                 // Note: only needed if the SMTP server requires authentication
-                await client.AuthenticateAsync(_config["FromEmail"], _config["AuthPassword"]);
+                await client.AuthenticateAsync(email, _config.GetSection("EmailSender")["AuthPassword"]);
 
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);

@@ -1,4 +1,4 @@
-﻿@using Notiflex.Core.Models;
+﻿@using Notiflex.ViewModels;
 @model RegisterViewModel
 
 @{
@@ -234,44 +234,25 @@
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
-            @*<div class="text-center mb-3">
-                <label asp-for="@Model.HomeTown">HomeTown</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.HomeTown" />
-                <span asp-validation-for="@Model.HomeTown" class="text-danger"></span>
-            </div>*@
-            @*<div class="text-center mb-3">
-                <label asp-for="@Model.DefaultTime">DefaultTime</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.DefaultTime" />
-                <span asp-validation-for="@Model.DefaultTime" class="text-danger"></span>
-            </div>*@
-            @*<div class="text-center mb-3">
-                <label asp-for="@Model.TelegramInfo">TelegramInfo</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.TelegramInfo" />
-                <span asp-validation-for="@Model.TelegramInfo" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.ProfilePic">ProfilePic</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.ProfilePic" />
-                <span asp-validation-for="@Model.ProfilePic" class="text-danger"></span>
-            </div>
+            
             <div class="text-center mb-3">
                 <label asp-for="@Model.Gender">Gender</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Gender" />
+                <select class="form-control" aria-required="true" asp-for="@Model.Gender"> 
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+
                 <span asp-validation-for="@Model.Gender" class="text-danger"></span>
             </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.Description">Description</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Description" />
-                <span asp-validation-for="@Model.Description" class="text-danger"></span>
-            </div>
+            
             <div class="text-center mb-3">
                 <label asp-for="@Model.Age">Age</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Age" />
+                <input type="number" min="0" max="100" class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Age" />
                 <span asp-validation-for="@Model.Age" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Password">Password</label>
-                <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
+                <input  class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">

@@ -2,6 +2,7 @@
 using Notiflex.Core.Models;
 using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
+using Notiflex.ViewModels;
 using System.Diagnostics;
 using Telegram.Bot.Types;
 
