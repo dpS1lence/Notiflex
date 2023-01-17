@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Notiflex.Infrastructure.Data;
 using Notiflex.Infrastructure.Data.Models.UserModels;
@@ -9,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
-using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.APIServices;
+using Notiflex.Core.Services.BOtServices;
 using Notiflex.MapperProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +44,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IMessageSender, MessageSender>();
 builder.Services.AddScoped<IWeatherApiService, WeatherAPIService>();
+builder.Services.AddScoped<IModelConfigurer, ModelConfigurer>();
 
 var app = builder.Build();
 

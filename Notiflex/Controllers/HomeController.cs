@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Notiflex.Core.Models;
+using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.ViewModels;
 using System.Diagnostics;
@@ -11,30 +12,36 @@ namespace Notiflex.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMessageSender _messageSender;
+        private readonly IModelConfigurer _modelConfigurer;
 
-        public HomeController(ILogger<HomeController> logger, IMessageSender messageSender)
+        public HomeController(ILogger<HomeController> logger, IMessageSender messageSender, IModelConfigurer modelConfigurer)
         {
             _logger = logger;
             _messageSender = messageSender;
+            _modelConfigurer = modelConfigurer;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<IndexModel> model = new()
+            {
+                new IndexModel(){ Avalable = false }
+            };
+
+            return View(model);
         }
 
         public async Task<IActionResult> Index(string value)
         {
-            if((await _messageSender.ConvertNameToCoordinates(value)) == null)
+            if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
             {
                 return BadRequest();
             }
-            string message = await _messageSender.ConfigureWeatherReport(value);
 
-            await _messageSender.SendMessage(message, "5184263976");
+            List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Privacy()

@@ -10,6 +10,9 @@ namespace Notiflex.Core.Services.Contracts
     public interface IWeatherApiService
     {
         Task<WeatherDataModel> GetDataAsync(string url);
+
+        Task<List<WeatherDataModel>> GetForecastDataAsync(string url);
+
         Task<NameToCoordinatesModel> ConvertFromNameAsync(string url);
     }
 }
