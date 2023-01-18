@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Notiflex.Core.Models.APIModels;
+using Notiflex.Core.Models.ForecastApiModel;
 using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
 using System;
@@ -52,12 +53,26 @@ namespace Notiflex.Core.Services.BOtServices
             api.Append($"lat={lat}&lon={lon}&appid=");
             api.Append(config.GetValue<string>("WeatherKey"));
 
-            List<WeatherDataModel> modelList = await weatherService.GetForecastDataAsync(api.ToString());
+            ForecastDataModel modelList = await weatherService.GetForecastDataAsync(api.ToString());
             List<IndexModel> indexModels = new();
 
-            foreach (var model in modelList)
+            foreach (var model in modelList.List)
             {
-                indexModels.Add(FillModel(model));
+                indexModels.Add(new IndexModel()
+                {
+                    Avalable = true,
+                    Name = modelList.City.Name,
+                    Country = modelList.City.Country,
+                    Weather = model.Weather.First().Main,
+                    Description = model.Weather.First().Description,
+                    Temp = Math.Round((decimal)(model.Main.Temp - 273.15), 2).ToString() + "°",
+                    FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString() + "°",
+                    TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString() + "°",
+                    TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
+                    Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
+                    Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
+                    Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString()
+                });
             }
 
             return indexModels;
@@ -79,7 +94,7 @@ namespace Notiflex.Core.Services.BOtServices
             };
         }
 
-        private IndexModel FillModel(WeatherDataModel model)
+        private static IndexModel FillModel(WeatherDataModel model)
         {
             IndexModel indexModel = new()
             {

@@ -10,13 +10,11 @@ namespace Notiflex.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IMessageSender _messageSender;
         private readonly IModelConfigurer _modelConfigurer;
 
-        public HomeController(ILogger<HomeController> logger, IMessageSender messageSender, IModelConfigurer modelConfigurer)
+        public HomeController(IMessageSender messageSender, IModelConfigurer modelConfigurer)
         {
-            _logger = logger;
             _messageSender = messageSender;
             _modelConfigurer = modelConfigurer;
         }
@@ -26,7 +24,10 @@ namespace Notiflex.Controllers
         {
             List<IndexModel> model = new()
             {
-                new IndexModel(){ Avalable = false }
+                new IndexModel()
+                {
+                    Avalable = false
+                }
             };
 
             return View(model);
