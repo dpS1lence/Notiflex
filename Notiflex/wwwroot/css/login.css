@@ -40,6 +40,13 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+.back-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
