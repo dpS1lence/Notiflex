@@ -7,18 +7,24 @@
 <script src="~/js/weathercard.js"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <link href="~/css/weathercard.css" rel="stylesheet" />
+<link href="~/css/searchbar.css" rel="stylesheet" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div>
+    <video autoplay loop muted plays-inline class="back-video">
+        <source src="~/videos/yt5s.io-4k%20uhd%20flying%20above%20clouds%20live%20wallpaper-(1080p).mp4" type="video/mp4" />
+    </video>
 
-<form method="post">
-    <div class="centered">
-        <input asp-for="@value" type="text" placeholder="Search" class="searchTerm">
-        <button type="submit" class="searchButton">Search</button>
+    <div class="text-center">
+        <h1 class="display-4">Notiflex</h1>
     </div>
-</form>
+
+    <form method="post">
+        <div class="container">
+            <input asp-for="@value" type="text" type="text" class="input" placeholder="Search">
+            <div class="close-btn">&times;</div>
+        </div>
+    </form>
+</div>
 
 <div class="replace"></div>
 @if (Model.First().Avalable)
@@ -54,15 +60,29 @@
             </div>
             <div class="week-container">
                 <ul class="week-list">
-                    <li class="active"><i class="day-icon" data-feather="sun"></i><span class="day-name">Tue</span><span class="day-temp">@Model[1].Temp</span></li>
+                    <li><i class="day-icon" data-feather="sun"></i><span class="day-name">Tue</span><span class="day-temp">@Model[1].Temp</span></li>
                     <li><i class="day-icon" data-feather="cloud"></i><span class="day-name">Wed</span><span class="day-temp">@Model[2].Temp</span></li>
                     <li><i class="day-icon" data-feather="cloud-snow"></i><span class="day-name">Thu</span><span class="day-temp">@Model[3].Temp</span></li>
                     <li><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Fry</span><span class="day-temp">@Model[4].Temp</span></li>
                 </ul>
             </div>
-          @*  <div class="location-container">
-                <button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button>
-            </div>*@
+            @*  <div class="location-container">
+        <button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button>
+        </div>*@
         </div>
     </div>
 }
+
+
+
+
+<script>
+    $(".input").focus(function () {
+        $(".close-btn").addClass("active");
+    });
+
+    $(".input").focusout(function () {
+        $(".close-btn").removeClass("active");
+        $(this).val("");
+    });
+</script>

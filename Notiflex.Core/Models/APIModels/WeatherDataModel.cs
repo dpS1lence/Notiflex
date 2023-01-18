@@ -84,9 +84,6 @@ namespace Notiflex.Core.Models.APIModels
         public int Humidity { get; set; }
     }
 
-
-
-
     public class Sys
     {
         [JsonProperty("type")]
