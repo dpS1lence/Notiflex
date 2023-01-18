@@ -1,12 +1,85 @@
 ﻿@using Notiflex.ViewModels;
 @model RegisterViewModel
 
-@{
-    ViewData["Title"] = "Register";
-}
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="~/css/login.css">
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="wrap">
+                    @*<div class="img"></div>*@
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3 class="mb-4">Register</h3>
+                            </div>
+
+                        </div>
+                        <form id="account" method="post" class="signin-form">
+                            <div class="form-group mt-3">
+                                <input type="text" asp-for=@Model.UserName class="form-control" autocomplete="on" placeholder="Username" area-required="true">
+                                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" asp-for=@Model.FirstName class="form-control" autocomplete="on" placeholder="First Name" area-required="true">
+                                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" asp-for=@Model.LastName class="form-control" autocomplete="on" placeholder="Last Name" area-required="true">
+                                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" asp-for=@Model.Email class="form-control" autocomplete="on" placeholder="E-Mail" area-required="true">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <select type="text" asp-for=@Model.Gender class="form-control" autocomplete="on" placeholder="Gender" area-required="true">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                                <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="number" min="0" max="100" asp-for=@Model.Age class="form-control" autocomplete="on" placeholder="Age" area-required="true">
+                                <span asp-validation-for="@Model.Age" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input id="password-field" asp-for=@Model.Password class="form-control" autocomplete="on" placeholder="Password" area-required="true">
+                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="password" asp-for=@Model.ConfirmPassword class="form-control" autocomplete="on" placeholder="Confirm Password" area-required="true">
+                                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
+                            </div>
+                            @*<div class="form-group d-md-flex">
+
+                            <div class="text-md-end">
+                            <a href="#">Forgot Password?</a>
+                            </div>
+                            </div>*@
+                        </form>
+                        <p class="text-center">Already a member? <a data-toggle="tab" href="@Url.Action("Login", "Account")">Log In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 @*<head>
     <meta charset="utf-8">
     <title>form-v1 by Colorlib</title>
@@ -209,7 +282,7 @@
 <script src="~/templates/colorlib-regform-27/js/jquery.steps.js"></script>
 <script src="~/templates/colorlib-regform-27/js/main.js"></script>*@
 
-<div class="row">
+@*<div class="row">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post">
             <hr />
@@ -265,7 +338,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
