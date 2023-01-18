@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
 :root {
-	--gradient: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%);
+	--gradient: linear-gradient( 135deg, 40%, #5151E5 100%);
 }
 
 * {
@@ -21,8 +21,15 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-.replace{
-	height:100px;
+.back-video {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+}
+
+.replace {
+	height: 40px;
 }
 
 .containerr {
@@ -31,13 +38,13 @@ body {
 	box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	height: 400px;
 	width: 700px;
+	background: rgba(251, 192, 147, 0.8);
 }
 
 .weather-side {
 	position: relative;
 	height: 100%;
 	border-radius: 25px;
-	background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
 	width: 300px;
 	-webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
@@ -62,9 +69,9 @@ body {
 	height: 100%;
 	top: 0;
 	left: 0;
-	background-image: var(--gradient);
+	background: rgba(250, 192, 160);
 	border-radius: 25px;
-	opacity: 0.8;
+	opacity: 0.4;
 }
 
 .date-container {
@@ -148,7 +155,6 @@ body {
 	-webkit-box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
 	box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	background: #
 }
 
 	.week-list > li {
@@ -165,14 +171,13 @@ body {
 			-webkit-transform: scale(1.1);
 			-ms-transform: scale(1.1);
 			transform: scale(1.1);
-			background: #fff;
-			color: #222831;
+			background: rgba(251, 192, 147, 0.8);
 			-webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
 			box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
 		}
 
 		.week-list > li.active {
-			background: #fff;
+			background: rgba(251, 192, 147, 0.8);
 			color: #222831;
 			border-radius: 10px;
 		}
@@ -197,40 +202,14 @@ body {
 			font-weight: 700;
 		}
 
-.location-container {
-	padding: 25px 35px;
+.location-button:hover {
+	-webkit-transform: scale(0.95);
+	-ms-transform: scale(0.95);
+	transform: scale(0.95);
 }
 
-.location-button {
-	outline: none;
-	width: 100%;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	border: none;
-	border-radius: 25px;
-	padding: 10px;
-	font-family: 'Montserrat', sans-serif;
-	background-image: var(--gradient);
-	color: #ffffff;
-	font-weight: 700;
-	-webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
-	box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
-	cursor: pointer;
-	-webkit-transition: -webkit-transform 200ms ease;
-	transition: -webkit-transform 200ms ease;
-	-o-transition: transform 200ms ease;
-	transition: transform 200ms ease;
-	transition: transform 200ms ease, -webkit-transform 200ms ease;
+.location-button .feather {
+	height: 1em;
+	width: auto;
+	margin-right: 5px;
 }
-
-	.location-button:hover {
-		-webkit-transform: scale(0.95);
-		-ms-transform: scale(0.95);
-		transform: scale(0.95);
-	}
-
-	.location-button .feather {
-		height: 1em;
-		width: auto;
-		margin-right: 5px;
-	}
