@@ -27,7 +27,7 @@
 </div>
 
 <div class="replace"></div>
-@if (Model.First().Avalable)
+@if (Model != null && Model.Count > 0 && Model.First().Avalable)
 {
     <div class="containerr">
         <div class="weather-side">

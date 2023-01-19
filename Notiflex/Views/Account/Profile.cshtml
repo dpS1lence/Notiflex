@@ -1,0 +1,12 @@
+﻿@using Notiflex.ViewModels;
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<form method="post">
+    <input asp-for="@Model.TelegramChatId" type="text" class="input" placeholder="ChatId">
+</form>
+<form method="post">
+    <button asp-area="" asp-route-id="@Model.TelegramChatId" asp-controller="Home" asp-action="SendData" type="submit" class="form-control btn btn-primary rounded submit px-3">Send data</button>
+</form>

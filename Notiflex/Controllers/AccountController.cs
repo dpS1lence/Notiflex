@@ -10,6 +10,7 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.ViewModels;
+using System.Security.Claims;
 using System.Text;
 
 namespace Notiflex.Controllers
@@ -21,7 +22,7 @@ namespace Notiflex.Controllers
         private readonly IMapper _mapper;
         public AccountController(IAccountService accountService, IEmailSender emailSender, IMapper mapper)
         {
-            _accountService= accountService;
+            _accountService = accountService;
             _emailSender = emailSender;
             _mapper = mapper;
         }
@@ -125,6 +126,43 @@ namespace Notiflex.Controllers
             IdentityResult result = await _accountService.ConfirmEmailAsync(userId, token);
             TempData["StatusMessage"] = result.Succeeded ? "Thank you for confirming your email." : "An error occurred while trying to confirm your email";
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            NotiflexUser user = await _accountService.GetUserData(userId);
+
+            var model = new ProfileViewModel()
+            {
+                TelegramChatId = user?.TelegramInfo ?? "ChatId"
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            ProfileDto dto = new()
+            {
+                TelegramChatId = model.TelegramChatId
+            };
+
+            await _accountService.EditProfile(userId, dto);
+
+            ProfileViewModel prModel = new()
+            {
+                TelegramChatId = dto.TelegramChatId
+            };
+
+            return View(prModel);
         }
     }
 }

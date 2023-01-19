@@ -4,6 +4,8 @@ using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.ViewModels;
 using System.Diagnostics;
+using System.Security.Claims;
+using System.Text;
 using Telegram.Bot.Types;
 
 namespace Notiflex.Controllers
@@ -11,11 +13,13 @@ namespace Notiflex.Controllers
     public class HomeController : Controller
     {
         private readonly IMessageSender _messageSender;
+        private readonly IAccountService _accountService;
         private readonly IModelConfigurer _modelConfigurer;
 
-        public HomeController(IMessageSender messageSender, IModelConfigurer modelConfigurer)
+        public HomeController(IMessageSender messageSender, IAccountService accountService, IModelConfigurer modelConfigurer)
         {
             _messageSender = messageSender;
+            _accountService = accountService;
             _modelConfigurer = modelConfigurer;
         }
 
@@ -33,16 +37,49 @@ namespace Notiflex.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> SendData(string id)
+        {  
+            await _messageSender.SendMessage("Test message", id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Index(string value)
         {
-            if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
+            try
             {
-                return BadRequest();
+                if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
+                {
+                    return BadRequest();
+                }
+
+                List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
+
+                if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                    string chatId = (await _accountService.GetUserData(userId)).TelegramInfo;
+
+                    if (chatId == null)
+                    {
+
+                    }
+                    else
+                    {
+                        StringBuilder sb = new();
+                        sb.AppendLine($"Today's average temperature for {model.First().Name} is -> {model.First().Temp}C°");
+
+                        await _messageSender.SendMessage(sb.ToString(), chatId);
+                    }
+                }
+
+                return View(model);
             }
-
-            List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
-
-            return View(model);
+            catch(Exception)
+            {
+                return View();
+            }
         }
 
         public IActionResult Privacy()
