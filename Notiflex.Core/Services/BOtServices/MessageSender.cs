@@ -35,27 +35,32 @@ namespace Notiflex.Core.Services.BotServices
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
-            string lat = coors[0];
-            string lon = coors[1];
+            if(coors.Count != 0)
+            {
+                string lat = coors[0];
+                string lon = coors[1];
 
-            StringBuilder api = new();
-            api.Append(config.GetValue<string>("WeatherApi"));
-            api.Append($"lat={lat}&lon={lon}&appid=");
-            api.Append(config.GetValue<string>("WeatherKey"));
+                StringBuilder api = new();
+                api.Append(config.GetValue<string>("WeatherApi"));
+                api.Append($"lat={lat}&lon={lon}&appid=");
+                api.Append(config.GetValue<string>("WeatherKey"));
 
-            WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
+                WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
 
-            StringBuilder message = new();
-            message.AppendLine($"Today's weather report for {model.Name} ({model.Sys.Country})");
-            message.AppendLine($"temp -> {(model.Main.Temp - 273.15):f2}");
-            message.AppendLine($"feels_like -> {(model.Main.FeelsLike - 273.15):f2}");
-            message.AppendLine($"temp_min -> {(model.Main.TempMin - 273.15):f2}");
-            message.AppendLine($"temp_max -> {(model.Main.TempMax - 273.15):f2}");
-            message.AppendLine($"pressure -> {model.Main.Pressure}");
-            message.AppendLine($"humidity -> {model.Main.Humidity}");
-            message.AppendLine($"wind speed -> {model.Wind.Speed}");
+                StringBuilder message = new();
+                message.AppendLine($"Today's weather report for {model.Name} ({model.Sys.Country})");
+                message.AppendLine($"temp -> {(model.Main.Temp - 273.15):f2}");
+                message.AppendLine($"feels_like -> {(model.Main.FeelsLike - 273.15):f2}");
+                message.AppendLine($"temp_min -> {(model.Main.TempMin - 273.15):f2}");
+                message.AppendLine($"temp_max -> {(model.Main.TempMax - 273.15):f2}");
+                message.AppendLine($"pressure -> {model.Main.Pressure}");
+                message.AppendLine($"humidity -> {model.Main.Humidity}");
+                message.AppendLine($"wind speed -> {model.Wind.Speed}");
 
-            return message.ToString();
+                return message.ToString();
+            }
+
+            return "Invalid data";
         }
 
         public async Task<List<string>> ConvertNameToCoordinates(string cityName)
@@ -65,7 +70,15 @@ namespace Notiflex.Core.Services.BotServices
             api.Append($"{cityName}&limit=1&appid=");
             api.Append(config.GetValue<string>("WeatherKey"));
 
-            NameToCoordinatesModel model = await weatherService.ConvertFromNameAsync(api.ToString());
+            NameToCoordinatesModel model = new();
+            try
+            {
+                model = await weatherService.ConvertFromNameAsync(api.ToString());
+            }
+            catch(Exception) 
+            {
+                return new List<string>();
+            }
 
             return new List<string>()
             {
