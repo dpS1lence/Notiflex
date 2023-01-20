@@ -19,9 +19,9 @@
     </div>
 
     <form method="post">
-        <div class="container">
-            <input asp-for="@value" type="text" type="text" class="input" placeholder="Search">
-            <div class="close-btn">&times;</div>
+        <div id="tochange" class="container">
+            <input id="tochange" asp-for="@value" type="text" type="text" class="input" placeholder="Search">
+            <button id="searchBtn" onclick="Transform()" class="btn" type="submit"><i><img src="~/images/search.svg"/></i></button>
         </div>
     </form>
 </div>
@@ -77,12 +77,7 @@
 
 
 <script>
-    $(".input").focus(function () {
-        $(".close-btn").addClass("active");
-    });
-
-    $(".input").focusout(function () {
-        $(".close-btn").removeClass("active");
-        $(this).val("");
-    });
+    var a = document.getElementById("tochange");
+    function Transform(){
+    }
 </script>
