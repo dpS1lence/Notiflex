@@ -15,7 +15,12 @@ body {
     transform: translate(-50%,-50%);
 }
 
+.searchIcon {
+    background-image: url('../images/search.svg');
+}
+
 .container {
+    text-shadow: 0 0 10px black;
     display: flex;
     justify-content: center;
     position: relative;
@@ -25,15 +30,23 @@ body {
 .input {
     width: 350px;
     border: 3px solid white;
+    box-shadow: 0 0 10px black;
     background: transparent;
     padding: 15px 30px;
     border-radius: 50px;
     outline: none;
     font-size: 18px;
-    color: #666362;
+    color: white;
+    text-shadow: 0 0 3px black;
     font-weight: bold;
     letter-spacing: 1px;
+    transition: .5s;
 }
+
+    .input:hover {
+        transform: scale(1.05);
+    }
+
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #000;
@@ -43,11 +56,13 @@ body {
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
-    color: #000;
+    color: white;
+    text-shadow: 0 0 10px black;
 }
 
 :-ms-input-placeholder { /* IE 10+ */
-    color: #000;
+    color: white;
+    text-shadow: 0 0 10px black;
 }
 
 .close-btn {
@@ -56,34 +71,6 @@ body {
     right: 80px;
     font-size: 35px;
     cursor: pointer;
-    color: #E1D9D1;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease;
-}
-
-    .close-btn.active {
-        opacity: 1;
-        animation: animate 0.5s linear;
-    }
-
-@keyframes animate {
-    0% {
-        transform: scale(1);
-    }
-
-    25% {
-        transform: scale(1.2);
-    }
-
-    50% {
-        transform: scale(1.5);
-    }
-
-    75% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 }
