@@ -1,0 +1,76 @@
+﻿body {
+    background-image: url('../images/forestScenario.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-text {
+    margin: 25px;
+    padding: 20px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.3);
+    font-size: 25px;
+    text-shadow: 0 0 1px;
+    text-decoration-thickness: 10px;
+    transition: 0.5s;
+}
+
+    .bg-text:hover {
+        box-shadow: 10px 10px;
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+.logo-bg {
+    padding: 30px;
+    margin: 10px;
+    width: 25%;
+    display: flex;
+    position: relative;
+    top: 35%;
+    left: 37%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 120px;
+    text-shadow: black;
+    transition: 0.5s;
+}
+
+    .logo-bg:hover {
+        border: 2px solid rgba(255, 255, 255, 0.6);
+    }
+
+.btn-bg {
+    border: 2px solid white;
+    padding: 10px;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+    .btn-bg:hover {
+        background-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 10px 10px;
+    }
+
+.button {
+    background-color: rgba(46, 86, 99, 0.6);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.5s;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 8px;
+}
+
+    .button:hover {
+        color: white;
+        background-color: rgba(46, 86, 99, 1);
+        box-shadow: 4px 4px black;
+    }

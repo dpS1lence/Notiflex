@@ -2,82 +2,23 @@
 @model List<IndexModel>
 @{
     ViewData["Title"] = "Home Page";
-    string value = "";
-}
-<script src="~/js/weathercard.js"></script>
-<script src="https://unpkg.com/feather-icons"></script>
-<link href="~/css/weathercard.css" rel="stylesheet" />
-<link href="~/css/searchbar.css" rel="stylesheet" />
-
-<div>
-    <video autoplay loop muted plays-inline class="back-video">
-        <source src="~/videos/yt5s.io-4k%20uhd%20flying%20above%20clouds%20live%20wallpaper-(1080p).mp4" type="video/mp4" />
-    </video>
-
-    <div class="text-center">
-        <h1 class="display-4">Notiflex</h1>
-    </div>
-
-    <form method="post">
-        <div id="tochange" class="container">
-            <input id="tochange" asp-for="@value" type="text" type="text" class="input" placeholder="Search">
-            <button id="searchBtn" onclick="Transform()" class="btn" type="submit"><i><img src="~/images/search.svg"/></i></button>
-        </div>
-    </form>
-</div>
-
-<div class="replace"></div>
-@if (Model != null && Model.Count > 0 && Model.First().Avalable)
-{
-    <div class="containerr">
-        <div class="weather-side">
-            <div class="weather-gradient"></div>
-            <div class="date-container">
-                <h2 class="date-dayname">Tuesday</h2><span class="date-day">15 Jan 2019</span><i class="location-icon" data-feather="map-pin"></i><span class="location">@Model.First().Name, @Model.First().Country</span>
-            </div>
-            <div class="weather-container">
-                <i class="weather-icon" data-feather="sun"></i>
-                <h1 class="weather-temp">@Model.First().Temp</h1>
-                <h3 class="weather-desc">@Model.First().Weather</h3>
-            </div>
-        </div>
-        <div class="info-side">
-            <div class="today-info-container">
-                <div class="today-info">
-                    <div class="precipitation">
-                        <span class="title">PRESSURE</span><span class="value">@Model.First().Pressure</span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="humidity">
-                        <span class="title">HUMIDITY</span><span class="value">@Model.First().Humidity %</span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="wind">
-                        <span class="title">WIND</span><span class="value">@Model.First().Speed km/h</span>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="week-container">
-                <ul class="week-list">
-                    <li><i class="day-icon" data-feather="sun"></i><span class="day-name">Tue</span><span class="day-temp">@Model[1].Temp</span></li>
-                    <li><i class="day-icon" data-feather="cloud"></i><span class="day-name">Wed</span><span class="day-temp">@Model[2].Temp</span></li>
-                    <li><i class="day-icon" data-feather="cloud-snow"></i><span class="day-name">Thu</span><span class="day-temp">@Model[3].Temp</span></li>
-                    <li><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Fry</span><span class="day-temp">@Model[4].Temp</span></li>
-                </ul>
-            </div>
-            @*  <div class="location-container">
-        <button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button>
-        </div>*@
-        </div>
-    </div>
 }
 
+<link href="~/css/homepage.css" rel="stylesheet" />
 
-
-
-<script>
-    var a = document.getElementById("tochange");
-    function Transform(){
+<div class="welcome text-center">
+    <img class="logo-bg unselectable" src="~/css/logo-no-background (2).png" />
+    <div class="bg-text">
+        <p class="unselectable">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a tincidunt neque. Curabitur euismod sit amet sem non cursus. Nulla dictum neque neque, vitae laoreet diam ullamcorper at. Phasellus eget efficitur tortor, sed rutrum quam. Nulla quis venenatis ex, non placerat ipsum. Cras vulputate interdum ante a venenatis. Integer auctor massa dui, sit amet placerat nibh rhoncus eu. Sed tellus justo, venenatis in sem vitae, pellentesque pulvinar tortor. Pellentesque dictum, ipsum a lobortis semper, est massa euismod enim, ut tincidunt odio diam ut erat. Duis sit amet felis efficitur, condimentum sem nec, tristique neque. Nam ac lacus eget ipsum tincidunt tempus vel vitae risus. Nam aliquam odio eu fermentum porttitor. Duis finibus nisl leo, sit amet ultrices sem eleifend nec.
+        </p>
+    </div>
+    @if(User?.Identity?.IsAuthenticated ?? false)
+    {
+        <a type="submit" href="@Url.Action("Browse", "Home")" class="button">Browse</a>
     }
-</script>
+    else
+    {
+        <a type="submit" href="@Url.Action("Register", "Account")" class="button">Join us</a>
+    }
+</div>

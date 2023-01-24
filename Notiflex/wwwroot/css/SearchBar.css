@@ -4,7 +4,7 @@
 }
 
 body {
-    color: white;
+    color: black;
     font-family: Roboto;
 }
 
@@ -19,7 +19,7 @@ body {
     background-image: url('../images/search.svg');
 }
 
-.container {
+.box {
     text-shadow: 0 0 10px black;
     display: flex;
     justify-content: center;
@@ -36,8 +36,7 @@ body {
     border-radius: 50px;
     outline: none;
     font-size: 18px;
-    color: white;
-    text-shadow: 0 0 3px black;
+    color: black;
     font-weight: bold;
     letter-spacing: 1px;
     transition: .5s;
@@ -49,7 +48,7 @@ body {
 
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #000;
+    color: black;
     font-family: Roboto;
     letter-spacing: 2px;
     text-transform: uppercase;

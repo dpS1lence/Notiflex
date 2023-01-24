@@ -29,6 +29,9 @@ body {
 }
 
 .replace {
+	display: flex;
+	justify-content: center;
+	padding: 80px;
 	height: 40px;
 }
 
@@ -38,7 +41,7 @@ body {
 	box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	height: 400px;
 	width: 700px;
-	background: rgba(251, 192, 147, 0.8);
+	background: rgba(46, 86, 99, 0.8);
 }
 
 .weather-side {
@@ -46,21 +49,14 @@ body {
 	height: 100%;
 	border-radius: 25px;
 	width: 300px;
-	-webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
-	box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
-	-webkit-transition: -webkit-transform 300ms ease;
-	transition: -webkit-transform 300ms ease;
-	-o-transition: transform 300ms ease;
-	transition: transform 300ms ease;
-	transition: transform 300ms ease, -webkit-transform 300ms ease;
-	-webkit-transform: translateZ(0) scale(1.02) perspective(1000px);
-	transform: translateZ(0) scale(1.02) perspective(1000px);
 	float: left;
+	transition: .4s;
 }
 
 	.weather-side:hover {
 		-webkit-transform: scale(1.1) perspective(1500px) rotateY(10deg);
 		transform: scale(1.1) perspective(1500px) rotateY(10deg);
+		background: rgba(46, 86, 99);
 	}
 
 .weather-gradient {
@@ -69,7 +65,7 @@ body {
 	height: 100%;
 	top: 0;
 	left: 0;
-	background: rgba(250, 192, 160);
+	background: rgba(46, 86, 99);
 	border-radius: 25px;
 	opacity: 0.4;
 }
@@ -171,13 +167,13 @@ body {
 			-webkit-transform: scale(1.1);
 			-ms-transform: scale(1.1);
 			transform: scale(1.1);
-			background: rgba(251, 192, 147, 0.8);
+			background: rgba(46, 86, 99, 0.8);
 			-webkit-box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2);
 			box-shadow: 0 0 40px -5px rgba(0, 0, 0, 0.2)
 		}
 
 		.week-list > li.active {
-			background: rgba(251, 192, 147, 0.8);
+			background: rgba(46, 86, 99, 0.8);
 			color: #222831;
 			border-radius: 10px;
 		}
@@ -212,4 +208,15 @@ body {
 	height: 1em;
 	width: auto;
 	margin-right: 5px;
+}
+
+.bg-img {
+	position: fixed;
+	right: 0px;
+	bottom: 0;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+	filter: blur(6px);
+	-webkit-filter: blur(6px);
 }
