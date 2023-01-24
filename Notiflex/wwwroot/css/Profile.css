@@ -1,0 +1,15 @@
+﻿body {
+}
+
+.box-holder {
+    border: 5px solid;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 1000px;
+    height: 800px;
+    background-color: rgba(240, 250, 240, 0.8);
+}

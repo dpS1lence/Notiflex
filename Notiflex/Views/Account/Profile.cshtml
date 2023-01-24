@@ -3,10 +3,14 @@
 @{
     ViewData["Title"] = "Profile";
 }
+<link href="~/css/profile.css" rel="stylesheet" />
 
-<form method="post">
-    <input asp-for="@Model.TelegramChatId" type="text" class="input" placeholder="ChatId">
-</form>
-<form method="post">
-    <button asp-area="" asp-route-id="@Model.TelegramChatId" asp-controller="Home" asp-action="SendData" type="submit" class="form-control btn btn-primary rounded submit px-3">Send data</button>
-</form>
+<div class="box-holder">
+    <form method="post">
+        <input asp-for="@Model.TelegramChatId" type="text" class="input" placeholder="ChatId">
+    </form>
+    <form method="post">
+        <button asp-area="" asp-route-id="@Model.TelegramChatId" asp-controller="Home" asp-action="SendData" type="submit" class="form-control btn btn-primary rounded submit px-3">Send data</button>
+    </form>
+</div>
+

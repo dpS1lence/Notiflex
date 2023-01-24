@@ -102,7 +102,7 @@ namespace Notiflex.Controllers
 
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Browse", "Home");
             }
 
             ModelState.AddModelError("", "Invalid Login");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Notiflex.Core.Models;
 using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
@@ -23,8 +24,14 @@ namespace Notiflex.Controllers
             _modelConfigurer = modelConfigurer;
         }
 
-        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Browse()
         {
             List<IndexModel> model = new()
             {
@@ -37,6 +44,7 @@ namespace Notiflex.Controllers
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> SendData(string id)
         {  
             await _messageSender.SendMessage("Test message", id);
@@ -44,7 +52,8 @@ namespace Notiflex.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Index(string value)
+        [Authorize]
+        public async Task<IActionResult> Browse(string value)
         {
             try
             {

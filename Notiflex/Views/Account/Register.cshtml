@@ -1,349 +1,53 @@
 ﻿@using Notiflex.ViewModels;
 @model RegisterViewModel
 
+<link href="~/css/identitystyle.css" rel="stylesheet" />
 
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+<img class="bg-img" src="~/images/forestscenario.jpg" />
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="~/css/login.css">
-
-<video autoplay loop muted plays-inline class="back-video">
-        <source src="~/videos/yt5s.io-4k%20uhd%20flying%20above%20clouds%20live%20wallpaper-(1080p).mp4" type="video/mp4" />
-    </video>
-
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-7 col-lg-5">
-                <div class="wrap">
-                    @*<div class="img"></div>*@
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="d-flex">
-                            <div class="w-100">
-                                <h3 class="mb-4">Register</h3>
-                            </div>
-
-                        </div>
-                        <form id="account" method="post" class="signin-form">
-                            <div class="form-group mt-3">
-                                <input type="text" asp-for=@Model.UserName class="form-control" autocomplete="on" placeholder="Username" area-required="true">
-                                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="text" asp-for=@Model.FirstName class="form-control" autocomplete="on" placeholder="First Name" area-required="true">
-                                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="text" asp-for=@Model.LastName class="form-control" autocomplete="on" placeholder="Last Name" area-required="true">
-                                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="text" asp-for=@Model.Email class="form-control" autocomplete="on" placeholder="E-Mail" area-required="true">
-                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group mt-3">
-                                <select type="text" asp-for=@Model.Gender class="form-control" autocomplete="on" placeholder="Gender" area-required="true">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
-                                <span asp-validation-for="@Model.Gender" class="text-danger"></span>
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="number" min="0" max="100" asp-for=@Model.Age class="form-control" autocomplete="on" placeholder="Age" area-required="true">
-                                <span asp-validation-for="@Model.Age" class="text-danger"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <input id="password-field" asp-for=@Model.Password class="form-control" autocomplete="on" placeholder="Password" area-required="true">
-                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-
-                            </div>
-                            <div class="form-group mt-3">
-                                <input type="password" asp-for=@Model.ConfirmPassword class="form-control" autocomplete="on" placeholder="Confirm Password" area-required="true">
-                                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
-                            </div>
-                            @*<div class="form-group d-md-flex">
-
-                            <div class="text-md-end">
-                            <a href="#">Forgot Password?</a>
-                            </div>
-                            </div>*@
-                        </form>
-                        <p class="text-center">Already a member? <a data-toggle="tab" href="@Url.Action("Login", "Account")">Log In</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-@*<head>
-    <meta charset="utf-8">
-    <title>form-v1 by Colorlib</title>
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- Font-->
-    <link href="~/templates/colorlib-regform-27/css/opensans-font.css" rel="stylesheet" />
-    <!-- Main Style Css -->
-    <link href="~/templates/colorlib-regform-27/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
-    <link href="~/templates/colorlib-regform-27/css/style.css" rel="stylesheet" />
-</head>
-
-<div class="page-content">
-    <div class="form-v1-content">
-        <div class="wizard-form">
-            <form class="form-register" action="#" method="post">
-                <div id="form-total">
-                    <!-- SECTION 1 -->
-                    <h2>
-                        <p class="step-icon"><span>01</span></p>
-                        <span class="step-text">Peronal Infomation</span>
-                    </h2>
-                    <section>
-                        <div class="inner">
-                            <div class="wizard-header">
-                                <h3 class="heading">Peronal Infomation</h3>
-                                <p>Please enter your infomation and proceed to the next step so we can build your accounts.  </p>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder">
-                                    <fieldset>
-                                        <legend asp-for="@Model.UserName">Username</legend>
-                                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
-                                        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
-                                        <input type="text" class="form-control" id="first-name" name="first-name" placeholder="Username" required>
-                                    </fieldset>
-                                </div>
-                                <div class="form-holder">
-                                    <fieldset>
-                                        <legend asp-for="@Model.LastName">LastName</legend>
-                                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.LastName" />
-                                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-                                        <input type="text" class="form-control" id="first-name" name="first-name" placeholder="LastName" required>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder form-holder-2">
-                                    <fieldset>
-                                        <legend asp-for="@Model.Email">Email</legend>
-                                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
-                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                                        <input type="text" class="form-control" id="first-name" name="first-name" placeholder="Email" required>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder form-holder-2">
-                                    <fieldset>
-                                        <legend asp-for="@Model.LastName">LastName</legend>
-                                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.LastName" />
-                                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-                                        <input type="text" class="form-control" id="first-name" name="first-name" placeholder="LastName" required>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-row form-row-date">
-                                <div class="form-holder form-holder-2">
-                                    <label class="special-label">Birth Date:</label>
-                                    <select name="month" id="month">
-                                        <option value="MM" disabled selected>MM</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                    </select>
-                                    <select name="date" id="date">
-                                        <option value="DD" disabled selected>DD</option>
-                                        <option value="Feb">Feb</option>
-                                        <option value="Mar">Mar</option>
-                                        <option value="Apr">Apr</option>
-                                        <option value="May">May</option>
-                                    </select>
-                                    <select name="year" id="year">
-                                        <option value="YYYY" disabled selected>YYYY</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2014">2014</option>
-                                        <option value="2013">2013</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder form-holder-2">
-                                    <input type="text" class="form-control input-border" id="ssn" name="ssn" placeholder="SSN" required>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- SECTION 2 -->
-                    <h2>
-                        <p class="step-icon"><span>02</span></p>
-                        <span class="step-text">Connect Bank Account</span>
-                    </h2>
-                    <section>
-                        <div class="inner">
-                            <div class="wizard-header">
-                                <h3 class="heading">Connect Bank Account</h3>
-                                <p>Please enter your infomation and proceed to the next step so we can build your accounts.</p>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder form-holder-1">
-                                    <input type="text" name="find_bank" id="find_bank" placeholder="Find Your Bank" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-row-total">
-                                <div class="form-row">
-                                    <div class="form-holder form-holder-2 form-holder-3">
-                                        <input type="radio" class="radio" name="bank-1" id="bank-1" value="bank-1" checked>
-                                        <label class="bank-images label-above bank-1-label" for="bank-1">
-                                            <img src="images/form-v1-1.png" alt="bank-1">
-                                        </label>
-                                        <input type="radio" class="radio" name="bank-2" id="bank-2" value="bank-2">
-                                        <label class="bank-images label-above bank-2-label" for="bank-2">
-                                            <img src="images/form-v1-2.png" alt="bank-2">
-                                        </label>
-                                        <input type="radio" class="radio" name="bank-3" id="bank-3" value="bank-3">
-                                        <label class="bank-images label-above bank-3-label" for="bank-3">
-                                            <img src="images/form-v1-3.png" alt="bank-3">
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-holder form-holder-2 form-holder-3">
-                                        <input type="radio" class="radio" name="bank-4" id="bank-4" value="bank-4">
-                                        <label class="bank-images bank-4-label" for="bank-4">
-                                            <img src="images/form-v1-4.png" alt="bank-4">
-                                        </label>
-                                        <input type="radio" class="radio" name="bank-5" id="bank-5" value="bank-5">
-                                        <label class="bank-images bank-5-label" for="bank-5">
-                                            <img src="images/form-v1-5.png" alt="bank-5">
-                                        </label>
-                                        <input type="radio" class="radio" name="bank-6" id="bank-6" value="bank-6">
-                                        <label class="bank-images bank-6-label" for="bank-6">
-                                            <img src="images/form-v1-6.png" alt="bank-6">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- SECTION 3 -->
-                    <h2>
-                        <p class="step-icon"><span>03</span></p>
-                        <span class="step-text">Set Financial Goals</span>
-                    </h2>
-                    <section>
-                        <div class="inner">
-                            <div class="wizard-header">
-                                <h3 class="heading">Set Financial Goals</h3>
-                                <p>Please enter your infomation and proceed to the next step so we can build your accounts.</p>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-holder form-holder-2">
-                                    <input type="radio" class="radio" name="radio1" id="plan-1" value="plan-1">
-                                    <label class="plan-icon plan-1-label" for="plan-1">
-                                        <img src="images/form-v1-icon-2.png" alt="pay-1">
-                                    </label>
-                                    <div class="plan-total">
-                                        <span class="plan-title">Specific Plan</span>
-                                        <p class="plan-text">Pellentesque nec nam aliquam sem et volutpat consequat mauris nunc congue nisi.</p>
-                                    </div>
-                                    <input type="radio" class="radio" name="radio1" id="plan-2" value="plan-2">
-                                    <label class="plan-icon plan-2-label" for="plan-2">
-                                        <img src="images/form-v1-icon-2.png" alt="pay-1">
-                                    </label>
-                                    <div class="plan-total">
-                                        <span class="plan-title">Medium Plan</span>
-                                        <p class="plan-text">Pellentesque nec nam aliquam sem et volutpat consequat mauris nunc congue nisi.</p>
-                                    </div>
-                                    <input type="radio" class="radio" name="radio1" id="plan-3" value="plan-3" checked>
-                                    <label class="plan-icon plan-3-label" for="plan-3">
-                                        <img src="images/form-v1-icon-3.png" alt="pay-2">
-                                    </label>
-                                    <div class="plan-total">
-                                        <span class="plan-title">Special Plan</span>
-                                        <p class="plan-text">Pellentesque nec nam aliquam sem et volutpat consequat mauris nunc congue nisi.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </form>
-        </div>
+<div id="login-form-wrap">
+    <h2>Register</h2>
+    <form id="login-form" method="post" asp-controller="Account" asp-action="Register">
+        <p>
+            <input type="text" asp-for=@Model.UserName autocomplete="on" placeholder="Username" area-required="true">
+            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="text" asp-for=@Model.FirstName autocomplete="on" placeholder="First Name" area-required="true">
+            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="text" asp-for=@Model.LastName autocomplete="on" placeholder="Last Name" area-required="true">
+            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="text" asp-for=@Model.Email autocomplete="on" placeholder="E-Mail" area-required="true">
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+        </p>
+        <p>
+            <select type="text" asp-for=@Model.Gender autocomplete="on" placeholder="Gender" area-required="true">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+            <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="number" min="0" max="100" asp-for=@Model.Age autocomplete="on" placeholder="Age" area-required="true">
+            <span asp-validation-for="@Model.Age" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="password" id="password-field" asp-for=@Model.Password autocomplete="on" placeholder="Password" area-required="true">
+            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+        </p>
+        <p>
+            <input type="password" asp-for=@Model.ConfirmPassword autocomplete="on" placeholder="Confirm Password" area-required="true">
+            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+        </p>
+        <p>
+            <button type="submit" class="button">Register</button>
+        </p>
+    </form>
+    <div id="create-account-wrap">
+        <p class="text-center">Already a member? <a data-toggle="tab" href="@Url.Action("Login", "Account")">Log In</a></p>
     </div>
 </div>
-<script src="~/templates/colorlib-regform-27/js/jquery-3.3.1.min.js"></script>
-<script src="~/templates/colorlib-regform-27/js/jquery.steps.js"></script>
-<script src="~/templates/colorlib-regform-27/js/main.js"></script>*@
-
-@*<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <form id="registerForm" method="post">
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.UserName">Username</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
-                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.FirstName">FirstName</label>
-                <input class="form-control " autocomplete="firstname" aria-required="true" asp-for="@Model.FirstName" />
-                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.LastName">LastName</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.LastName" />
-                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.Email">Email</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </div>
-            
-            <div class="text-center mb-3">
-                <label asp-for="@Model.Gender">Gender</label>
-                <select class="form-control" aria-required="true" asp-for="@Model.Gender"> 
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
-
-                <span asp-validation-for="@Model.Gender" class="text-danger"></span>
-            </div>
-            
-            <div class="text-center mb-3">
-                <label asp-for="@Model.Age">Age</label>
-                <input type="number" min="0" max="100" class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Age" />
-                <span asp-validation-for="@Model.Age" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.Password">Password</label>
-                <input  class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-                <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" />
-                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="text-center">
-                <button id="registerSubmit" type="submit" class="btn btn-primary">Register</button>
-            </div>
-        </form>
-    </div>
-</div>*@
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-
