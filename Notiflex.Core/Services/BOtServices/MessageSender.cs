@@ -28,6 +28,17 @@ namespace Notiflex.Core.Services.BotServices
 
             Message msg = await bot.SendTextMessageAsync(chatId, message);
 
+            var file = new FileStream("wwwroot/images/vectorLandScape.jpg", FileMode.Open);
+
+            await bot.SendPhotoAsync(chatId, new Telegram.Bot.Types.InputFiles.InputOnlineFile(file, "kur"));
+
+            List<string> coors = await ConvertNameToCoordinates("Veliko Tarnovo");
+
+            string lat = coors[0];
+            string lon = coors[1];
+
+            await bot.SendLocationAsync(chatId,double.Parse(lat), double.Parse(lon));
+
             return msg.Text ?? throw new ArgumentException("Error.");
         }
 
@@ -35,7 +46,7 @@ namespace Notiflex.Core.Services.BotServices
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
-            if(coors.Count != 0)
+            if (coors.Count != 0)
             {
                 string lat = coors[0];
                 string lon = coors[1];
@@ -75,7 +86,7 @@ namespace Notiflex.Core.Services.BotServices
             {
                 model = await weatherService.ConvertFromNameAsync(api.ToString());
             }
-            catch(Exception) 
+            catch (Exception)
             {
                 return new List<string>();
             }
