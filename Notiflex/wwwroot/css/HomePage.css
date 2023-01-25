@@ -23,22 +23,15 @@
     }
 
 .logo-bg {
-    padding: 30px;
+    padding: 2px;
     margin: 10px;
     width: 25%;
     display: flex;
     position: relative;
     top: 35%;
     left: 37%;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 120px;
     text-shadow: black;
-    transition: 0.5s;
 }
-
-    .logo-bg:hover {
-        border: 2px solid rgba(255, 255, 255, 0.6);
-    }
 
 .btn-bg {
     border: 2px solid white;
@@ -73,4 +66,5 @@
         color: white;
         background-color: rgba(46, 86, 99, 1);
         box-shadow: 4px 4px black;
+        text-shadow: 0 0 5px white;
     }
