@@ -2,52 +2,49 @@
 @model RegisterViewModel
 
 <link href="~/css/identitystyle.css" rel="stylesheet" />
+<link href="~/css/loginregister.css" rel="stylesheet" />
 
-<img class="bg-img" src="~/images/forestscenario.jpg" />
-
-<div id="login-form-wrap">
+<div id="login-form-wrap" class="w-25">
     <h2>Register</h2>
     <form id="login-form" method="post" asp-controller="Account" asp-action="Register">
         <p>
             <input type="text" asp-for=@Model.UserName autocomplete="on" placeholder="Username" area-required="true">
             <span asp-validation-for="@Model.UserName" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="text" asp-for=@Model.FirstName autocomplete="on" placeholder="First Name" area-required="true">
             <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="text" asp-for=@Model.LastName autocomplete="on" placeholder="Last Name" area-required="true">
             <span asp-validation-for="@Model.LastName" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="text" asp-for=@Model.Email autocomplete="on" placeholder="E-Mail" area-required="true">
             <span asp-validation-for="@Model.Email" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <select type="text" asp-for=@Model.Gender autocomplete="on" placeholder="Gender" area-required="true">
                 <option>Male</option>
                 <option>Female</option>
             </select>
             <span asp-validation-for="@Model.Gender" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="number" min="0" max="100" asp-for=@Model.Age autocomplete="on" placeholder="Age" area-required="true">
             <span asp-validation-for="@Model.Age" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="password" id="password-field" asp-for=@Model.Password autocomplete="on" placeholder="Password" area-required="true">
             <span asp-validation-for="@Model.Password" class="text-danger"></span>
         </p>
-        <p>
+        <p class="mt-3">
             <input type="password" asp-for=@Model.ConfirmPassword autocomplete="on" placeholder="Confirm Password" area-required="true">
             <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
         </p>
-        <p>
-            <button type="submit" class="button">Register</button>
+        <p class="mt-3">
+            <button type="submit" class="button mb-3">Register</button>
         </p>
     </form>
-    <div id="create-account-wrap">
-        <p class="text-center">Already a member? <a data-toggle="tab" href="@Url.Action("Login", "Account")">Log In</a></p>
-    </div>
+    
 </div>

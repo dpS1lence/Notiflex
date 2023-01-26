@@ -6,6 +6,7 @@ using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -31,6 +32,7 @@ namespace Notiflex.Core.Services.AccountServices
         }
         public async Task<IdentityResult> CreateUserAsync(UserDto userDto, string password)
         {
+            
             NotiflexUser user = new NotiflexUser
             {
                 Email = userDto.Email,

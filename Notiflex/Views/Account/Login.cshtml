@@ -5,25 +5,28 @@
     ViewData["Title"] = "Log in";
 }
 <link href="~/css/identitystyle.css" rel="stylesheet" />
+<link href="~/css/loginregister.css" rel="stylesheet" />
 
-<img class="bg-img" src="~/images/forestscenario.jpg" />
 
-<div id="login-form-wrap">
-    <h2>Login</h2>
-    <form id="login-form" method="post" asp-controller="Account" asp-action="Login">
-        <p>
-            <input type="text" asp-for=@Model.Email autocomplete="on" placeholder="E-Mail" area-required="true">
-            <span asp-validation-for="@Model.Email" class="text-danger"></span>
-        </p>
-        <p>
-            <input type="password" id="password-field" asp-for=@Model.Password autocomplete="on" placeholder="Password" area-required="true">
-            <span asp-validation-for="@Model.Password" class="text-danger"></span>
-        </p>
-        <p>
-            <button type="submit" class="button">Login</button>
-        </p>
-    </form>
-    <div id="create-account-wrap">
-        <p>Not a member? <a href="@Url.Action("Register", "Account")">Create Account</a><p>
+
+    <div class="container mt-5">
+        <div id="login-form-wrap">
+            <h2>Login</h2>
+            <form id="login-form" method="post" asp-controller="Account" asp-action="Login">
+                <p>
+                    <input type="text" asp-for=@Model.Email autocomplete="on" placeholder="E-Mail" area-required="true">
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </p>
+                <p class="mt-3">
+                    <input type="password" id="password-field" asp-for=@Model.Password autocomplete="on" placeholder="Password" area-required="true">
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </p>
+                <p class="mt-3">
+                    <button type="submit" class="button">Login</button>
+                </p>
+            </form>
+            <div id="create-account-wrap" class="mt-3">
+                <p>Not a member? <a href="@Url.Action("Register", "Account")">Create Account</a><p>
+            </div>
+        </div>
     </div>
-</div>
