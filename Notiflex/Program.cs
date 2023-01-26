@@ -11,6 +11,7 @@ using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.APIServices;
 using Notiflex.Core.Services.BOtServices;
 using Notiflex.MapperProfiles;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,23 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AccountMapperProfile>();
+});
+
+builder.Services.AddQuartz(config =>
+{
+    config.SchedulerId = "Notiflex-Scheduler";
+    config.UseMicrosoftDependencyInjectionJobFactory();
+    config.UseSimpleTypeLoader();
+    config.UseInMemoryStore();
+    config.UseDefaultThreadPool(tp =>
+    {
+        tp.MaxConcurrency = 20;
+    });
+    
+});
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
