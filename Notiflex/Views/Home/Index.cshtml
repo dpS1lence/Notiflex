@@ -1,16 +1,24 @@
-﻿@{
+﻿@using Notiflex.Core.Models.HomePageModels;
+@model List<IndexModel>
+@{
     ViewData["Title"] = "Home Page";
-    string value = "";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link href="~/css/homepage.css" rel="stylesheet" />
 
-<form method="post">
-    <div class="centered">
-        <input asp-for="@value" type="text" placeholder="Search" class="searchTerm">
-        <button type="submit" class="searchButton">Search</button>
+<div class="welcome text-center">
+    <img class="logo-bg unselectable" src="~/css/logo-no-background (2).png" />
+    <div class="bg-text">
+        <p class="unselectable">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a tincidunt neque. Curabitur euismod sit amet sem non cursus. Nulla dictum neque neque, vitae laoreet diam ullamcorper at. Phasellus eget efficitur tortor, sed rutrum quam. Nulla quis venenatis ex, non placerat ipsum. Cras vulputate interdum ante a venenatis. Integer auctor massa dui, sit amet placerat nibh rhoncus eu. Sed tellus justo, venenatis in sem vitae, pellentesque pulvinar tortor. Pellentesque dictum, ipsum a lobortis semper, est massa euismod enim, ut tincidunt odio diam ut erat. Duis sit amet felis efficitur, condimentum sem nec, tristique neque. Nam ac lacus eget ipsum tincidunt tempus vel vitae risus. Nam aliquam odio eu fermentum porttitor. Duis finibus nisl leo, sit amet ultrices sem eleifend nec.
+        </p>
     </div>
-</form>
+    @if(User?.Identity?.IsAuthenticated ?? false)
+    {
+        <a type="submit" href="@Url.Action("Browse", "Home")" class="button">Browse</a>
+    }
+    else
+    {
+        <a type="submit" href="@Url.Action("Register", "Account")" class="button">Join us</a>
+    }
+</div>

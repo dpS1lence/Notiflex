@@ -1,0 +1,156 @@
+﻿body {
+}
+
+h2 {
+    font-weight: 300;
+    padding: 20px;
+    text-align: center;
+}
+
+p {
+    position: relative;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+    color: #3ca9e2;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+    a:focus, a:hover,
+    a:link:focus,
+    a:link:hover,
+    a:visited:focus,
+    a:visited:hover,
+    a:active:focus,
+    a:active:hover {
+        color: #329dd5;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+#login-form-wrap {
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 35%;
+    margin: 30px auto;
+    text-align: center;
+    padding: 20px 0 0 0;
+    border-radius: 20px;
+    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+
+#login-form {
+    padding: 0 60px;
+}
+
+select {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    border: 1px solid #2e5663;
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 4px;
+}
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+        width: 100%;
+        padding: 0 0 0 10px;
+        margin: 0;
+        color: #000000;
+        border: 1px solid black;
+        font-style: normal;
+        font-size: 16px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        position: relative;
+        display: inline-block;
+        background: none;
+    }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus {
+            border: 2px solid #2e5663;
+        }
+
+            input[type="text"]:focus:invalid,
+            input[type="email"]:focus:invalid {
+                color: #2e5663;
+                border-color: #2e5663;
+            }
+
+.button {
+    background-color: #2e5663; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+    .button:hover {
+        box-shadow: 3px 3px black;
+    }
+
+.bg-img {
+    position: fixed;
+    right: 0px;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
+}
+
+input[type="submit"] {
+    border: none;
+    display: block;
+    background-color: #3ca9e2;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+    input[type="submit"]:hover {
+        background-color: #329dd5;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+#create-account-wrap {
+    background-color: #2e5663;
+    color: #8a8b8e;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 0 0 20px 20px;
+}

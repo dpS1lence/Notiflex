@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Notiflex.Core.Models.APIModels;
+using Notiflex.Core.Models.ForecastApiModel;
 using Notiflex.Core.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,22 @@ namespace Notiflex.Core.Services.APIServices
                 throw new NullReferenceException();
             }
             var result = JsonConvert.DeserializeObject<WeatherDataModel>(json);
+            if (result == null)
+            {
+                throw new NullReferenceException();
+            }
+            return result;
+        }
+        public async Task<ForecastDataModel> GetForecastDataAsync(string url)
+        {
+            var client = new HttpClient();
+            var json = await client.GetStringAsync(url);
+            if (string.IsNullOrEmpty(json))
+            {
+                //TODO: New Specific Exception Type
+                throw new NullReferenceException();
+            }
+            var result = JsonConvert.DeserializeObject<ForecastDataModel>(json);
             if (result == null)
             {
                 throw new NullReferenceException();

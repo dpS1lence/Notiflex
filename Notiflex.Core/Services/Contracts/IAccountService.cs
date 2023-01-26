@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Notiflex.Core.Models.DTOs;
+using Notiflex.Infrastructure.Data.Models.UserModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace Notiflex.Core.Services.Contracts
         Task<string> GeneratePasswordResetTokenAsync(string userId);
         Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword);
         Task<IdentityResult> ConfirmEmailAsync(string userId, string code);
+        Task EditProfile(string userId, ProfileDto model);
+        Task<NotiflexUser> GetUserData(string userId);
     }
 }

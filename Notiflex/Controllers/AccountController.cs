@@ -10,6 +10,7 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.ViewModels;
+using System.Security.Claims;
 using System.Text;
 
 namespace Notiflex.Controllers
@@ -21,7 +22,7 @@ namespace Notiflex.Controllers
         private readonly IMapper _mapper;
         public AccountController(IAccountService accountService, IEmailSender emailSender, IMapper mapper)
         {
-            _accountService= accountService;
+            _accountService = accountService;
             _emailSender = emailSender;
             _mapper = mapper;
         }
@@ -30,7 +31,7 @@ namespace Notiflex.Controllers
         {
             var model = new RegisterViewModel();
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -38,7 +39,7 @@ namespace Notiflex.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             UserDto userDto;
             try
@@ -48,7 +49,6 @@ namespace Notiflex.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
             var result = await _accountService.CreateUserAsync(userDto, model.Password);
@@ -73,7 +73,7 @@ namespace Notiflex.Controllers
                 ModelState.AddModelError("", item.Description);
             }
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpGet]
@@ -81,7 +81,7 @@ namespace Notiflex.Controllers
         {
             var model = new LoginViewModel();
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -90,23 +90,23 @@ namespace Notiflex.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             if (!await _accountService.IsEmailConfirmedAsync(model.Email))
             {
                 TempData["StatusMessage"] = "Email not confirmed!";
-                return View(model);
+                return PartialView(model);
             }
             var signInResult = await _accountService.SignInUserAsync(model.Email, model.Password);
 
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Browse", "Home");
             }
 
             ModelState.AddModelError("", "Invalid Login");
 
-            return View(model);
+            return PartialView(model);
         }
 
         public async Task<IActionResult> Logout()
@@ -125,6 +125,61 @@ namespace Notiflex.Controllers
             IdentityResult result = await _accountService.ConfirmEmailAsync(userId, token);
             TempData["StatusMessage"] = result.Succeeded ? "Thank you for confirming your email." : "An error occurred while trying to confirm your email";
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            NotiflexUser user = await _accountService.GetUserData(userId);
+
+            var model = new ProfileViewModel()
+            {
+                TelegramChatId = user?.TelegramInfo ?? "ChatId",
+                FirstName = user?.FirstName ?? string.Empty,
+                LastName = user?.LastName ?? string.Empty,
+                Description = user?.Description ?? string.Empty,
+                ProfilePic = user?.ProfilePic ?? string.Empty,
+                DefaultTime = user?.DefaultTime ?? string.Empty,
+                HomeTown = user?.HomeTown ?? string.Empty
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            ProfileDto dto = new()
+            {
+                TelegramChatId = model.TelegramChatId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Description = model.Description,
+                ProfilePic = model.ProfilePic,
+                DefaultTime = model.DefaultTime,
+                HomeTown = model.HomeTown
+            };
+
+            await _accountService.EditProfile(userId, dto);
+
+            ProfileViewModel prModel = new()
+            {
+                TelegramChatId = dto.TelegramChatId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Description = dto.Description,
+                ProfilePic = dto.ProfilePic,
+                DefaultTime = dto.DefaultTime,
+                HomeTown = dto.HomeTown
+            };
+
+            return View(prModel);
         }
     }
 }

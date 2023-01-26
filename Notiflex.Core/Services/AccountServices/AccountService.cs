@@ -137,5 +137,38 @@ namespace Notiflex.Core.Services.AccountServices
             return await _userManager.ConfirmEmailAsync(user, token);
 
         }
+        public async Task EditProfile(string userId, ProfileDto model)
+        {
+            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            user.TelegramInfo = model.TelegramChatId;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Description = model.Description;
+            user.ProfilePic = model.ProfilePic;
+            user.DefaultTime = model.DefaultTime;
+            user.HomeTown = model.HomeTown;
+
+            _repo.Update(user);
+
+            await _repo.SaveChangesAsync();
+        }
+
+        public async Task<NotiflexUser> GetUserData(string userId)
+        {
+            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            return user;
+        }
     }
 }

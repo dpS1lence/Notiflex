@@ -1,0 +1,23 @@
+﻿@using Notiflex.ViewModels;
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+<link href="~/css/profile.css" rel="stylesheet" />
+
+<div class="box-holder">
+    <form method="post" asp-area="" asp-controller="Account" asp-action="Profile">
+        <input asp-for="@Model.TelegramChatId" type="text" class="input" placeholder="TelegramChatId">
+        <input asp-for="@Model.HomeTown" type="text" class="input" placeholder="HomeTown">
+        <input asp-for="@Model.DefaultTime" type="text" class="input" placeholder="DefaultTime">
+        <input asp-for="@Model.ProfilePic" type="text" class="input" placeholder="ProfilePic">
+        <input asp-for="@Model.Description" type="text" class="input" placeholder="Description">
+        <input asp-for="@Model.LastName" type="text" class="input" placeholder="LastName">
+        <input asp-for="@Model.FirstName" type="text" class="input" placeholder="FirstName">
+        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Update</button>
+    </form>
+    <form method="post">
+        <button asp-area="" asp-route-id="@Model.TelegramChatId" asp-controller="Home" asp-action="SendData" type="submit" class="form-control btn btn-primary rounded submit px-3">Send data</button>
+    </form>
+</div>
+

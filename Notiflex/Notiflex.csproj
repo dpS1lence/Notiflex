@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Account\" />
-    <Folder Include="wwwroot\templates\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
