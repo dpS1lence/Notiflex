@@ -29,72 +29,68 @@ namespace Notiflex.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult Browse()
-        {
-            List<IndexModel> model = new()
-            {
-                new IndexModel()
-                {
-                    Avalable = false
-                }
-            };
+        //[HttpGet]
+        //[Authorize]
+        //public IActionResult Browse()
+        //{
+        //    List<IndexModel> model = new()
+        //    {
+        //        new IndexModel()
+        //        {
+        //            Avalable = false
+        //        }
+        //    };
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [Authorize]
-        public async Task<IActionResult> SendData(string id)
-        {  
-            await _messageSender.SendMessage("Test message", id);
+        //[Authorize]
+        //public async Task<IActionResult> SendData(string id)
+        //{  
+        //    await _messageSender.SendMessage("Test message", id);
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        [Authorize]
-        public async Task<IActionResult> Browse(string value)
-        {
-            try
-            {
-                if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
-                {
-                    return BadRequest();
-                }
+        //[Authorize]
+        //public async Task<IActionResult> Browse(string value)
+        //{
+        //    try
+        //    {
+        //        if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
+        //        {
+        //            return BadRequest();
+        //        }
 
-                List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
+        //        List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
 
-                if (User?.Identity?.IsAuthenticated ?? false)
-                {
-                    var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+        //        if (User?.Identity?.IsAuthenticated ?? false)
+        //        {
+        //            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
 
-                    string chatId = (await _accountService.GetUserData(userId)).TelegramInfo;
+        //            string chatId = (await _accountService.GetUserData(userId)).TelegramInfo;
 
-                    if (chatId == null)
-                    {
+        //            if (chatId == null)
+        //            {
 
-                    }
-                    else
-                    {
-                        StringBuilder sb = new();
-                        sb.AppendLine($"Today's average temperature for {model.First().Name} is -> {model.First().Temp}C°");
+        //            }
+        //            else
+        //            {
+        //                StringBuilder sb = new();
+        //                sb.AppendLine($"Today's average temperature for {model.First().Name} is -> {model.First().Temp}C°");
 
-                        await _messageSender.SendMessage(sb.ToString(), chatId);
-                    }
-                }
+        //                await _messageSender.SendMessage(sb.ToString(), chatId);
+        //            }
+        //        }
 
-                return View(model);
-            }
-            catch(Exception)
-            {
-                return View();
-            }
-        }
+        //        return View(model);
+        //    }
+        //    catch(Exception)
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
