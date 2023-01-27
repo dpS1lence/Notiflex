@@ -31,7 +31,7 @@ namespace Notiflex.Controllers
         {
             var model = new RegisterViewModel();
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -39,7 +39,7 @@ namespace Notiflex.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             UserDto userDto;
             try
@@ -49,7 +49,6 @@ namespace Notiflex.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
             var result = await _accountService.CreateUserAsync(userDto, model.Password);
@@ -74,7 +73,7 @@ namespace Notiflex.Controllers
                 ModelState.AddModelError("", item.Description);
             }
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpGet]
@@ -82,7 +81,7 @@ namespace Notiflex.Controllers
         {
             var model = new LoginViewModel();
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -91,12 +90,12 @@ namespace Notiflex.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return PartialView(model);
             }
             if (!await _accountService.IsEmailConfirmedAsync(model.Email))
             {
                 TempData["StatusMessage"] = "Email not confirmed!";
-                return View(model);
+                return PartialView(model);
             }
             var signInResult = await _accountService.SignInUserAsync(model.Email, model.Password);
 
@@ -107,7 +106,7 @@ namespace Notiflex.Controllers
 
             ModelState.AddModelError("", "Invalid Login");
 
-            return View(model);
+            return PartialView(model);
         }
 
         public async Task<IActionResult> Logout()
@@ -138,7 +137,13 @@ namespace Notiflex.Controllers
 
             var model = new ProfileViewModel()
             {
-                TelegramChatId = user?.TelegramInfo ?? "ChatId"
+                TelegramChatId = user?.TelegramInfo ?? "ChatId",
+                FirstName = user?.FirstName ?? string.Empty,
+                LastName = user?.LastName ?? string.Empty,
+                Description = user?.Description ?? string.Empty,
+                ProfilePic = user?.ProfilePic ?? string.Empty,
+                DefaultTime = user?.DefaultTime ?? string.Empty,
+                HomeTown = user?.HomeTown ?? string.Empty
             };
 
             return View(model);
@@ -152,14 +157,26 @@ namespace Notiflex.Controllers
 
             ProfileDto dto = new()
             {
-                TelegramChatId = model.TelegramChatId
+                TelegramChatId = model.TelegramChatId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Description = model.Description,
+                ProfilePic = model.ProfilePic,
+                DefaultTime = model.DefaultTime,
+                HomeTown = model.HomeTown
             };
 
             await _accountService.EditProfile(userId, dto);
 
             ProfileViewModel prModel = new()
             {
-                TelegramChatId = dto.TelegramChatId
+                TelegramChatId = dto.TelegramChatId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Description = dto.Description,
+                ProfilePic = dto.ProfilePic,
+                DefaultTime = dto.DefaultTime,
+                HomeTown = dto.HomeTown
             };
 
             return View(prModel);

@@ -149,6 +149,14 @@ namespace Notiflex.Core.Services.AccountServices
             }
 
             user.TelegramInfo = model.TelegramChatId;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Description = model.Description;
+            user.ProfilePic = model.ProfilePic;
+            user.DefaultTime = model.DefaultTime;
+            user.HomeTown = model.HomeTown;
+
+            _repo.Update(user);
 
             await _repo.SaveChangesAsync();
         }
