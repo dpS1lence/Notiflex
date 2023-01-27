@@ -14,14 +14,18 @@ namespace Notiflex.Controllers
     public class HomeController : Controller
     {
         private readonly IMessageSender _messageSender;
+        private readonly IMessageConfigurer _messageConfigurer;
         private readonly IAccountService _accountService;
         private readonly IModelConfigurer _modelConfigurer;
+        private readonly IWeatherApiService _weatherApiService;
 
-        public HomeController(IMessageSender messageSender, IAccountService accountService, IModelConfigurer modelConfigurer)
+        public HomeController(IMessageSender messageSender, IMessageConfigurer messageConfigurer, IAccountService accountService, IModelConfigurer modelConfigurer, IWeatherApiService weatherApiService)
         {
             _messageSender = messageSender;
+            _messageConfigurer = messageConfigurer;
             _accountService = accountService;
             _modelConfigurer = modelConfigurer;
+            _weatherApiService = weatherApiService;
         }
 
         public IActionResult Index()
@@ -29,67 +33,73 @@ namespace Notiflex.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //public IActionResult Browse()
-        //{
-        //    List<IndexModel> model = new()
-        //    {
-        //        new IndexModel()
-        //        {
-        //            Avalable = false
-        //        }
-        //    };
+        [HttpGet]
+        [Authorize]
+        public IActionResult Browse()
+        {
+            List<IndexModel> model = new()
+            {
+                new IndexModel()
+                {
+                    Avalable = false
+                }
+            };
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //[Authorize]
-        //public async Task<IActionResult> SendData(string id)
-        //{  
-        //    await _messageSender.SendMessage("Test message", id);
+        [Authorize]
+        public async Task<IActionResult> SendData(string id)
+        {
+            Message message = await _messageConfigurer.ConfigureWeatherReportMessage("Veliko Tarnovo");
 
-        //    return RedirectToAction(nameof(Index));
-        //}
+            await _messageSender.SendMessage(message, id);
 
-        //[Authorize]
-        //public async Task<IActionResult> Browse(string value)
-        //{
-        //    try
-        //    {
-        //        if ((await _messageSender.ConvertNameToCoordinates(value)) == null)
-        //        {
-        //            return BadRequest();
-        //        }
+            return RedirectToAction(nameof(Index));
+        }
 
-        //        List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
+        [Authorize]
+        public async Task<IActionResult> Browse(string value)
+        {
+            try
+            {
+                var nameConfig = (await _messageConfigurer.ConvertNameToCoordinates(value))[2];
 
-        //        if (User?.Identity?.IsAuthenticated ?? false)
-        //        {
-        //            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (nameConfig == null)
+                {
+                    return BadRequest();
+                }
 
-        //            string chatId = (await _accountService.GetUserData(userId)).TelegramInfo;
+                List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
 
-        //            if (chatId == null)
-        //            {
+                if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
 
-        //            }
-        //            else
-        //            {
-        //                StringBuilder sb = new();
-        //                sb.AppendLine($"Today's average temperature for {model.First().Name} is -> {model.First().Temp}C°");
+                    if (userId == null)
+                    {
+                        throw new ArgumentException("UserId null.");
+                    }
 
-        //                await _messageSender.SendMessage(sb.ToString(), chatId);
-        //            }
-        //        }
+                    string chatId = (await _accountService.GetUserData(userId)).TelegramInfo ?? throw new ArgumentException("TelegramInfo null.");
 
-        //        return View(model);
-        //    }
-        //    catch(Exception)
-        //    {
-        //        return View();
-        //    }
-        //}
+                    if (chatId == null)
+                    {
+                        throw new ArgumentException("ChatId null.");
+                    }
+
+                    Message message = await _messageConfigurer.ConfigureWeatherReportMessage(nameConfig);
+
+                    await _messageSender.SendMessage(message, chatId);
+                }
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
