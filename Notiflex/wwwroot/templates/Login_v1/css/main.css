@@ -59,7 +59,7 @@ a {
 
 	a:hover {
 		text-decoration: none;
-		color: #57b846;
+		color: #6495ED;
 	}
 
 /*---------------------------------------------*/
@@ -256,6 +256,10 @@ iframe {
 		max-width: 100%;
 	}
 
+.login100-logo-a {
+	display: flex;
+	justify-content: center;
+}
 
 /*------------------------------------------------------------------
 [  ]*/
@@ -270,8 +274,8 @@ iframe {
 }
 
 .login100-logo {
-	width: 50%;
-	padding: 10px;
+	width: 100%;
+	padding-bottom: 30px;
 }
 
 .login100-form-title {

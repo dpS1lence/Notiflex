@@ -13,14 +13,16 @@
     <link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/main.css">
+    <link href="~/css/chain/animated.css" rel="stylesheet" />
+    <link href="~/css/chain/owl.css" rel="stylesheet" />
 </head>
 <body>
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-register100">
+            <div class="wrap-register100 wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
 
                 <form method="post" asp-controller="Account" asp-action="Register" class="login100-form validate-form">
-                    <span class="login100-logo-span"><img class="login100-logo" src="~/images/logo.png" /></span>
+                    <span class="login100-logo-span"><a asp-controller="Home" asp-action="Index"><img class="login100-logo" src="~/images/logos/notiflex_logo_01.png" /></a></span>
                     @*                    <span class="login100-form-title">
                     Member Login
                     </span>*@
@@ -118,3 +120,6 @@
     </div>
 </body>
 
+<script src="~/js/chain/owl-carousel.js"></script>
+<script src="~/js/chain/animation.js"></script>
+<script src="~/js/chain/custom.js"></script>
