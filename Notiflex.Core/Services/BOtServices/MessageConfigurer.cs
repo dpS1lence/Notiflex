@@ -116,14 +116,33 @@ namespace Notiflex.Core.Services.BOtServices
         {
             StringBuilder message = new();
 
-            message.AppendLine($"Today's weather report for {cityName} ({model.Sys.Country})");
-            message.AppendLine($"temp -> {(model.Main.Temp - 273.15):f2}");
-            message.AppendLine($"feels_like -> {(model.Main.FeelsLike - 273.15):f2}");
-            message.AppendLine($"temp_min -> {(model.Main.TempMin - 273.15):f2}");
-            message.AppendLine($"temp_max -> {(model.Main.TempMax - 273.15):f2}");
-            message.AppendLine($"pressure -> {model.Main.Pressure}");
-            message.AppendLine($"humidity -> {model.Main.Humidity}");
-            message.AppendLine($"wind speed -> {model.Wind.Speed}");
+            message.AppendLine($"🌤️ Weather Report for {cityName}({model.Sys.Country}) - Your One-Stop Shop for All Things Weather and Style!");
+            message.AppendLine();
+            message.AppendLine($"📅 {DateTime.FromFileTime(model.Timezone)} - Time to Check the Skies and Your Closet!");
+            message.AppendLine($"🌦️ Current Conditions: {model.Weather.First().Description} - How's the Weather Outside?");
+            message.AppendLine();
+            message.AppendLine($"🌡️ Temperature: {(model.Main.Temp - 273.15):f2}°C - How's the Heat?");
+            message.AppendLine($"🥶 Min Temperature: {(model.Main.TempMin - 273.15):f2}°C");
+            message.AppendLine($"🔥 Max Temperature: {(model.Main.TempMax - 273.15):f2}°C");
+            message.AppendLine();
+            message.AppendLine($"💨 Wind Speed: {model.Wind.Speed} mph - Windy Today?");
+            message.AppendLine($"🌬️ Wind Direction: {model.Wind.Deg} - Which Way is the Wind Blowing?");
+            message.AppendLine();
+            message.AppendLine($"🌳 Pressure: {model.Main.Pressure} hPa");
+            message.AppendLine($"🌬️ Humidity: {model.Main.Humidity}%");
+            message.AppendLine();
+            message.AppendLine($"💃 Outfit Recommendations:");
+            message.AppendLine();
+            message.AppendLine($"🌞 Warm and Breezy 🌞");
+            message.AppendLine();
+            message.AppendLine($"1️⃣ \"Effortless Chic\" Option:");
+            message.AppendLine($"💃 A lightweight sundress with a denim jacket and sandals is a breezy and stylish option for warmer days.");
+            message.AppendLine();
+            message.AppendLine($"2️⃣ \"Comfortable Casual\" Option:");
+            message.AppendLine($"👖 A t-shirt paired with shorts and sneakers is a comfortable and casual choice for those warm days.");
+            message.AppendLine();
+            message.AppendLine($"3️⃣ \"Summer Vibes\" Option:");
+            message.AppendLine($"🌊 A tropical print shirt with cropped pants and slides is a fun and summery choice for those warm days.");
 
             return message.ToString();
         }
