@@ -256,6 +256,10 @@ iframe {
 		max-width: 100%;
 	}
 
+.login100-logo-a {
+	display: flex;
+	justify-content: center;
+}
 
 /*------------------------------------------------------------------
 [  ]*/
