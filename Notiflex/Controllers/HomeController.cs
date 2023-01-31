@@ -30,6 +30,11 @@ namespace Notiflex.Controllers
 
         public IActionResult Index()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Dashboard", "Dashboard");
+            }
+
             return View();
         }
 

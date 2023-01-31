@@ -1,5 +1,8 @@
-﻿<!DOCTYPE html>
-
+﻿@using Notiflex.ViewModels;
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
 <html lang="en">
 <head>
     <base href="./">
@@ -23,6 +26,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link href="~/css/dashboard/dashboardweathercard.css" rel="stylesheet" />
     <link rel="manifest" href="assets/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
@@ -53,7 +57,7 @@
 <body>
     <div class="sidebar sidebar-light sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex">
-            <img src="~/images/logofinal.png" alt="Notiflex" />
+            <img class="scaledown" src="~/images/logos/notiflex_logo_01.png" alt="Notiflex" />
         </div>
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
             <li class="nav-item">
@@ -108,7 +112,7 @@
                 <ul class="header-nav ms-3">
                     <li class="nav-item dropdown">
                         <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/8.jpg" alt="user@email.com"></div>
+                            <div class="avatar avatar-md"><img class="avatar-img" src="@Model.ProfilePic" alt="@Model.FirstName"></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
@@ -153,7 +157,7 @@
                                 <svg class="icon me-2">
                                     <use xlink:href="~/vendors/coreui/icons/svg/free.svg#cil-lock-locked"></use>
                                 </svg> Lock Account
-                            </a><a class="dropdown-item" href="#">
+                            </a><a class="dropdown-item" asp-action="Logout" asp-controller="Account">
                                 <svg class="icon me-2">
                                     <use xlink:href="~/vendors/coreui/icons/svg/free.svg#cil-account-logout"></use>
                                 </svg> Logout
@@ -176,12 +180,8 @@
         </header>
         <div class="body flex-grow-1 px-3">
             <div class="container-lg">
-                
-
-
-
-
-
+                <partial name="_DashboardWeatherCardPartial"></partial>
+                @*model="@product"*@
             </div>
         </div>
         <footer class="footer">
@@ -199,6 +199,5 @@
     <script src="~/js/dashboard/main.js"></script>
     <script>
     </script>
-github
 </body>
 </html>

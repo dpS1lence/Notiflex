@@ -65,7 +65,7 @@ namespace Notiflex.Controllers
                 await _emailSender.SendEmailAsync(model.Email, "Email Confirmation for Notiflex", sb.ToString());
 
                 //TODO: Send email confirmation
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Account", "Login");
             }
 
             foreach (var item in result.Errors)
@@ -101,7 +101,7 @@ namespace Notiflex.Controllers
 
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Browse", "Home");
+                return RedirectToAction("Dashboard", "Dashboard");
             }
 
             ModelState.AddModelError("", "Invalid Login");

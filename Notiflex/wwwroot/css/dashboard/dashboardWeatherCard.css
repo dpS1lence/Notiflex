@@ -1,0 +1,273 @@
+﻿
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.dashboardContainer {
+    display: flex;
+}
+
+.mainScreen {
+    width: 350px;
+    height: 610px;
+    padding: 8px;
+    box-shadow: 0 0 10px #2323;
+    background: white;
+}
+
+    .mainScreen > .header {
+        height: 60px;
+        /*   border-bottom:1px solid; */
+    }
+
+.header > .logoHold {
+    height: 50px;
+    width: 50px;
+    margin-left: 16px;
+    margin-right: 15px;
+}
+
+.logoHold > img {
+    height: 35px;
+}
+
+.header > .logoName {
+    /*   font-weight:bolder; */
+    letter-spacing: 2px;
+    font-size: 36px;
+    height: 50px;
+}
+
+.mainScreen > .todayLabel {
+    margin: 8px 0;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding: 6px 8px;
+    /*   border-radius:1.2em;
+  border:1px solid; */
+    width: 150px;
+    /*   font-weight:bold; */
+    margin-left: 10px;
+    color: #a5b1c2;
+}
+
+.mainScreen > .city {
+    letter-spacing: 2px;
+    font-size: 12px;
+    color: #a5b1c2;
+    position: relative;
+    top: -30px;
+    left: 180px;
+}
+
+.mainScreen > .sunHolder {
+    height: 250px;
+    position: relative;
+    top: -10px;
+}
+
+.sunHolder > .sun {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: #fed330;
+}
+
+.infotab {
+    height: 100px;
+    /*   border:1px solid; */
+    padding: 8px;
+    margin-bottom: 12px;
+}
+
+    .infotab > .temprature {
+        height: 100px;
+        width: 120px;
+    }
+
+        .infotab > .temprature > .tempvalue {
+            font-size: 48px;
+            font-weight: lighter;
+        }
+
+.condition {
+    letter-spacing: 2px;
+    color: #a5b1c2;
+    position: relative;
+    left: -8px;
+}
+
+.infotab > .details {
+    height: 100px;
+    width: 150px;
+}
+
+.details > .detail {
+    padding: 4px;
+    color: #a5b1c2;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.future {
+    height: 100px;
+    justify-content: space-around;
+}
+
+.day {
+    height: 80px;
+    width: 60px;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+    .day > h5 {
+        letter-spacing: 2px;
+        color: #7f8c8d;
+    }
+
+.temp {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #4b4b4b;
+}
+
+.day > img {
+    height: 30px;
+}
+
+.dashboardContainer > .widgets {
+    width: 590px;
+    height: 610px;
+    margin-left: 20px;
+}
+
+.widgets > .worldweather {
+    width: 100%;
+    height: 180px;
+    box-shadow: 0 0 10px #2323;
+    background: white;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.title {
+    color: #a5b1c2;
+    font-size: 16px;
+    letter-spacing: 2px;
+    padding: 8px 0;
+    width: 80%;
+    /*   border-bottom:2px solid; */
+    margin-left: 25px;
+}
+
+.worldweather > .future {
+    margin-top: 14px;
+    position: relative;
+    left: -10px;
+}
+
+.weathernews {
+    width: 100%;
+    height: 410px;
+    display: flex;
+}
+
+    .weathernews > .news {
+        height: inherit;
+        width: 250px;
+        box-shadow: 0 0 10px #2323;
+        background: white;
+        padding: 12px 8px;
+    }
+
+.news > .newsImg {
+    height: 150px;
+}
+
+.newsImg > img {
+    height: 130px;
+}
+
+.news > .headline {
+    width: 211px;
+    margin: 0 auto;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.news > .matter {
+    width: 211px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.news > .button {
+    text-align: right;
+    padding-right: 4px;
+    letter-spacing: 1px;
+    color: #a5b1c2;
+    font-size: 14px;
+}
+
+.weathernews > .video {
+    height: inherit;
+    width: 320px;
+    box-shadow: 0 0 10px #2323;
+    background: white;
+    margin-left: 20px;
+    padding: 12px 8px;
+}
+
+.video > .vidImg {
+    height: 200px;
+    background-image: url("http://news.bbcimg.co.uk/media/images/71907000/jpg/_71907426_71907425.jpg");
+    width: 280px;
+    margin: 0 auto;
+    background-size: cover;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+.vidImg > .play {
+    width: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    border-radius: 1.2em;
+    border: 2px solid;
+    padding: 2px 4px;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    letter-spacing: 1px;
+}
+
+.play > i {
+    font-size: 12px;
+}
+
+.video > .headline {
+    width: 280px;
+    margin: 0 auto;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
+.video > .source {
+    width: 280px;
+    margin: 0 auto;
+    letter-spacing: 2px;
+    font-size: 14px;
+    color: #a5b1c2;
+    margin-top: 8px;
+}
