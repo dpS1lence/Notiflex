@@ -22,6 +22,8 @@ namespace Notiflex.Core.Models.DTOs
         [EmailAddress]
         public string Email { get; set; } = null!;
 
+        public string? ProfilePic { get; set; }
+
         [Required]
         public string Gender { get; set; } = null!;
 
