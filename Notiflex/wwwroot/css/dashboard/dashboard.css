@@ -14078,4 +14078,8 @@ html:not([dir=rtl]) .wrapper {
   margin-bottom: 0.5rem;
 }
 
+.scaledown {
+    width: 90%;
+}
+
 /*# sourceMappingURL=style.css.map */

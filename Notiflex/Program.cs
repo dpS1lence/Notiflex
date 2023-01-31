@@ -78,6 +78,7 @@ builder.Services.AddScoped<IMessageSender, MessageSender>();
 builder.Services.AddScoped<IMessageConfigurer, MessageConfigurer>();
 builder.Services.AddScoped<IWeatherApiService, WeatherAPIService>();
 builder.Services.AddScoped<IModelConfigurer, ModelConfigurer>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 var app = builder.Build();
 
