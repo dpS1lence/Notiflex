@@ -21,5 +21,6 @@ namespace Notiflex.Core.Models.DTOs
         public string FirstName { get; set; } = null!;
 
         public string TelegramChatId { get; set; } = null!;
+
     }
 }

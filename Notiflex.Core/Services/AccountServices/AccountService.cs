@@ -33,14 +33,15 @@ namespace Notiflex.Core.Services.AccountServices
         public async Task<IdentityResult> CreateUserAsync(UserDto userDto, string password)
         {
             
-            NotiflexUser user = new NotiflexUser
+            var user = new NotiflexUser
             {
                 Email = userDto.Email,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 UserName = userDto.UserName,
                 Age = userDto.Age,
-                Gender = userDto.Gender               
+                Gender = userDto.Gender,
+                ProfilePic = userDto.ProfilePic
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, password);            
