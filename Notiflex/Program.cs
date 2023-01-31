@@ -50,6 +50,7 @@ builder.Services.AddQuartz(config =>
     {
         tp.MaxConcurrency = 20;
     });
+
     
 });
 builder.Services.AddQuartzHostedService(options =>
