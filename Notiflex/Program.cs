@@ -12,6 +12,7 @@ using Notiflex.Core.Services.APIServices;
 using Notiflex.Core.Services.BOtServices;
 using Notiflex.MapperProfiles;
 using Quartz;
+using Notiflex.Core.Quartz.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,19 +43,32 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddQuartz(config =>
 {
-    config.SchedulerId = "Notiflex-Scheduler";
-    config.UseMicrosoftDependencyInjectionJobFactory();
-    config.UseSimpleTypeLoader();
-    config.UseInMemoryStore();
-    config.UseDefaultThreadPool(tp =>
-    {
-        tp.MaxConcurrency = 20;
-    });
-    
+	config.SchedulerId = "Notiflex-Scheduler";
+	config.UseMicrosoftDependencyInjectionJobFactory();
+	config.UseSimpleTypeLoader();
+	config.UsePersistentStore(a =>
+	{
+		a.UseSqlServer(connectionString);
+		a.UseProperties = true;
+		a.UseJsonSerializer();
+	});
+	config.UseDefaultThreadPool(tp =>
+	{
+		tp.MaxConcurrency = 20;
+	});
+
+	config.ScheduleJob<CreateJob>(trigger => trigger
+				.WithIdentity("TestTrigger")
+				.StartNow()
+				.WithDailyTimeIntervalSchedule(x => x.StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0)).OnEveryDay()), b =>
+				{
+					b.WithIdentity("TestJob");
+				}
+			);
 });
 builder.Services.AddQuartzHostedService(options =>
 {
-    options.WaitForJobsToComplete = true;
+	options.WaitForJobsToComplete = true;
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
