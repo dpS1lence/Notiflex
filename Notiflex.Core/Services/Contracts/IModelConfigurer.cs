@@ -9,9 +9,9 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface IModelConfigurer
     {
-        Task<IndexModel> ConfigureWeatherReport(string name);
+        Task<DashboardWeatherCardViewModel> ConfigureWeatherReport(string name);
 
-        Task<List<IndexModel>> ConfigureForecastReport(string name);
+        Task<List<DashboardWeatherCardViewModel>> ConfigureForecastReport(string name);
 
         Task<List<string>> ConvertNameToCoordinates(string cityName);
     }

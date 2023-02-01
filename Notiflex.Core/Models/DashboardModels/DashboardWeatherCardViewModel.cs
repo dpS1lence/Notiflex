@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Notiflex.Core.Models.HomePageModels
 {
-    public class IndexModel
+    public class DashboardWeatherCardViewModel
     {
         public bool Avalable { get; set; } = false;
 
@@ -31,5 +31,6 @@ namespace Notiflex.Core.Models.HomePageModels
         public string Humidity { get; set; } = null!;
 
         public string Speed { get; set; } = null!;
+        public string Date { get; set; } = null!;
     }
 }

@@ -42,9 +42,9 @@ namespace Notiflex.Controllers
         [Authorize]
         public IActionResult Browse()
         {
-            List<IndexModel> model = new()
+            List<DashboardWeatherCardViewModel> model = new()
             {
-                new IndexModel()
+                new DashboardWeatherCardViewModel()
                 {
                     Avalable = false
                 }
@@ -75,7 +75,7 @@ namespace Notiflex.Controllers
                     return BadRequest();
                 }
 
-                List<IndexModel> model = await _modelConfigurer.ConfigureForecastReport(value);
+                List<DashboardWeatherCardViewModel> model = await _modelConfigurer.ConfigureForecastReport(value);
 
                 if (User?.Identity?.IsAuthenticated ?? false)
                 {
