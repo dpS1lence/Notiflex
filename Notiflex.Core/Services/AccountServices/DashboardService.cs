@@ -29,7 +29,12 @@ namespace Notiflex.Core.Services.AccountServices
             var profileDto = new ProfileDto()
             {
                 ProfilePic = user.ProfilePic,
-                FirstName = user.FirstName
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DefaultTime= user.DefaultTime,
+                Description = user.Description,
+                HomeTown= user.HomeTown,
+                TelegramChatId = user.TelegramInfo
             };
 
             return profileDto;

@@ -24,7 +24,7 @@ namespace Notiflex.Core.Services.BOtServices
             this.weatherService = weatherService;
         }
 
-        public async Task<IndexModel> ConfigureWeatherReport(string name)
+        public async Task<DashboardWeatherCardViewModel> ConfigureWeatherReport(string name)
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
@@ -41,7 +41,7 @@ namespace Notiflex.Core.Services.BOtServices
             return FillModel(model);
         }
 
-        public async Task<List<IndexModel>> ConfigureForecastReport(string name)
+        public async Task<List<DashboardWeatherCardViewModel>> ConfigureForecastReport(string name)
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
@@ -54,11 +54,11 @@ namespace Notiflex.Core.Services.BOtServices
             api.Append(config.GetValue<string>("WeatherKey"));
 
             ForecastDataModel modelList = await weatherService.GetForecastDataAsync(api.ToString());
-            List<IndexModel> indexModels = new();
+            List<DashboardWeatherCardViewModel> indexModels = new();
 
             foreach (var model in modelList.List)
             {
-                indexModels.Add(new IndexModel()
+                indexModels.Add(new DashboardWeatherCardViewModel()
                 {
                     Avalable = true,
                     Name = modelList.City.Name,
@@ -71,7 +71,8 @@ namespace Notiflex.Core.Services.BOtServices
                     TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
                     Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
                     Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
-                    Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString()
+                    Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
+                    Date = model.DtTxt.ToString()
                 });
             }
 
@@ -94,9 +95,9 @@ namespace Notiflex.Core.Services.BOtServices
             };
         }
 
-        private static IndexModel FillModel(WeatherDataModel model)
+        private static DashboardWeatherCardViewModel FillModel(WeatherDataModel model)
         {
-            IndexModel indexModel = new()
+            DashboardWeatherCardViewModel indexModel = new()
             {
                 Avalable = true,
                 Name = model.Name,
