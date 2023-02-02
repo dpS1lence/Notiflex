@@ -47,6 +47,7 @@ namespace Notiflex.Core.Services.BOtServices
 
             string lat = coors[0];
             string lon = coors[1];
+            string ctyName = coors[2];
 
             StringBuilder api = new();
             api.Append(config.GetValue<string>("ForecastApi"));
@@ -61,7 +62,7 @@ namespace Notiflex.Core.Services.BOtServices
                 indexModels.Add(new DashboardWeatherCardViewModel()
                 {
                     Avalable = true,
-                    Name = modelList.City.Name,
+                    Name = ctyName,
                     Country = modelList.City.Country,
                     Weather = model.Weather.First().Main,
                     Description = model.Weather.First().Description,
@@ -91,7 +92,8 @@ namespace Notiflex.Core.Services.BOtServices
             return new List<string>()
             {
                 $"{model.Lat}",
-                $"{model.Lon}"
+                $"{model.Lon}",
+                model.Name
             };
         }
 
