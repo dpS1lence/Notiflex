@@ -39,7 +39,7 @@ namespace Notiflex.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
-            await _triggerService.CreateWeatherReportTriggerAsync("Varna", "5184263976", 30);
+            //await _triggerService.CreateWeatherReportTriggerAsync("Varna", "5184263976", 30);
 
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -66,7 +66,7 @@ namespace Notiflex.Controllers
 
             var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
             string chatId = (await _accountService.GetUserData(userId)).TelegramInfo ?? throw new ArgumentException("TelegramInfo null.");
-            await _triggerService.CreateWeatherReportTriggerAsync(value, chatId, 30);
+            //await _triggerService.CreateWeatherReportTriggerAsync(value, chatId, 30);
             return View(await CreateDashboardViewModel(value ?? string.Empty, profileData, userId ?? string.Empty));
         }
 
