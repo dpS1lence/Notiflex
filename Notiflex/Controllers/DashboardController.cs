@@ -7,6 +7,7 @@ using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.BOtServices;
 using Notiflex.Core.Services.Contracts;
+using Notiflex.Core.Services.SchedulerServices;
 using Notiflex.ViewModels;
 using System.Security.Claims;
 using Telegram.Bot.Types;
@@ -21,8 +22,9 @@ namespace Notiflex.Controllers
         private readonly IAccountService _accountService;
         private readonly IModelConfigurer _modelConfigurer;
         private readonly IWeatherApiService _weatherApiService;
+        private readonly ITriggerService _triggerService;
 
-        public DashboardController(IDashboardService dashboardService, IMessageSender messageSender, IMessageConfigurer messageConfigurer, IAccountService accountService, IModelConfigurer modelConfigurer, IWeatherApiService weatherApiService)
+        public DashboardController(IDashboardService dashboardService, IMessageSender messageSender, IMessageConfigurer messageConfigurer, IAccountService accountService, IModelConfigurer modelConfigurer, IWeatherApiService weatherApiService, ITriggerService triggerService)
         {
             _dashboardService = dashboardService;
             _messageSender = messageSender;
@@ -30,12 +32,15 @@ namespace Notiflex.Controllers
             _accountService = accountService;
             _modelConfigurer = modelConfigurer;
             _weatherApiService = weatherApiService;
+            _triggerService = triggerService;
         }
 
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
+            await _triggerService.CreateWeatherReportTriggerAsync("Varna", "5184263976", 30);
+
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
 
             if (userId == null)
@@ -60,7 +65,8 @@ namespace Notiflex.Controllers
             }
 
             var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
-
+            string chatId = (await _accountService.GetUserData(userId)).TelegramInfo ?? throw new ArgumentException("TelegramInfo null.");
+            await _triggerService.CreateWeatherReportTriggerAsync(value, chatId, 30);
             return View(await CreateDashboardViewModel(value ?? string.Empty, profileData, userId ?? string.Empty));
         }
 
