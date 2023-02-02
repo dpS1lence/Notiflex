@@ -13,6 +13,8 @@ using Notiflex.Core.Services.BOtServices;
 using Notiflex.MapperProfiles;
 using Quartz;
 using Notiflex.Core.Quartz.Jobs;
+using Microsoft.EntityFrameworkCore.Design.Internal;
+using Notiflex.Core.Services.SchedulerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,15 +58,13 @@ builder.Services.AddQuartz(config =>
 	{
 		tp.MaxConcurrency = 20;
 	});
-
-	config.ScheduleJob<CreateJob>(trigger => trigger
-				.WithIdentity("TestTrigger")
-				.StartNow()
-				.WithDailyTimeIntervalSchedule(x => x.StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0)).OnEveryDay()), b =>
-				{
-					b.WithIdentity("TestJob");
-				}
-			);
+	
+	config.AddJob<ReportSenderJob>(j =>
+	{
+		j.WithIdentity("ReportSenderJob");
+		j.StoreDurably(true);
+	});
+	
 });
 builder.Services.AddQuartzHostedService(options =>
 {
@@ -79,6 +79,7 @@ builder.Services.AddScoped<IMessageConfigurer, MessageConfigurer>();
 builder.Services.AddScoped<IWeatherApiService, WeatherAPIService>();
 builder.Services.AddScoped<IModelConfigurer, ModelConfigurer>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<ITriggerService, TriggerService>();
 
 var app = builder.Build();
 
