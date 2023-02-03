@@ -19,17 +19,19 @@ namespace Notiflex.Core.Services.SchedulerServices
             _schedulerFactory = schedulerFactory;
         }
 
-        public async Task CreateWeatherReportTriggerAsync(string city, string telegramChatId, TimeSpan interval)
+        public async Task CreateWeatherReportTriggerAsync(string city, string telegramChatId, int interval, IntervalUnit intervalUnit, params DayOfWeek[] daysOfWeek)
         {
             
             var trigger = TriggerBuilder.Create()
                 .WithIdentity(telegramChatId + " report trigger")
                 .ForJob("ReportSenderJob")
                 .UsingJobData("city", city)
-                .UsingJobData("telegramChatId", telegramChatId)
-                .WithSimpleSchedule(a => a.WithMisfireHandlingInstructionIgnoreMisfires()
-                    .WithInterval(interval)
-                    .RepeatForever())
+                .UsingJobData("telegramChatId", telegramChatId)   
+                .WithDailyTimeIntervalSchedule(sch => sch.InTimeZone(TimeZoneInfo.Utc)
+                                                      .OnDaysOfTheWeek(daysOfWeek)
+                                                      .WithInterval(interval, intervalUnit)
+                                                      .StartingDailyAt(TimeOfDay.HourMinuteAndSecondOfDay(12, 0, 0)))
+                .StartNow()                                                
                 .Build();
             var scheduler = await _schedulerFactory.GetScheduler();
             var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();
