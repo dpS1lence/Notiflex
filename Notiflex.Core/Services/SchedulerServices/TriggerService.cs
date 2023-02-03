@@ -19,7 +19,7 @@ namespace Notiflex.Core.Services.SchedulerServices
             _schedulerFactory = schedulerFactory;
         }
 
-        public async Task CreateWeatherReportTriggerAsync(string city, string telegramChatId, int seconds)
+        public async Task CreateWeatherReportTriggerAsync(string city, string telegramChatId, TimeSpan interval)
         {
             
             var trigger = TriggerBuilder.Create()
@@ -28,7 +28,7 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .UsingJobData("city", city)
                 .UsingJobData("telegramChatId", telegramChatId)
                 .WithSimpleSchedule(a => a.WithMisfireHandlingInstructionIgnoreMisfires()
-                    .WithIntervalInSeconds(seconds)
+                    .WithInterval(interval)
                     .RepeatForever())
                 .Build();
             var scheduler = await _schedulerFactory.GetScheduler();
@@ -38,6 +38,6 @@ namespace Notiflex.Core.Services.SchedulerServices
                 await scheduler.UnscheduleJob(trigger.Key);
             }
             await scheduler.ScheduleJob(trigger);
-        }
+        }        
     }
 }

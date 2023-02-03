@@ -41,6 +41,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AccountMapperProfile>();
+	config.AddProfile<DashboardMapperProfile>();
 });
 
 builder.Services.AddQuartz(config =>
@@ -103,9 +104,19 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area=Home}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+    //app.MapControllerRoute(
+    //name: "default",
+    //pattern: "{controller=Home}/{action=Index}/{id?}");
+
+});
+
 //app.MapRazorPages();
 
 app.Run();

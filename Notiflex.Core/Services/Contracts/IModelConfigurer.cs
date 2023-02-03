@@ -1,4 +1,4 @@
-﻿using Notiflex.Core.Models.HomePageModels;
+﻿using Notiflex.Core.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface IModelConfigurer
     {
-        Task<DashboardWeatherCardViewModel> ConfigureWeatherReport(string name);
+        Task<WeatherCardDto> ConfigureWeatherReport(string name);
 
-        Task<List<DashboardWeatherCardViewModel>> ConfigureForecastReport(string name);
+        Task<List<WeatherCardDto>> ConfigureForecastReport(string name);
 
         Task<List<string>> ConvertNameToCoordinates(string cityName);
     }

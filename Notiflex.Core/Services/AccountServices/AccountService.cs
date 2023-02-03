@@ -30,7 +30,7 @@ namespace Notiflex.Core.Services.AccountServices
             _signInManager = signInManager;
             _repo = repo;
         }
-        public async Task<IdentityResult> CreateUserAsync(UserDto userDto, string password)
+        public async Task<IdentityResult> CreateUserAsync(RegisterDto userDto, string password)
         {
             
             var user = new NotiflexUser

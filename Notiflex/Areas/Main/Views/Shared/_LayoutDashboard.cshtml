@@ -1,0 +1,62 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1d4dfb315f.js" crossorigin="anonymous"></script>
+
+    <title>Notiflex</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <partial name="_DashboardStyleConnectionsPartial"></partial>
+
+
+    <!--
+
+    TemplateMo 570 Chain App Dev
+
+    https://templatemo.com/tm-570-chain-app-dev
+
+    -->
+    <!-- Additional CSS Files -->
+    
+</head>
+<body >
+    
+        <partial name="_DashboardSidebarPartial"></partial>
+
+        <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+
+            <partial name="_DashboardHeaderPartial"></partial>
+
+            <div class="body flex-grow-1 px-3">
+                <div class="container-lg">
+
+                <main role="main">
+                    @RenderBody()
+                </main>
+
+                </div>
+            </div>
+
+            <partial name="_DashboardFooterPartial"></partial>
+
+        </div>
+
+          
+
+
+<partial name="_DashboardScriptsPartial"></partial>  
+</body>
+
+
+</html>
