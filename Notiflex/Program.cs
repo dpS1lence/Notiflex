@@ -66,10 +66,11 @@ builder.Services.AddQuartz(config =>
 		j.StoreDurably(true);
 	});
 	
+	
 });
 builder.Services.AddQuartzHostedService(options =>
 {
-	options.WaitForJobsToComplete = true;
+	options.WaitForJobsToComplete = false;
 });
 
 builder.Services.AddScoped<IRepository, Repository>();

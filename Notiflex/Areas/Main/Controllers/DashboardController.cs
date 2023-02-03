@@ -56,10 +56,11 @@ namespace Notiflex.Areas.Main.Controllers
             {
                 throw new NotFoundException("UserId null.");
             }
-
-            var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
-            var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
-            List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
+            //BECAUSE WEATHER API DECIDED TO TROLL
+            //var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
+            //var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
+            //List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
+            List<WeatherCardViewModel> model = new List<WeatherCardViewModel>();
             return View(model);
         }
 
@@ -75,38 +76,22 @@ namespace Notiflex.Areas.Main.Controllers
             List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(value ?? string.Empty));
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> Triggers()
+        {
+            return View();
+        }
 
-        //private async Task<DashbardViewModel> CreateDashboardViewModel(string townName, ProfileDto profileData, string userId)
-        //{
-        //    var nameConfig = (await _messageConfigurer.ConvertNameToCoordinates(townName ?? string.Empty))[2];
+        [HttpGet]
+        public async Task<IActionResult> CreateTrigger()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
+        {
+            return View();
+        }
 
-        //    List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(townName ?? string.Empty));
-
-        //    if (User?.Identity?.IsAuthenticated ?? false)
-        //    {
-        //        string chatId = (await _accountService.GetUserData(userId)).TelegramInfo ?? throw new ArgumentException("TelegramInfo null.");
-
-        //        if (chatId == null)
-        //        {
-        //            throw new ArgumentException("ChatId null.");
-        //        }
-
-        //        Message message = await _messageConfigurer.ConfigureWeatherReportMessage(nameConfig);
-
-        //        //await _messageSender.SendMessage(message, chatId);
-        //    }
-
-        //    DashbardViewModel viewModel = new()
-        //    {
-        //        ProfileView = new ProfileViewModel()
-        //        {
-        //            ProfilePic = profileData.ProfilePic,
-        //            FirstName = profileData.FirstName
-        //        },
-        //        DashboardWeatherCard = model
-        //    };
-
-        //    return viewModel;
-        //}
     }
 }

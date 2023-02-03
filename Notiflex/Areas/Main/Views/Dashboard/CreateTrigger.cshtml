@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Notiflex.ViewModels;
+@model TriggerAddViewModel
+
+<form method="post" asp-area="Home" asp-controller="Account" asp-action="Profile">
+
+    <input class="form-control" asp-for="@Model.Identity" type="text" class="input" placeholder="FirstName">
+    <input class="form-control" asp-for="@Model.City" type="text" class="input" placeholder="FirstName">
+    <select class="form-control" asp-for="@Model.IntervalUnit" type="" class="input" placeholder="FirstName">
+
+        <option>Minutes</option>
+        <option>Hours</option>
+        <option>Days</option>
+        <option>Months</option>
+        <option>Years</option>
+
+    </select>
+    <input class="form-control" asp-for="@Model.Interval" type="number" class="input" placeholder="FirstName">
+
+    <ul>
+        <input class="form-control" value="Monday" asp-for="@Model." type="checkbox" class="input">
+
+    </ul>
+</form>
+
