@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Notiflex.Common.Constants;
+using Notiflex.Infrastructure.Data.Models.ScheduleModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
     {
         public NotiflexUser()
         {
-
+            Triggers = new HashSet<NotiflexTrigger>();
         }
 
         [Required]
@@ -46,5 +47,6 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
         [MinLength(DbValidationConstants.TOWN_NAME_MIN_LENGTH)]
         [MaxLength(DbValidationConstants.TOWN_NAME_MAX_LENGTH)]
         public string? HomeTown { get; set; }
+        public ICollection<NotiflexTrigger> Triggers { get; set; }
     }
 }

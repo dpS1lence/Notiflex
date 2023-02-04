@@ -13,9 +13,9 @@ using Notiflex.ViewModels;
 using System.Security.Claims;
 using System.Text;
 
-namespace Notiflex.Controllers
+namespace Notiflex.Areas.Home.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseHomeController
     {
         private readonly IAccountService _accountService;
         private readonly IEmailSender _emailSender;
@@ -41,10 +41,10 @@ namespace Notiflex.Controllers
             {
                 return PartialView(model);
             }
-            UserDto userDto;
+            RegisterDto userDto;
             try
             {
-                userDto = _mapper.Map<UserDto>(model);
+                userDto = _mapper.Map<RegisterDto>(model);
 
             }
             catch (Exception)
@@ -65,7 +65,7 @@ namespace Notiflex.Controllers
                 await _emailSender.SendEmailAsync(model.Email, "Email Confirmation for Notiflex", sb.ToString());
 
                 //TODO: Send email confirmation
-                return RedirectToAction("Account", "Login");
+                return RedirectToAction("Login", "Account");
             }
 
             foreach (var item in result.Errors)
@@ -101,7 +101,7 @@ namespace Notiflex.Controllers
 
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Dashboard", "Dashboard");
+                return RedirectToAction("Weather", "Dashboard", new { area = "Main" });
             }
 
             ModelState.AddModelError("", "Invalid Login");
@@ -113,14 +113,15 @@ namespace Notiflex.Controllers
         {
             await _accountService.SignOutAsync();
 
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction("Login", "Account", new { area = "Home" });
+
         }
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string? userId, string? token)
         {
             if (userId == null || token == null)
             {
-                return this.RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
             IdentityResult result = await _accountService.ConfirmEmailAsync(userId, token);
             TempData["StatusMessage"] = result.Succeeded ? "Thank you for confirming your email." : "An error occurred while trying to confirm your email";

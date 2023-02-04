@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Notiflex.Core.Models.DTOs;
+using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.ViewModels;
 
 namespace Notiflex.MapperProfiles
@@ -8,7 +9,9 @@ namespace Notiflex.MapperProfiles
     {
         public AccountMapperProfile() 
         {
-            CreateMap<RegisterViewModel, UserDto>();
+            CreateMap<RegisterViewModel, RegisterDto>();
+            CreateMap<NotiflexUser, ProfileDto>();
+            CreateMap<ProfileDto, ProfileViewModel>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quartz;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface ITriggerService
     {
-        Task CreateWeatherReportTriggerAsync(string city, string telegramChatId, int seconds);
+        Task CreateWeatherReportTriggerAsync(string userId, string city, string telegramChatId, int interval, IntervalUnit intervalUnit, params DayOfWeek[] daysOfWeek);
     }
 }

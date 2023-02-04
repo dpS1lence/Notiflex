@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notiflex.Core.Models.HomePageModels
+namespace Notiflex.ViewModels
 {
-    public class DashboardWeatherCardViewModel
+    public class WeatherCardViewModel
     {
         public bool Avalable { get; set; } = false;
 

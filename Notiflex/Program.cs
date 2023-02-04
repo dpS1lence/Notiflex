@@ -41,6 +41,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AccountMapperProfile>();
+	config.AddProfile<DashboardMapperProfile>();
 });
 
 builder.Services.AddQuartz(config =>
@@ -65,10 +66,11 @@ builder.Services.AddQuartz(config =>
 		j.StoreDurably(true);
 	});
 	
+	
 });
 builder.Services.AddQuartzHostedService(options =>
 {
-	options.WaitForJobsToComplete = true;
+	options.WaitForJobsToComplete = false;
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
@@ -103,9 +105,19 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area=Home}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+    //app.MapControllerRoute(
+    //name: "default",
+    //pattern: "{controller=Home}/{action=Index}/{id?}");
+
+});
+
 //app.MapRazorPages();
 
 app.Run();

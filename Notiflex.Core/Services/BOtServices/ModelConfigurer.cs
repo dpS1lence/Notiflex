@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Notiflex.Core.Models.APIModels;
+using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Models.ForecastApiModel;
-using Notiflex.Core.Models.HomePageModels;
 using Notiflex.Core.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace Notiflex.Core.Services.BOtServices
             this.weatherService = weatherService;
         }
 
-        public async Task<DashboardWeatherCardViewModel> ConfigureWeatherReport(string name)
+        public async Task<WeatherCardDto> ConfigureWeatherReport(string name)
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
@@ -41,7 +41,7 @@ namespace Notiflex.Core.Services.BOtServices
             return FillModel(model);
         }
 
-        public async Task<List<DashboardWeatherCardViewModel>> ConfigureForecastReport(string name)
+        public async Task<List<WeatherCardDto>> ConfigureForecastReport(string name)
         {
             List<string> coors = await ConvertNameToCoordinates(name);
 
@@ -55,11 +55,11 @@ namespace Notiflex.Core.Services.BOtServices
             api.Append(config.GetValue<string>("WeatherKey"));
 
             ForecastDataModel modelList = await weatherService.GetForecastDataAsync(api.ToString());
-            List<DashboardWeatherCardViewModel> indexModels = new();
+            List<WeatherCardDto> indexModels = new();
 
             foreach (var model in modelList.List)
             {
-                indexModels.Add(new DashboardWeatherCardViewModel()
+                indexModels.Add(new WeatherCardDto()
                 {
                     Avalable = true,
                     Name = ctyName,
@@ -97,9 +97,9 @@ namespace Notiflex.Core.Services.BOtServices
             };
         }
 
-        private static DashboardWeatherCardViewModel FillModel(WeatherDataModel model)
+        private static WeatherCardDto FillModel(WeatherDataModel model)
         {
-            DashboardWeatherCardViewModel indexModel = new()
+            WeatherCardDto indexModel = new()
             {
                 Avalable = true,
                 Name = model.Name,

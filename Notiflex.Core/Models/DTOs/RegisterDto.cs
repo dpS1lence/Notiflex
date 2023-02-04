@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Notiflex.Core.Models.DTOs
 {
-    public class UserDto
+    public class RegisterDto
     {
         [Required]
         public string UserName { get; set; } = null!;

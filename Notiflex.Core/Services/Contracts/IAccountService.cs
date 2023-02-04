@@ -11,7 +11,7 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface IAccountService
     {
-        Task<IdentityResult> CreateUserAsync(UserDto userDto,  string password);
+        Task<IdentityResult> CreateUserAsync(RegisterDto userDto,  string password);
         Task<bool> IsEmailConfirmedAsync(string email);
         Task<SignInResult> SignInUserAsync(string email, string password);
         Task<bool> UserExistsByEmail(string email);
