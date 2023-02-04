@@ -9,15 +9,22 @@ namespace Notiflex.ViewModels
     {
         [Required]
         public string Identity { get; set; } = null!;
-        [Required]
 
+        [Required]
+        public string Name { get; set; } = null!;
+
+        [Required]
         public string City { get; set; } = null!;
-        [Required]
 
-        public int Interval { get; set; }
         [Required]
+        public int Hour { get; set; }
 
-        public string IntervalUnit { get; set; }
+        [Required]
+        public string Minutes { get; set; } = null!;
+
+        [Required]
+        public string Meridiem { get; set; } = null!;
+
         [Required]
         public Dictionary<DayOfWeek, bool> DaySchedule { get; set; } = null!;
     }
