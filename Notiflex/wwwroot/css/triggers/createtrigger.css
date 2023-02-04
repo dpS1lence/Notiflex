@@ -3,7 +3,7 @@
 
 .trigger-form {
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 .create-trigger-btn {
@@ -11,19 +11,16 @@
     line-height: 1.5;
     color: white;
     width: 100%;
-    background: linear-gradient(105deg, rgba(91,104,235,1) 0%, rgba(40,225,253,1) 100%);
+    background: rgb(125, 124, 124);
     height: 50px;
-    border-radius: 25px;
+    border-radius: 8px;
     transition: 0.5s;
     border-style: solid;
-    border-width: 3px;
-    border-color: white;
     transition-duration: all 0.5s;
 }
 
     .create-trigger-btn:hover {
-        scale: 102%;
-        box-shadow: 4px 4px 20px rgba(91,104,235,0.5);
+        background: rgb(74, 74, 74);
     }
 
 .check-box {
@@ -53,10 +50,14 @@
     list-style-type: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .inpt-box {
         width: 500px;
         padding: 10px;
+    }
+
+    .trigger-form {
+        justify-content: center;
     }
 }
 
@@ -65,11 +66,19 @@
         width: 400px;
         padding: 10px;
     }
+
+    .trigger-form {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 400px) {
     .inpt-box {
         width: 300px;
         padding: 10px;
+    }
+
+    .trigger-form {
+        justify-content: center;
     }
 }
