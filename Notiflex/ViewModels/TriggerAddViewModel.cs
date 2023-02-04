@@ -17,6 +17,8 @@ namespace Notiflex.ViewModels
         public int Interval { get; set; }
         [Required]
 
-        public IntervalUnit IntervalUnit { get; set; }       
+        public string IntervalUnit { get; set; }
+        [Required]
+        public Dictionary<DayOfWeek, bool> DaySchedule { get; set; } = null!;
     }
 }
