@@ -85,7 +85,7 @@ namespace Notiflex.Areas.Main.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateTrigger()
         {
-            TriggerAddViewModel model = new TriggerAddViewModel()
+            TriggerAddViewModel model = new()
             {
                 DaySchedule = new Dictionary<DayOfWeek, bool>()
                 {
@@ -104,6 +104,8 @@ namespace Notiflex.Areas.Main.Controllers
         public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
         {
             DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
+
+
             return View();
         }
 

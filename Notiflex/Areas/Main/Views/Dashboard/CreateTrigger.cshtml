@@ -1,34 +1,83 @@
 ﻿@using Notiflex.ViewModels;
 @model TriggerAddViewModel
 
-<form method="post" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
-
-    <input class="form-control" asp-for="@Model.Identity" type="text" class="input" placeholder="FirstName">
-    <input class="form-control" asp-for="@Model.City" type="text" class="input" placeholder="FirstName">
-    <select class="form-control" asp-for="@Model.IntervalUnit" type="" class="input" placeholder="FirstName">
-
-        <option>Minutes</option>
-        <option>Hours</option>
-        <option>Days</option>
-        <option>Months</option>
-        <option>Years</option>
-
-    </select>
-    <input class="form-control" asp-for="@Model.Interval" type="number" class="input" placeholder="FirstName">
-
-    <ul>
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Monday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Tuesday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Wednesday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Thursday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Friday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Saturday]" type="checkbox" class="input">
-        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Sunday]" type="checkbox" class="input">
-
-    </ul>
-
-    <button type="submit">
-        Create Trigger
-    </button>
-</form>
+<link href="~/css/triggers/createtrigger.css" rel="stylesheet" />
+<div class="trigger-form">
+    <form method="post" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
+        <h1>New Trigger</h1>
+        <div class="inpt-box">
+            <a class="title-inpt">Name</a>
+            <input class="form-control text-bx" asp-for="@Model.Name" type="text" placeholder="Enter Name">
+        </div>
+        <div class="inpt-box">
+            <a class="title-inpt">Location</a>
+            <input class="form-control text-bx" asp-for="@Model.City" type="text" placeholder="Enter Location">
+        </div>
+        <div class="inpt-box">
+            <a class="title-inpt">Notify me at</a>
+            <select class="form-control text-bx" asp-for="@Model.Hour" placeholder="Option">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select>
+            <select class="form-control text-bx" asp-for="@Model.Minutes" placeholder="Option">
+                <option>00</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
+            <select class="form-control text-bx" asp-for="@Model.Meridiem" placeholder="Option">
+                <option>AM</option>
+                <option>PM</option>
+            </select>
+        </div>
+        <div class="inpt-box">
+            <a class="title-inpt">Choose day interval</a>
+            <ul class="list">
+                <li>
+                    <input id="Monday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Monday]" type="checkbox" class="check-box">
+                    <label for="Monday">Monday</label>
+                </li>
+                <li>
+                    <input id="Tuesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Tuesday]" type="checkbox" class="check-box">
+                    <label for="Tuesday">Tuesday</label>
+                </li>
+                <li>
+                    <input id="Wednesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Wednesday]" type="checkbox" class="check-box">
+                    <label for="Wednesday">Wednesday</label>
+                </li>
+                <li>
+                    <input id="Thursday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Thursday]" type="checkbox" class="check-box">
+                    <label for="Thursday">Thursday</label>
+                </li>
+                <li>
+                    <input id="Friday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Friday]" type="checkbox" class="check-box">
+                    <label for="Friday">Friday</label>
+                </li>
+                <li>
+                    <input id="Saturday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Saturday]" type="checkbox" class="check-box">
+                    <label for="Saturday">Saturday</label>
+                </li>
+                <li>
+                    <input id="Sunday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Sunday]" type="checkbox" class="check-box">
+                    <label for="Sunday">Sunday</label>
+                </li>
+            </ul>
+        </div>
+        <button class="create-trigger-btn" type="submit">
+            Create Trigger
+        </button>
+    </form>
+</div>
 

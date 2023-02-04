@@ -1,0 +1,84 @@
+﻿body {
+}
+
+.trigger-form {
+    display: flex;
+    justify-content: left;
+}
+
+.create-trigger-btn {
+    font-size: 15px;
+    line-height: 1.5;
+    color: white;
+    width: 100%;
+    background: rgb(125, 124, 124);
+    height: 50px;
+    border-radius: 8px;
+    transition: 0.5s;
+    border-style: solid;
+    transition-duration: all 0.5s;
+}
+
+    .create-trigger-btn:hover {
+        background: rgb(74, 74, 74);
+    }
+
+.check-box {
+    margin: 5px;
+}
+
+.text-bx {
+    margin: 5px;
+}
+
+.title-inpt {
+    font-size: 26px;
+    color: black;
+    text-decoration: none;
+}
+
+    .title-inpt:hover {
+        color: black;
+    }
+
+.inpt-box {
+    width: 500px;
+    padding: 10px;
+}
+
+.list {
+    list-style-type: none;
+}
+
+@media (max-width: 767px) {
+    .inpt-box {
+        width: 500px;
+        padding: 10px;
+    }
+
+    .trigger-form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .inpt-box {
+        width: 400px;
+        padding: 10px;
+    }
+
+    .trigger-form {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .inpt-box {
+        width: 300px;
+        padding: 10px;
+    }
+
+    .trigger-form {
+        justify-content: center;
+    }
+}

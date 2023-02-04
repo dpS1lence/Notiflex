@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Notiflex.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Notiflex.Infrastructure.Data;
 namespace Notiflex.Infrastructure.Migrations
 {
     [DbContext(typeof(NotiflexDbContext))]
-    partial class NotiflexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230204153306_TriggerUpdate")]
+    partial class TriggerUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

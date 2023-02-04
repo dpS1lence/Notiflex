@@ -6,11 +6,10 @@
 @inject IDashboardService _dashboardService;
 @{
     var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
-
     var profileData = mapper.Map<ProfileViewModel>(await _dashboardService.GetUserData(userId ?? string.Empty));
     var viewPath = ViewContext.View.Path;
-
 }
+
 <header class="header header-sticky mb-4">
     <div class="container-fluid">
         <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
@@ -19,9 +18,9 @@
 
         </a>
         <ul class="header-nav d-none d-md-flex">
-            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Weather">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Weather">Weather</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="CreateTrigger">Triggers</a></li>
         </ul>
         <ul class="header-nav ms-auto">
             <li class="nav-item">

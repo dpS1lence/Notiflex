@@ -14,11 +14,25 @@ namespace Notiflex.Infrastructure.Data.Models.ScheduleModels
     {
         [Key]
         public int Id { get; set; }
+
         public string Identity { get; set; } = null!;
+
+        public string Name { get; set; } = null!;
+
         public string City { get; set; } = null!;
+
+        public string Meridiem { get; set; } = null!;
+
+        public string Minutes { get; set; } = null!;
+
+        public int Hour { get; set; }
+
         public int Interval { get; set; }
+
         public IntervalUnit IntervalUnit { get; set; }
+
         public string UserId { get; set; } = null!;
+
         [ForeignKey(nameof(UserId))]
         public NotiflexUser? User { get; set; }
 
