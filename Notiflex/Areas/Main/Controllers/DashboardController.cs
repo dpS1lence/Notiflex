@@ -85,11 +85,25 @@ namespace Notiflex.Areas.Main.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateTrigger()
         {
+            TriggerAddViewModel model = new TriggerAddViewModel()
+            {
+                DaySchedule = new Dictionary<DayOfWeek, bool>()
+                {
+                    {DayOfWeek.Monday, false },
+                    {DayOfWeek.Tuesday, false },
+                    {DayOfWeek.Wednesday, false },
+                    {DayOfWeek.Thursday, false },
+                    {DayOfWeek.Friday, false },
+                    {DayOfWeek.Saturday, false },
+                    {DayOfWeek.Sunday, false },
+                }
+            };
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
         {
+            DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
             return View();
         }
 

@@ -1,7 +1,7 @@
 ﻿@using Notiflex.ViewModels;
 @model TriggerAddViewModel
 
-<form method="post" asp-area="Home" asp-controller="Account" asp-action="Profile">
+<form method="post" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
 
     <input class="form-control" asp-for="@Model.Identity" type="text" class="input" placeholder="FirstName">
     <input class="form-control" asp-for="@Model.City" type="text" class="input" placeholder="FirstName">
@@ -17,8 +17,18 @@
     <input class="form-control" asp-for="@Model.Interval" type="number" class="input" placeholder="FirstName">
 
     <ul>
-        <input class="form-control" value="Monday" asp-for="@Model." type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Monday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Tuesday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Wednesday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Thursday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Friday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Saturday]" type="checkbox" class="input">
+        <input value=true asp-for="@Model.DaySchedule[DayOfWeek.Sunday]" type="checkbox" class="input">
 
     </ul>
+
+    <button type="submit">
+        Create Trigger
+    </button>
 </form>
 
