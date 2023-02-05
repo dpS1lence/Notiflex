@@ -8,10 +8,9 @@
     //    if(item.)
     //}
 }
-<link href="~/css/chain/animated.css" rel="stylesheet" />
+@*<link href="~/css/chain/animated.css" rel="stylesheet" />
 <link href="~/css/chain/owl.css" rel="stylesheet" />
 <link href="~/css/searchbar.css" rel="stylesheet" />
-<link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
 
 @if (Model != null)
 {
@@ -41,68 +40,218 @@
         </div>
     </div>
 
+    @*<partial name="_DashboardNewsPartial"></partial>*@
+<head>
+    <link rel="manifest" href="assets/favicon/manifest.json">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
+    <link href="css/examples.css" rel="stylesheet">
+    <link href="~/vendors/svg/coreui-chartjs.css" rel="stylesheet" />
+</head>
 
-    <h2 class="table-title">Active Triggers</h2>
-    <div class="dashboardContainer wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive" data-pattern="priority-columns">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th data-priority="1">City</th>
-                                    <th data-priority="2">Hour</th>
-                                    <th data-priority="3">Minutes</th>
-                                    <th data-priority="4">Meridiem</th>
-                                    <th data-priority="5">Days</th>
-                                    <th data-priority="6">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.TriggerVIew != null)
-                                {
-                                    @foreach (var item in Model.TriggerVIew)
-                                    {
-                                        <tr>
-                                            <td>@item.Name</td>
-                                            <td>@item.City</td>
-                                            <td>@item.Hour</td>
-                                            <td>@item.Minutes</td>
-                                            <td>@item.Meridiem</td>
-                                            @{
-                                                var dict = item.DaySchedule;
-                                                var sb = new StringBuilder();
-                                                foreach (var pair in dict)
-                                                {
-                                                    if (pair.Value == true)
-                                                    {
-                                                        sb.Append($"{pair.Key.ToString()}, ");
-                                                    }
-                                                }
-                                                string days = sb.ToString().Substring(0, sb.Length - 2);
-
-                                                <td>@days</td>
-                                            }
-                                            <td>
-                                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-route-triggerId="@item.Id" class="fa fa-trash delete-icn"></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+<body>
+    <div class="body flex-grow-1 px-3">
+        <div class="container-lg">
+            <div class="row row-cols-2">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Line</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-691" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-691">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Bar</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-1105" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1105">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Doughnut</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-974" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-974">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-3"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Radar</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-790" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-790">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-4"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Pie</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-15" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-15">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-5"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Polar Area</span></div>
+                        <div class="card-body">
+                            <div class="example">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-36" role="tab">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
+                                            </svg>Preview
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
+                                            <svg class="icon me-2">
+                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
+                                            </svg>Code
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content rounded-bottom">
+                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-36">
+                                        <div class="c-chart-wrapper">
+                                            <canvas id="canvas-6"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</body>
 
-    @*<partial name="_DashboardNewsPartial"></partial>*@
-}
-
-
-<script src="~/js/chain/owl-carousel.js"></script>
-<script src="~/js/chain/animation.js"></script>
-<script src="~/js/chain/custom.js"></script>
+<script src="~/vendors/svg/coreui.bundle.min.js"></script>
+<script src="~/vendors/svg/simplebar.min.js"></script>
+<script src="~/vendors/svg/chart.min.js"></script>
+<script src="~/vendors/svg/coreui-chartjs.js"></script>
+<script src="~/vendors/svg/charts.js"></script>
