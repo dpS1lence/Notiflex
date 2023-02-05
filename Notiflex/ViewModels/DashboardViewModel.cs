@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace Notiflex.ViewModels
 {
-    public class DashbardViewModel
+    public class DashboardViewModel
     {
         public List<WeatherCardViewModel>? DashboardWeatherCard { get; set; }
+
         public ProfileViewModel? ProfileView { get; set; }
+
+        public List<TriggerAddViewModel>? TriggerVIew { get; set; }
     }
 }

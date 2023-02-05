@@ -1,0 +1,108 @@
+﻿@using Notiflex.ViewModels;
+@using System.Text;
+@model DashboardViewModel
+@{
+    //var weatherData = Model.DashboardWeatherCard;
+    //foreach (var item in weatherData)
+    //{
+    //    if(item.)
+    //}
+}
+<link href="~/css/chain/animated.css" rel="stylesheet" />
+<link href="~/css/chain/owl.css" rel="stylesheet" />
+<link href="~/css/searchbar.css" rel="stylesheet" />
+<link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
+
+@if (Model != null)
+{
+    <h2>Welcome back @Model.ProfileView.FirstName</h2>
+    <h4>Check out today's weather information for @Model.DashboardWeatherCard.First().Name</h4>
+
+    <div class="future vcenter">
+        <div class="day vcenter">
+            <h5>Tue</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/006-sunny.png" alt="006-sunny.png" border="0" />
+            <div class="temp">@Model.DashboardWeatherCard[1].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Wed</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
+            <div class="temp">@Model.DashboardWeatherCard[2].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Thu</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/008-summer-rain.png" alt="008-summer-rain.png" border="0" />
+            <div class="temp">@Model.DashboardWeatherCard[3].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Fri</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
+            <div class="temp">@Model.DashboardWeatherCard[4].Temp</div>
+        </div>
+    </div>
+
+
+    <h2 class="table-title">Active Triggers</h2>
+    <div class="dashboardContainer wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th data-priority="1">City</th>
+                                    <th data-priority="2">Hour</th>
+                                    <th data-priority="3">Minutes</th>
+                                    <th data-priority="4">Meridiem</th>
+                                    <th data-priority="5">Days</th>
+                                    <th data-priority="6">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.TriggerVIew != null)
+                                {
+                                    @foreach (var item in Model.TriggerVIew)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.City</td>
+                                            <td>@item.Hour</td>
+                                            <td>@item.Minutes</td>
+                                            <td>@item.Meridiem</td>
+                                            @{
+                                                var dict = item.DaySchedule;
+                                                var sb = new StringBuilder();
+                                                foreach (var pair in dict)
+                                                {
+                                                    if (pair.Value == true)
+                                                    {
+                                                        sb.Append($"{pair.Key.ToString()}, ");
+                                                    }
+                                                }
+                                                string days = sb.ToString().Substring(0, sb.Length - 2);
+
+                                                <td>@days</td>
+                                            }
+                                            <td>
+                                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-route-triggerId="@item.Id" class="fa fa-trash delete-icn"></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<partial name="_DashboardNewsPartial"></partial>*@
+}
+
+
+<script src="~/js/chain/owl-carousel.js"></script>
+<script src="~/js/chain/animation.js"></script>
+<script src="~/js/chain/custom.js"></script>

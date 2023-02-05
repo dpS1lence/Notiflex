@@ -56,11 +56,11 @@ namespace Notiflex.Areas.Main.Controllers
             {
                 throw new NotFoundException("UserId null.");
             }
-            //BECAUSE WEATHER API DECIDED TO TROLL
-            //var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
-            //var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
-            //List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
-            List<WeatherCardViewModel> model = new List<WeatherCardViewModel>();
+
+            var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
+            var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
+            List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
+
             return View(model);
         }
 
@@ -83,31 +83,83 @@ namespace Notiflex.Areas.Main.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateTrigger()
+        public IActionResult CreateTrigger()
         {
-            TriggerAddViewModel model = new()
-            {
-                DaySchedule = new Dictionary<DayOfWeek, bool>()
-                {
-                    {DayOfWeek.Monday, false },
-                    {DayOfWeek.Tuesday, false },
-                    {DayOfWeek.Wednesday, false },
-                    {DayOfWeek.Thursday, false },
-                    {DayOfWeek.Friday, false },
-                    {DayOfWeek.Saturday, false },
-                    {DayOfWeek.Sunday, false },
-                }
-            };
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
         {
             DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
 
-
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                throw new NotFoundException("UserId null.");
+            }
+
+            var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
+            var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
+            List<WeatherCardViewModel> weatherCard = _mapper.Map<List<WeatherCardViewModel>>(dto);
+
+            var model = new DashboardViewModel()
+            {
+                DashboardWeatherCard = weatherCard,
+                ProfileView = new ProfileViewModel()
+                {
+                    FirstName = profileData.FirstName
+                },
+                TriggerVIew = new List<TriggerAddViewModel>()
+                {
+                    new TriggerAddViewModel()
+                    {
+                        Id = 2,
+                        Name = "Trigger Name",
+                        City = "Varna",
+                        Hour = 8,
+                        Minutes = "00",
+                        Meridiem = "PM",
+                        DaySchedule = new Dictionary<DayOfWeek, bool>
+                        {
+                            { DayOfWeek.Monday, true },
+                            { DayOfWeek.Saturday, true }
+                        }
+                    },
+                    new TriggerAddViewModel()
+                    {
+                        Id = 1,
+                        Name = "School",
+                        City = "Veliko Tarnovo",
+                        Hour = 7,
+                        Minutes = "00",
+                        Meridiem = "AM",
+                        DaySchedule = new Dictionary<DayOfWeek, bool>
+                        {
+                            { DayOfWeek.Monday, true },
+                            { DayOfWeek.Tuesday, true }
+                        }
+                    }
+                }
+            };
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> DeleteTrigger(int triggerId)
+        {
+            //TODO
+            //Check if the given triggerId belongs to the user
+            //If so, delete it
+
+            return RedirectToAction(nameof(Dashboard));
+        }
     }
 }

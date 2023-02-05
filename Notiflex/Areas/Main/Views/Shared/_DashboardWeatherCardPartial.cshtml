@@ -3,98 +3,64 @@
 @{
     string value = string.Empty;
 }
-<link href="~/css/chain/animated.css" rel="stylesheet" />
-<link href="~/css/chain/owl.css" rel="stylesheet" />
-<link href="~/css/searchbar.css" rel="stylesheet" />
-
-<form method="post">
-    <div id="tochange" class="box">
-        <input id="tochange" asp-for="@value" type="text" type="text" class="input" placeholder="Search">
-        <button id="searchBtn" onclick="Transform()" class="btn" type="submit"><i><img src="~/images/search.svg" /></i></button>
+<div class="mainScreen">
+    <div class="header vcenter">
+        <div class="logoHold center">
+            <img src="https://i.imgrpost.com/imgr/2018/01/28/mostlycloudy.png" alt="mostlycloudy.png" border="0" />
+        </div>
+        <div class="logoName center">
+            @Model.First().Name
+        </div>
+    </div>@*
+    <div class="todayLabel center">Today's Weather</div>*@
+    <div class="city">@Model.First().Date</div>
+    <div class="sunHolder center">
+        <div class="sun"></div>
     </div>
-</form>
-@if (Model != null && Model.Count > 0 && Model.First().Avalable)
-{
-    <div class="dashboardContainer wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
-        <div class="mainScreen">
-            <div class="header vcenter">
-                <div class="logoHold center">
-                    <img src="https://i.imgrpost.com/imgr/2018/01/28/mostlycloudy.png" alt="mostlycloudy.png" border="0" />
-                </div>
-                <div class="logoName center">
-                    @Model.First().Name
-                </div>
-            </div>@*
-            <div class="todayLabel center">Today's Weather</div>*@
-            <div class="city">@Model.First().Date</div>
-            <div class="sunHolder center">
-                <div class="sun"></div>
+    <div class="infotab center">
+        <div class="temprature">
+            <div class="tempvalue center">
+                @Model.First().Temp
             </div>
-            <div class="infotab center">
-                <div class="temprature">
-                    <div class="tempvalue center">
-                        @Model.First().Temp
-                    </div>
-                    <div class="condition center">
-                        @Model.First().Description
-                    </div>
-                </div>
-                <div class="details">
-                    <div class="detail">
-                        Mostly Clear
-                    </div>
-                    <div class="detail">
-                        Humidity : @Model.First().Humidity%
-                    </div>
-                    <div class="detail">
-                        Wind : @Model.First().Speed km/h N-E
-                    </div>
-                    <div class="detail">
-                        Min: @Model.First().TempMin &nbsp;&nbsp;Max: @Model.First().TempMax
-                    </div>
-                </div>
-            </div>
-            <div class="future vcenter">
-                <div class="day vcenter">
-                    <h5>Tue</h5>
-                    <img src="http://i.imgrpost.com/imgr/2017/08/01/006-sunny.png" alt="006-sunny.png" border="0" />
-                    <div class="temp">@Model[1].Temp</div>
-                </div>
-                <div class="day vcenter">
-                    <h5>Wed</h5>
-                    <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
-                    <div class="temp">@Model[2].Temp</div>
-                </div>
-                <div class="day vcenter">
-                    <h5>Thu</h5>
-                    <img src="http://i.imgrpost.com/imgr/2017/08/01/008-summer-rain.png" alt="008-summer-rain.png" border="0" />
-                    <div class="temp">@Model[3].Temp</div>
-                </div>
-                <div class="day vcenter">
-                    <h5>Fri</h5>
-                    <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
-                    <div class="temp">@Model[4].Temp</div>
-                </div>
+            <div class="condition center">
+                @Model.First().Description
             </div>
         </div>
-        <div class="widgets">
-            <div class="weathernews">
-                <div class="news">
-                    <div class="title">News</div>
-                    <div class="newsImg center">
-                        <img src="https://i.ndtvimg.com/i/2018-01/cold-wave-delhi-pti_650x400_51515266475.jpg" alt="">
-                    </div>
-                    <div class="headline">Season's Coldest Day In Delhi</div>
-                    <div class="matter">
-                        The national capital on Saturday experienced its first coldest day of this season as the minimum temperature dropped to 4.2 degree Celsius, three notches below the average. Sunday will also be chilly.
-                    </div>
-                </div>
+        <div class="details">
+            <div class="detail">
+                Mostly Clear
+            </div>
+            <div class="detail">
+                Humidity : @Model.First().Humidity%
+            </div>
+            <div class="detail">
+                Wind : @Model.First().Speed km/h N-E
+            </div>
+            <div class="detail">
+                Min: @Model.First().TempMin &nbsp;&nbsp;Max: @Model.First().TempMax
             </div>
         </div>
     </div>
-}
-
-
-<script src="~/js/chain/owl-carousel.js"></script>
-<script src="~/js/chain/animation.js"></script>
-<script src="~/js/chain/custom.js"></script>
+    <div class="future vcenter">
+        <div class="day vcenter">
+            <h5>Tue</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/006-sunny.png" alt="006-sunny.png" border="0" />
+            <div class="temp">@Model[1].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Wed</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
+            <div class="temp">@Model[2].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Thu</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/008-summer-rain.png" alt="008-summer-rain.png" border="0" />
+            <div class="temp">@Model[3].Temp</div>
+        </div>
+        <div class="day vcenter">
+            <h5>Fri</h5>
+            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
+            <div class="temp">@Model[4].Temp</div>
+        </div>
+    </div>
+</div>
