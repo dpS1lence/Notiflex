@@ -23,13 +23,9 @@ namespace Notiflex.Core.Services.SchedulerServices
             _repository = repository;
         }
 
-        public async Task CreateWeatherReportTriggerAsync(string userId, string city, string telegramChatId, int interval, IntervalUnit intervalUnit, params DayOfWeek[] daysOfWeek)
+        public async Task CreateWeatherReportTriggerAsync(string userId, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek)
         {
-            string identity = telegramChatId + " Report Trigger";
-            if (intervalUnit == IntervalUnit.Millisecond || intervalUnit == IntervalUnit.Second)
-            {
-                throw new ArgumentException("Interval not supported.");
-            }
+            string identity = telegramChatId + " Report Trigger";           
             
             var trigger = TriggerBuilder.Create()
                 .WithIdentity(identity)
@@ -38,8 +34,8 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .UsingJobData("telegramChatId", telegramChatId)   
                 .WithDailyTimeIntervalSchedule(sch => sch.InTimeZone(TimeZoneInfo.Utc)
                                                       .OnDaysOfTheWeek(daysOfWeek)
-                                                      .WithInterval(interval, intervalUnit)
-                                                      .StartingDailyAt(TimeOfDay.HourMinuteAndSecondOfDay(12, 0, 0)))
+                                                      .OnEveryDay()
+                                                      .StartingDailyAt(startingTime))
                 .StartNow()                                                
                 .Build();
             var scheduler = await _schedulerFactory.GetScheduler();
@@ -52,8 +48,8 @@ namespace Notiflex.Core.Services.SchedulerServices
             {
                 Identity = identity,
                 City = city,
-                Interval = interval,
-                IntervalUnit = intervalUnit,
+                Hour = startingTime.Hour,
+                Minutes = startingTime.Minute.ToString(),
                 UserId = userId
             };
             await _repository.AddAsync(notiflexTrigger);
