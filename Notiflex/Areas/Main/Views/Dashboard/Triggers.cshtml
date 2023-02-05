@@ -1,5 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Notiflex.ViewModels;
+@using System.Text;
+@model List<TriggerAddViewModel>
+
+<link href="~/css/triggers/createtrigger.css" rel="stylesheet" />
+<link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
+
+<h2 class="table-title">Active Triggers</h2>
+<form method="get" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
+    <div class="dashboardContainer wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th data-priority="1">City</th>
+                                    <th data-priority="2">Hour</th>
+                                    <th data-priority="3">Minutes</th>
+                                    <th data-priority="4">Meridiem</th>
+                                    <th data-priority="5">Days</th>
+                                    <th data-priority="6">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.City</td>
+                                            <td>@item.Hour</td>
+                                            <td>@item.Minutes</td>
+                                            <td>@item.Meridiem</td>
+                                            @{
+                                                var dict = item.DaySchedule;
+                                                var sb = new StringBuilder();
+                                                foreach (var pair in dict)
+                                                {
+                                                    if (pair.Value == true)
+                                                    {
+                                                        sb.Append($"{pair.Key.ToString()}, ");
+                                                    }
+                                                }
+                                                string days = sb.ToString().Substring(0, sb.Length - 2);
+
+                                                <td>@days</td>
+                                            }
+                                            <td>
+                                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-route-triggerId="@item.Id" class="fa fa-trash delete-icn"></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="create-trigger-btn" type="submit">
+        Create New Trigger
+    </button>
+</form>

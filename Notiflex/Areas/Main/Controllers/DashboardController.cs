@@ -76,10 +76,42 @@ namespace Notiflex.Areas.Main.Controllers
             List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(value ?? string.Empty));
             return View(model);
         }
+
         [HttpGet]
         public async Task<IActionResult> Triggers()
         {
-            return View();
+            var model = new List<TriggerAddViewModel>()
+                {
+                    new TriggerAddViewModel()
+                    {
+                        Id = 2,
+                        Name = "Trigger Name",
+                        City = "Varna",
+                        Hour = 8,
+                        Minutes = "00",
+                        Meridiem = "PM",
+                        DaySchedule = new Dictionary<DayOfWeek, bool>
+                        {
+                            { DayOfWeek.Monday, true },
+                            { DayOfWeek.Saturday, true }
+                        }
+                    },
+                    new TriggerAddViewModel()
+                    {
+                        Id = 1,
+                        Name = "School",
+                        City = "Veliko Tarnovo",
+                        Hour = 7,
+                        Minutes = "00",
+                        Meridiem = "AM",
+                        DaySchedule = new Dictionary<DayOfWeek, bool>
+                        {
+                            { DayOfWeek.Monday, true },
+                            { DayOfWeek.Tuesday, true }
+                        }
+                    }
+                };
+            return View(model);
         }
 
         [HttpGet]
@@ -116,37 +148,6 @@ namespace Notiflex.Areas.Main.Controllers
                 ProfileView = new ProfileViewModel()
                 {
                     FirstName = profileData.FirstName
-                },
-                TriggerVIew = new List<TriggerAddViewModel>()
-                {
-                    new TriggerAddViewModel()
-                    {
-                        Id = 2,
-                        Name = "Trigger Name",
-                        City = "Varna",
-                        Hour = 8,
-                        Minutes = "00",
-                        Meridiem = "PM",
-                        DaySchedule = new Dictionary<DayOfWeek, bool>
-                        {
-                            { DayOfWeek.Monday, true },
-                            { DayOfWeek.Saturday, true }
-                        }
-                    },
-                    new TriggerAddViewModel()
-                    {
-                        Id = 1,
-                        Name = "School",
-                        City = "Veliko Tarnovo",
-                        Hour = 7,
-                        Minutes = "00",
-                        Meridiem = "AM",
-                        DaySchedule = new Dictionary<DayOfWeek, bool>
-                        {
-                            { DayOfWeek.Monday, true },
-                            { DayOfWeek.Tuesday, true }
-                        }
-                    }
                 }
             };
 
