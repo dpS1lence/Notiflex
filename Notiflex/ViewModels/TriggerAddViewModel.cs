@@ -7,6 +7,8 @@ namespace Notiflex.ViewModels
 {
     public class TriggerAddViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Identity { get; set; } = null!;
 

@@ -31,7 +31,7 @@ namespace Notiflex.Areas.Home.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Weather", "Dashboard", new { area = "Main" });
+                return RedirectToAction("Dashboard", "Dashboard", new { area = "Main" });
             }
 
             return View();
