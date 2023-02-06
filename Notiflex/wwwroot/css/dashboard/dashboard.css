@@ -23,8 +23,8 @@
   --cui-white: #fff;
   --cui-gray: #8a93a2;
   --cui-gray-dark: #636f83;
-  --cui-gray-100: #ebedef;
-  --cui-gray-200: #d8dbe0;
+/*  --cui-gray-100: #ebedef;
+*/  --cui-gray-200: #d8dbe0;
   --cui-gray-300: #c4c9d0;
   --cui-gray-400: #b1b7c1;
   --cui-gray-500: #9da5b1;
@@ -7794,8 +7794,7 @@ html:not([dir=rtl]) .callout {
   min-height: var(--cui-footer-min-height);
   padding: var(--cui-footer-padding-y) var(--cui-footer-padding-x);
   color: var(--cui-footer-color);
-  background: var(--cui-footer-bg);
-  border-top: var(--cui-footer-border);
+  
 }
 
 .footer-fixed {
@@ -7847,8 +7846,6 @@ html:not([dir=rtl]) .callout {
   justify-content: space-between;
   min-height: var(--cui-header-min-height);
   padding: var(--cui-header-padding-y) var(--cui-header-padding-x);
-  background: var(--cui-header-bg);
-  border-bottom: var(--cui-header-border);
 }
 .header > .container,
 .header > .container-fluid,
@@ -7886,12 +7883,25 @@ html:not([dir=rtl]) .callout {
 .header .container-xxl:nth-child(n+2) {
   min-height: calc(var(--cui-subheader-min-height) - 2 * var(--cui-header-padding-y));
 }
+
 .header.header-sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1029;
+  background-color: white;
+  color: black;
+  
 }
+    .header.header-sticky .nav-link {
+       color: black;
+    }
+    .header.header-sticky .fa-bars {
+        color: black;
+    }
+    .header .fa-bars {
+        color: white;
+    }
 
 .header-divider {
   flex-basis: calc(100% + 2 * var(--cui-header-padding-x));
@@ -7932,10 +7942,10 @@ html:not([dir=rtl]) .header-nav {
 }
 .header-nav .nav-link {
   padding: var(--cui-header-nav-link-padding-y) var(--cui-header-nav-link-padding-x);
-  color: var(--cui-header-color);
+  color: white;
 }
 .header-nav .nav-link:hover, .header-nav .nav-link:focus {
-  color: var(--cui-header-hover-color);
+  color:#fff;
 }
 .header-nav .nav-link.disabled {
   color: var(--cui-header-disabled-color);
@@ -8125,8 +8135,8 @@ html:not([dir=rtl]) .header-nav {
     color: var(--cui-sidebar-color);
     /*background: var(--cui-sidebar-bg);*/
     background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     background-image: url('~/images/chain/slider-left-dec.png');
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     transition: margin-left 0.15s, margin-right 0.15s, box-shadow 0.075s, transform 0.15s, width 0.15s, z-index 0s ease 0.15s;
 }
 html:not([dir=rtl]) .sidebar {
@@ -8453,7 +8463,6 @@ html:not([dir=rtl]) .sidebar-close {
   flex-direction: column;
   padding: 0;
   margin-bottom: 0;
-  background-image: url(~/images/dashboard/sidebarbackground.png);
   overflow-x: hidden;
   overflow-y: auto;
   list-style: none;
@@ -13989,7 +13998,7 @@ html:not([dir=rtl]) .rounded-start {
   }
 }
 .wrapper {
-  width: 100%;
+  width: 100%;  
   will-change: auto;
   transition: padding 0.15s;
 }
@@ -14085,4 +14094,5 @@ html:not([dir=rtl]) .wrapper {
 .tkns {
     margin-left: 2px;
 }
+
 /*# sourceMappingURL=style.css.map */
