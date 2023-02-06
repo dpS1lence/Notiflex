@@ -8,39 +8,6 @@
     //    if(item.)
     //}
 }
-@*<link href="~/css/chain/animated.css" rel="stylesheet" />
-<link href="~/css/chain/owl.css" rel="stylesheet" />
-<link href="~/css/searchbar.css" rel="stylesheet" />
-
-@if (Model != null)
-{
-    <h2>Welcome back @Model.ProfileView.FirstName</h2>
-    <h4>Check out today's weather information for @Model.DashboardWeatherCard.First().Name</h4>
-
-    <div class="future vcenter">
-        <div class="day vcenter">
-            <h5>Tue</h5>
-            <img src="http://i.imgrpost.com/imgr/2017/08/01/006-sunny.png" alt="006-sunny.png" border="0" />
-            <div class="temp">@Model.DashboardWeatherCard[1].Temp</div>
-        </div>
-        <div class="day vcenter">
-            <h5>Wed</h5>
-            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
-            <div class="temp">@Model.DashboardWeatherCard[2].Temp</div>
-        </div>
-        <div class="day vcenter">
-            <h5>Thu</h5>
-            <img src="http://i.imgrpost.com/imgr/2017/08/01/008-summer-rain.png" alt="008-summer-rain.png" border="0" />
-            <div class="temp">@Model.DashboardWeatherCard[3].Temp</div>
-        </div>
-        <div class="day vcenter">
-            <h5>Fri</h5>
-            <img src="http://i.imgrpost.com/imgr/2017/08/01/009-sky.png" alt="009-sky.png" border="0" />
-            <div class="temp">@Model.DashboardWeatherCard[4].Temp</div>
-        </div>
-    </div>
-
-    @*<partial name="_DashboardNewsPartial"></partial>*@
 <head>
     <link rel="manifest" href="assets/favicon/manifest.json">
     <link href="css/style.css" rel="stylesheet">
@@ -49,31 +16,24 @@
     <link href="~/vendors/svg/coreui-chartjs.css" rel="stylesheet" />
 </head>
 
-<body>
+<body onload="ChartData('@Model.DashboardWeatherCard.First().Name', 
+'@Model.TimeRanges[0]', '@Model.TimeRanges[1]', '@Model.TimeRanges[2]', 
+'@Model.TimeRanges[3]', '@Model.TimeRanges[4]', '@Model.TimeRanges[5]', '@Model.TimeRanges[6]', 
+'@Model.TempData[0]', '@Model.TempData[1]', '@Model.TempData[2]', '@Model.TempData[3]', 
+'@Model.TempData[4]', '@Model.TempData[5]', '@Model.TempData[6]', 
+'@Model.CloudsData[0]', '@Model.CloudsData[1]', '@Model.CloudsData[2]', '@Model.CloudsData[3]',
+'@Model.CloudsData[4]', '@Model.CloudsData[5]', '@Model.CloudsData[6]',
+'@Model.PressureData[0]', '@Model.PressureData[1]', '@Model.PressureData[2]', '@Model.PressureData[3]',
+'@Model.PressureData[4]', '@Model.PressureData[5]', '@Model.PressureData[6]',
+'@Model.DashboardWeatherCard.First().Humidity')">
     <div class="body flex-grow-1 px-3">
         <div class="container-lg">
             <div class="row row-cols-2">
                 <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Line</span></div>
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Temperature</span></div>
                         <div class="card-body">
                             <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-691" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content rounded-bottom">
                                     <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-691">
                                         <div class="c-chart-wrapper">
@@ -87,25 +47,9 @@
                 </div>
                 <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Bar</span></div>
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Clouds</span></div>
                         <div class="card-body">
                             <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-1105" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content rounded-bottom">
                                     <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1105">
                                         <div class="c-chart-wrapper">
@@ -119,25 +63,9 @@
                 </div>
                 <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Doughnut</span></div>
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Humidity</span></div>
                         <div class="card-body">
                             <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-974" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content rounded-bottom">
                                     <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-974">
                                         <div class="c-chart-wrapper">
@@ -151,93 +79,13 @@
                 </div>
                 <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Radar</span></div>
+                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Pressure</span></div>
                         <div class="card-body">
                             <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-790" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-790">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-4"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Pie</span></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-15" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content rounded-bottom">
                                     <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-15">
                                         <div class="c-chart-wrapper">
-                                            <canvas id="canvas-5"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Chart</strong><span class="small ms-1">Polar Area</span></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-coreui-toggle="tab" href="#preview-36" role="tab">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-media-play"></use>
-                                            </svg>Preview
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.chartjs.org/" target="_blank">
-                                            <svg class="icon me-2">
-                                                <use xlink:href="~/vendors/svg/icons/svg/free.svg#cil-code"></use>
-                                            </svg>Code
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-36">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-6"></canvas>
+                                            <canvas id="canvas-10"></canvas>
                                         </div>
                                     </div>
                                 </div>

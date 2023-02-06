@@ -141,6 +141,29 @@ namespace Notiflex.Areas.Main.Controllers
             var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
             var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
             List<WeatherCardViewModel> weatherCard = _mapper.Map<List<WeatherCardViewModel>>(dto);
+            List<string> timesList = new();
+            for (int i = 0;i < 7;i++)
+            {
+                timesList.Add(dto[i].Date.Substring(10, 6));
+            }
+
+            List<string> temperaturesList = new();
+            for (int i = 0; i < 7; i++)
+            {
+                temperaturesList.Add(dto[i].Temp[..^1]);
+            }
+
+            List<string> cloudDataList = new();
+            for (int i = 0; i < 7; i++)
+            {
+                cloudDataList.Add(dto[i].Clouds);
+            }
+
+            List<string> pressureDataList = new();
+            for (int i = 0; i < 7; i++)
+            {
+                pressureDataList.Add(dto[i].Pressure);
+            }
 
             var model = new DashboardViewModel()
             {
@@ -148,7 +171,11 @@ namespace Notiflex.Areas.Main.Controllers
                 ProfileView = new ProfileViewModel()
                 {
                     FirstName = profileData.FirstName
-                }
+                },
+                TimeRanges = timesList,
+                TempData = temperaturesList,
+                CloudsData = cloudDataList,
+                PressureData = pressureDataList
             };
 
             return View(model);

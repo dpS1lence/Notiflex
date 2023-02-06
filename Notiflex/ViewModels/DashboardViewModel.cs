@@ -13,6 +13,12 @@ namespace Notiflex.ViewModels
 
         public ProfileViewModel? ProfileView { get; set; }
 
-        public List<TriggerAddViewModel>? TriggerVIew { get; set; }
+        public List<string> TimeRanges { get; set; } = null!;
+
+        public List<string> TempData { get; set; } = null!;
+
+        public List<string> CloudsData { get; set; } = null!;
+
+        public List<string> PressureData { get; set; } = null!;
     }
 }

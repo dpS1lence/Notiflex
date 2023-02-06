@@ -31,6 +31,9 @@ namespace Notiflex.ViewModels
         public string Humidity { get; set; } = null!;
 
         public string Speed { get; set; } = null!;
+
         public string Date { get; set; } = null!;
+
+        public string Clouds { get; set; } = null!;
     }
 }
