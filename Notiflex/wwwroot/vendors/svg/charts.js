@@ -17,9 +17,9 @@ function ChartData(cityName,
             labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
             datasets: [{
                 label: cityName,
-                backgroundColor: 'rgba(220, 220, 220, 0.2)',
-                borderColor: 'rgba(220, 220, 220, 1)',
-                pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+                backgroundColor: 'rgba(64, 45, 170, 0.2)',
+                borderColor: 'rgba(64, 45, 170, 1)',
+                pointBackgroundColor: 'rgba(64, 45, 170, 1)',
                 pointBorderColor: '#fff',
                 data: [tempData1, tempData2, tempData3, tempData4, tempData5, tempData6, tempData7]
             }]
@@ -36,10 +36,10 @@ function ChartData(cityName,
             labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
             datasets: [{
                 label: cityName,
-                backgroundColor: 'rgba(151, 187, 205, 0.5)',
-                borderColor: 'rgba(151, 187, 205, 0.8)',
-                highlightFill: 'rgba(151, 187, 205, 0.75)',
-                highlightStroke: 'rgba(151, 187, 205, 1)',
+                backgroundColor: 'rgba(143, 193, 246, 0.5)',
+                borderColor: 'rgba(143, 193, 246, 0.8)',
+                highlightFill: 'rgba(143, 193, 246, 0.75)',
+                highlightStroke: 'rgba(143, 193, 246, 1)',
                 data: [cloudsData1, cloudsData2, cloudsData3, cloudsData4, cloudsData5, cloudsData6, cloudsData7]
             }]
         },
@@ -55,8 +55,8 @@ function ChartData(cityName,
             labels: ['Humidity', '%'],
             datasets: [{
                 data: [humidity, 100 - humidity],
-                backgroundColor: ['#327da8', '#4d4d4d'],
-                hoverBackgroundColor: ['#327da8', '#4d4d4d']
+                backgroundColor: ['#402DAA', '#4d4d4d'],
+                hoverBackgroundColor: ['#402DAA', '#4d4d4d']
             }]
         },
         options: {
@@ -71,9 +71,9 @@ function ChartData(cityName,
             labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
             datasets: [{
                 label: cityName,
-                backgroundColor: 'rgba(220, 220, 220, 0.2)',
-                borderColor: 'rgba(220, 220, 220, 1)',
-                pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+                backgroundColor: 'rgba(37, 97, 221, 0.2)',
+                borderColor: 'rgba(37, 97, 221, 1)',
+                pointBackgroundColor: 'rgba(37, 97, 221, 1)',
                 pointBorderColor: '#fff',
                 data: [pressureData1, pressureData2, pressureData3, pressureData4, pressureData5, pressureData6, pressureData7]
             }]

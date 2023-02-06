@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Telegram.Bot.Types;
 using AutoMapper;
 using Notiflex.Core.Exceptions;
+using Humanizer;
 
 namespace Notiflex.Areas.Main.Controllers
 {
@@ -138,44 +139,19 @@ namespace Notiflex.Areas.Main.Controllers
                 throw new NotFoundException("UserId null.");
             }
 
-            var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
-            var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
-            List<WeatherCardViewModel> weatherCard = _mapper.Map<List<WeatherCardViewModel>>(dto);
-            List<string> timesList = new();
-            for (int i = 0;i < 7;i++)
-            {
-                timesList.Add(dto[i].Date.Substring(10, 6));
-            }
+            var dashboardData = await _dashboardService.LoadDashboardAsync(userId);
 
-            List<string> temperaturesList = new();
-            for (int i = 0; i < 7; i++)
-            {
-                temperaturesList.Add(dto[i].Temp[..^1]);
-            }
-
-            List<string> cloudDataList = new();
-            for (int i = 0; i < 7; i++)
-            {
-                cloudDataList.Add(dto[i].Clouds);
-            }
-
-            List<string> pressureDataList = new();
-            for (int i = 0; i < 7; i++)
-            {
-                pressureDataList.Add(dto[i].Pressure);
-            }
+            var weatherCard = _mapper.Map<List<WeatherCardViewModel>>(dashboardData.DashboardWeatherCard);
+            var profileModel = _mapper.Map<ProfileViewModel>(dashboardData.ProfileView);
 
             var model = new DashboardViewModel()
             {
                 DashboardWeatherCard = weatherCard,
-                ProfileView = new ProfileViewModel()
-                {
-                    FirstName = profileData.FirstName
-                },
-                TimeRanges = timesList,
-                TempData = temperaturesList,
-                CloudsData = cloudDataList,
-                PressureData = pressureDataList
+                ProfileView = profileModel,
+                TimeRanges = dashboardData.TimeRanges,
+                TempData = dashboardData.TempData,
+                CloudsData = dashboardData.CloudsData,
+                PressureData = dashboardData.PressureData
             };
 
             return View(model);
