@@ -73,8 +73,9 @@ namespace Notiflex.Core.Services.BOtServices
                     Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
                     Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
                     Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
-                    Date = model.DtTxt.ToString()
-                });
+                    Date = model.DtTxt.ToString(),
+                    Clouds = model.Clouds.All.ToString()
+                }) ;
             }
 
             return indexModels;

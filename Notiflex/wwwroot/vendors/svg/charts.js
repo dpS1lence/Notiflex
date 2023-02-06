@@ -1,71 +1,90 @@
 // random Numbers
 const random = () => Math.round(Math.random() * 100);
 
-// eslint-disable-next-line no-unused-vars
-const lineChart = new Chart(document.getElementById('canvas-1'), {
-  type: 'line',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgba(220, 220, 220, 0.2)',
-      borderColor: 'rgba(220, 220, 220, 1)',
-      pointBackgroundColor: 'rgba(220, 220, 220, 1)',
-      pointBorderColor: '#fff',
-      data: [random(), random(), random(), random(), random(), random(), random()]
-    }, {
-      label: 'My Second dataset',
-      backgroundColor: 'rgba(151, 187, 205, 0.2)',
-      borderColor: 'rgba(151, 187, 205, 1)',
-      pointBackgroundColor: 'rgba(151, 187, 205, 1)',
-      pointBorderColor: '#fff',
-      data: [random(), random(), random(), random(), random(), random(), random()]
-    }]
-  },
-  options: {
-    responsive: true
-  }
-});
+var nameCt = 11;
 
-// eslint-disable-next-line no-unused-vars
-const barChart = new Chart(document.getElementById('canvas-2'), {
-  type: 'bar',
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      backgroundColor: 'rgba(220, 220, 220, 0.5)',
-      borderColor: 'rgba(220, 220, 220, 0.8)',
-      highlightFill: 'rgba(220, 220, 220, 0.75)',
-      highlightStroke: 'rgba(220, 220, 220, 1)',
-      data: [random(), random(), random(), random(), random(), random(), random()]
-    }, {
-      backgroundColor: 'rgba(151, 187, 205, 0.5)',
-      borderColor: 'rgba(151, 187, 205, 0.8)',
-      highlightFill: 'rgba(151, 187, 205, 0.75)',
-      highlightStroke: 'rgba(151, 187, 205, 1)',
-      data: [random(), random(), random(), random(), random(), random(), random()]
-    }]
-  },
-  options: {
-    responsive: true
-  }
-});
+function ChartData(cityName,
+    timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7,
+    tempData1, tempData2, tempData3, tempData4, tempData5, tempData6, tempData7,
+    cloudsData1, cloudsData2, cloudsData3, cloudsData4, cloudsData5, cloudsData6, cloudsData7,
+    pressureData1, pressureData2, pressureData3, pressureData4, pressureData5, pressureData6, pressureData7,
+    humidity) {
 
-// eslint-disable-next-line no-unused-vars
-const doughnutChart = new Chart(document.getElementById('canvas-3'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Red', 'Green', 'Yellow'],
-    datasets: [{
-      data: [300, 50, 100],
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-    }]
-  },
-  options: {
-    responsive: true
-  }
-});
+    // eslint-disable-next-line no-unused-vars
+    const lineChart = new Chart(document.getElementById('canvas-1'), {
+        type: 'line',
+        data: {
+            labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
+            datasets: [{
+                label: cityName,
+                backgroundColor: 'rgba(220, 220, 220, 0.2)',
+                borderColor: 'rgba(220, 220, 220, 1)',
+                pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+                pointBorderColor: '#fff',
+                data: [tempData1, tempData2, tempData3, tempData4, tempData5, tempData6, tempData7]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    const barChart = new Chart(document.getElementById('canvas-2'), {
+        type: 'bar',
+        data: {
+            labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
+            datasets: [{
+                label: cityName,
+                backgroundColor: 'rgba(151, 187, 205, 0.5)',
+                borderColor: 'rgba(151, 187, 205, 0.8)',
+                highlightFill: 'rgba(151, 187, 205, 0.75)',
+                highlightStroke: 'rgba(151, 187, 205, 1)',
+                data: [cloudsData1, cloudsData2, cloudsData3, cloudsData4, cloudsData5, cloudsData6, cloudsData7]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    const doughnutChart = new Chart(document.getElementById('canvas-3'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Humidity', '%'],
+            datasets: [{
+                data: [humidity, 100 - humidity],
+                backgroundColor: ['#327da8', '#4d4d4d'],
+                hoverBackgroundColor: ['#327da8', '#4d4d4d']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    const linePressureChart = new Chart(document.getElementById('canvas-10'), {
+        type: 'line',
+        data: {
+            labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
+            datasets: [{
+                label: cityName,
+                backgroundColor: 'rgba(220, 220, 220, 0.2)',
+                borderColor: 'rgba(220, 220, 220, 1)',
+                pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+                pointBorderColor: '#fff',
+                data: [pressureData1, pressureData2, pressureData3, pressureData4, pressureData5, pressureData6, pressureData7]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}
+
+
 
 // eslint-disable-next-line no-unused-vars
 const radarChart = new Chart(document.getElementById('canvas-4'), {
