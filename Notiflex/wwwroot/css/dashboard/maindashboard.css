@@ -1,0 +1,9 @@
+﻿#layoutWrapper {
+	background-image: url(../../images/dashboard/bluebgtop.jpg);
+	width: 100%;
+	background-position: top;
+	background-size: 100% 700px;
+	background-repeat: no-repeat;
+	
+	
+}
