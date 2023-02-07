@@ -42,6 +42,8 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
 
         public string? TelegramInfo { get; set; }
 
+        public bool IsUserApproved { get; set; }
+
         public string? DefaultTime { get; set; }
 
         [MinLength(DbValidationConstants.TOWN_NAME_MIN_LENGTH)]

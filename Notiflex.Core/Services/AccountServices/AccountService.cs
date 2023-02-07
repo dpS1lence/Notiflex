@@ -32,7 +32,7 @@ namespace Notiflex.Core.Services.AccountServices
         }
         public async Task<IdentityResult> CreateUserAsync(RegisterDto userDto, string password)
         {
-            
+
             var user = new NotiflexUser
             {
                 Email = userDto.Email,
@@ -41,7 +41,8 @@ namespace Notiflex.Core.Services.AccountServices
                 UserName = userDto.UserName,
                 Age = userDto.Age,
                 Gender = userDto.Gender,
-                ProfilePic = userDto.ProfilePic
+                ProfilePic = userDto.ProfilePic,
+                IsUserApproved = false
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, password);            
@@ -173,5 +174,17 @@ namespace Notiflex.Core.Services.AccountServices
 
             return user;
         }
-    }
+
+		public async Task AprooveUser(string userId, string telegramId, string homeTown)
+		{
+			NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+
+			user.IsUserApproved = true;
+            user.TelegramInfo = telegramId;
+            user.HomeTown = homeTown; 
+
+            _repo.Update(user);
+            await _repo.SaveChangesAsync();
+		}
+	}
 }

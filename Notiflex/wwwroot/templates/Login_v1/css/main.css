@@ -80,7 +80,9 @@ ul, li {
 	list-style-type: none;
 }
 
-
+.icon-active{
+	cursor: pointer;
+}
 /*---------------------------------------------*/
 input {
 	outline: none;

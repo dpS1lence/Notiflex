@@ -23,5 +23,7 @@ namespace Notiflex.Core.Services.Contracts
         Task<IdentityResult> ConfirmEmailAsync(string userId, string code);
         Task EditProfile(string userId, ProfileDto model);
         Task<NotiflexUser> GetUserData(string userId);
-    }
+        Task AprooveUser(string userId, string telegramId, string homeTown);
+
+	}
 }
