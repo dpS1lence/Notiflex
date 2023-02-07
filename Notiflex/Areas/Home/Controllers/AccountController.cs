@@ -101,13 +101,22 @@ namespace Notiflex.Areas.Home.Controllers
 
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Weather", "Dashboard", new { area = "Main" });
+                string userId = await _accountService.GetUserIdByEmail(model.Email);
+                var user = await _accountService.GetUserData(userId);
+                
+                if (!user.IsUserApproved)
+                {
+                    return RedirectToAction(nameof(Proceed));
+                }
+
+                return RedirectToAction("Dashboard", "Dashboard", new { area = "Main" });
             }
 
             ModelState.AddModelError("", "Invalid Login");
 
             return PartialView(model);
         }
+
 
         public async Task<IActionResult> Logout()
         {
@@ -116,6 +125,7 @@ namespace Notiflex.Areas.Home.Controllers
             return RedirectToAction("Login", "Account", new { area = "Home" });
 
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string? userId, string? token)
         {
@@ -129,6 +139,28 @@ namespace Notiflex.Areas.Home.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        public IActionResult Proceed()
+        {
+            return PartialView();
+        }
+
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> Proceed(ProceedViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return PartialView(model);
+			}
+
+			var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown);
+
+			return RedirectToAction("Dashboard", "Dashboard", new { area = "Main" });
+		}
+
+		[HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()
         {

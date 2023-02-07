@@ -1,0 +1,79 @@
+﻿@using Notiflex.ViewModels;
+@model ProceedViewModel
+
+@{
+	ViewData["Title"] = "Proceed";
+}
+<head>
+	<title>Login V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="~/templates/login_v1/images/icons/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/util.css">
+	<link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/main.css">
+	<link href="~/css/chain/animated.css" rel="stylesheet" />
+	<link href="~/css/chain/owl.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-register100 wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
+
+				<form method="post" asp-controller="Account" asp-action="Proceed" class="login100-form">
+					<span class="login100-logo-span"><a class="login100-logo-a" asp-controller="Home" asp-action="Index"><img class="login100-logo" src="~/images/logos/notiflex_logo_01.png" /></a></span>
+
+					<div class="wrap-input100">
+						<a class="text-info-proceed">
+							Complete a few more steps to unlock the full potential of our weather app.
+						</a>
+					</div>
+
+					<div class="wrap-input100">
+						<a class="text-info-proceed">
+							Telegram chat Id <i class="fa fa-question-circle icon-active"></i>
+						</a>
+					</div>
+					
+					<div class="wrap-input100">
+						<input asp-for="@Model.TelegramId" class="input100" type="password" name="TelegramId" placeholder="Id" />
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+						<span asp-validation-for="@Model.TelegramId"></span>
+					</div>
+
+					<div class="wrap-input100">
+						<a class="text-info-proceed">
+							Home Town <i class="fa fa-question-circle icon-active"></i>
+						</a>
+					</div>
+					
+					<div class="wrap-input100">
+						<input asp-for="@Model.HomeTown" class="input100" type="text" name="HomeTown" placeholder="Town" />
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-bars" aria-hidden="true"></i>
+						</span>
+						<span asp-validation-for="@Model.HomeTown"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Proceed
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="~/js/chain/owl-carousel.js"></script>
+<script src="~/js/chain/animation.js"></script>
+<script src="~/js/chain/custom.js"></script>
