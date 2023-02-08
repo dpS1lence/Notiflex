@@ -21,8 +21,6 @@ namespace Notiflex.Infrastructure.Data.Models.ScheduleModels
 
         public string City { get; set; } = null!;
 
-        public string Meridiem { get; set; } = null!;
-
         public string Minutes { get; set; } = null!;
 
         public int Hour { get; set; }

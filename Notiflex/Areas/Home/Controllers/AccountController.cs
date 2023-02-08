@@ -103,8 +103,8 @@ namespace Notiflex.Areas.Home.Controllers
             {
                 string userId = await _accountService.GetUserIdByEmail(model.Email);
                 var user = await _accountService.GetUserData(userId);
-                
-                if (!user.IsUserApproved)
+
+                if (!await _accountService.IsInRole(userId, "ApprovedUser"))
                 {
                     return RedirectToAction(nameof(Proceed));
                 }
@@ -154,30 +154,21 @@ namespace Notiflex.Areas.Home.Controllers
 				return PartialView(model);
 			}
 
-			var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+			var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
             await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown);
 
-			return RedirectToAction("Dashboard", "Dashboard", new { area = "Main" });
+            return RedirectToAction("Logout", "Account", new { area = "Home" });
 		}
 
 		[HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
 
-            NotiflexUser user = await _accountService.GetUserData(userId);
+            ProfileDto user = await _accountService.GetUserData(userId);
 
-            var model = new ProfileViewModel()
-            {
-                TelegramChatId = user?.TelegramInfo ?? "ChatId",
-                FirstName = user?.FirstName ?? string.Empty,
-                LastName = user?.LastName ?? string.Empty,
-                Description = user?.Description ?? string.Empty,
-                ProfilePic = user?.ProfilePic ?? string.Empty,
-                DefaultTime = user?.DefaultTime ?? string.Empty,
-                HomeTown = user?.HomeTown ?? string.Empty
-            };
+            var model = _mapper.Map<ProfileViewModel>(user);
 
             return View(model);
         }

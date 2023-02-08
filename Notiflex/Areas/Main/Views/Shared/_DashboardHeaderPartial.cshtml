@@ -3,10 +3,10 @@
 @using Notiflex.ViewModels;
 @using System.Security.Claims;
 @inject IMapper mapper;
-@inject IDashboardService _dashboardService;
+@inject IAccountService _accountService;
 @{
     var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
-    var profileData = mapper.Map<ProfileViewModel>(await _dashboardService.GetUserData(userId ?? string.Empty));
+    var profileData = mapper.Map<ProfileViewModel>(await _accountService.GetUserData(userId ?? string.Empty));
     var viewPath = ViewContext.View.Path;
 }
 

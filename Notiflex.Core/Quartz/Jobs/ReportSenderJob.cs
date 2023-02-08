@@ -28,7 +28,7 @@ namespace Notiflex.Core.Quartz.Jobs
             string coords = (await _messageConfigurer.ConvertNameToCoordinates(city))[2];
             Message message = await _messageConfigurer.ConfigureWeatherReportMessage(coords);
 
-            //await _messageSender.SendMessage(message, telegramChatId);
+            await _messageSender.SendMessage(message, telegramChatId);
 
         }
     }

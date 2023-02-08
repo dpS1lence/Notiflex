@@ -16,37 +16,20 @@ namespace Notiflex.Core.Services.AccountServices
     public class DashboardService : IDashboardService
     {
         private readonly IRepository _repo;
-        private readonly UserManager<NotiflexUser> _userManager;
         private readonly IModelConfigurer _modelConfigurer;
+        private readonly IAccountService _accountService;
 
-        public DashboardService(IRepository repo, UserManager<NotiflexUser> userManager, IModelConfigurer modelConfigurer)
+        public DashboardService(IRepository repo, IModelConfigurer modelConfigurer, IAccountService accountService)
         {
             _repo = repo;
-            _userManager = userManager;
             _modelConfigurer = modelConfigurer;
+            _accountService = accountService;
         }
 
-        public async Task<ProfileDto> GetUserData(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-
-            var profileDto = new ProfileDto()
-            {
-                ProfilePic = user.ProfilePic,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                DefaultTime= user.DefaultTime,
-                Description = user.Description,
-                HomeTown= user.HomeTown,
-                TelegramChatId = user.TelegramInfo
-            };
-
-            return profileDto;
-        }
 
         public async Task<DashboardDto> LoadDashboardAsync(string userId)
         {
-            var profileData = await GetUserData(userId ?? string.Empty);
+            var profileData = await _accountService.GetUserData(userId ?? string.Empty);
             var weatherCard = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
 
             List<string> timesList = new();

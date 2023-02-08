@@ -23,7 +23,7 @@ namespace Notiflex.Core.Services.SchedulerServices
             _repository = repository;
         }
 
-        public async Task CreateWeatherReportTriggerAsync(string userId, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek)
+        public async Task CreateWeatherReportTriggerAsync(string userId,string triggerName,  string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek)
         {
             string identity = telegramChatId + " Report Trigger";           
             
@@ -32,11 +32,7 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .ForJob("ReportSenderJob")
                 .UsingJobData("city", city)
                 .UsingJobData("telegramChatId", telegramChatId)   
-                .WithDailyTimeIntervalSchedule(sch => sch.InTimeZone(TimeZoneInfo.Utc)
-                                                      .OnDaysOfTheWeek(daysOfWeek)
-                                                      .OnEveryDay()
-                                                      .StartingDailyAt(startingTime))
-                .StartNow()                                                
+                .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, startingTime.Minute, daysOfWeek).InTimeZone(TimeZoneInfo.Utc))                
                 .Build();
             var scheduler = await _schedulerFactory.GetScheduler();
             var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();
@@ -46,6 +42,7 @@ namespace Notiflex.Core.Services.SchedulerServices
             }
             NotiflexTrigger notiflexTrigger = new NotiflexTrigger()
             {
+                Name = triggerName,
                 Identity = identity,
                 City = city,
                 Hour = startingTime.Hour,

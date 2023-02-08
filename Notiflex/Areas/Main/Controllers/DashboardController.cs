@@ -12,11 +12,13 @@ using Telegram.Bot.Types;
 using AutoMapper;
 using Notiflex.Core.Exceptions;
 using Humanizer;
+using Quartz;
 
 namespace Notiflex.Areas.Main.Controllers
 {
+    [Authorize(Roles = "ApprovedUser")]
     [Area("Main")]
-    [Authorize]
+
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dashboardService;
@@ -58,7 +60,7 @@ namespace Notiflex.Areas.Main.Controllers
                 throw new NotFoundException("UserId null.");
             }
 
-            var profileData = await _dashboardService.GetUserData(userId ?? string.Empty);
+            var profileData = await _accountService.GetUserData(userId ?? string.Empty);
             var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
             List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
 
@@ -79,7 +81,7 @@ namespace Notiflex.Areas.Main.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Triggers()
+        public IActionResult Triggers()
         {
             var model = new List<TriggerAddViewModel>()
                 {
@@ -124,8 +126,11 @@ namespace Notiflex.Areas.Main.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
         {
-            DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            var user = await _accountService.GetUserData(userId);
 
+            DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
+            await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(model.Hour - 2, int.Parse(model.Minutes)), daysSchedule);
             return View();
         }
 

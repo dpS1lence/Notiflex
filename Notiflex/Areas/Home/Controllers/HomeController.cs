@@ -29,6 +29,8 @@ namespace Notiflex.Areas.Home.Controllers
 
         public IActionResult Index()
         {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            //var kur =  (_accountService.IsInRole(userId, "ApprovedUser")).Result;
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("Dashboard", "Dashboard", new { area = "Main" });
