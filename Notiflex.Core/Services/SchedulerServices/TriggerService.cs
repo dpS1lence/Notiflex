@@ -34,7 +34,8 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .ForJob("ReportSenderJob")
                 .UsingJobData("city", city)
                 .UsingJobData("telegramChatId", telegramChatId)   
-                .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, startingTime.Minute, daysOfWeek).InTimeZone(TimeZoneInfo.Utc))                
+                .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, startingTime.Minute, daysOfWeek)
+                .InTimeZone(TimeZoneInfo.Utc))
                 .Build();
             var scheduler = await _schedulerFactory.GetScheduler();
             var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();
@@ -76,6 +77,11 @@ namespace Notiflex.Core.Services.SchedulerServices
                 hourUTC = (hour + timezone) - 24;
             }
             else hourUTC = hour + timezone;
+
+            if(hourUTC == 24)
+            {
+                hourUTC = 0;
+            }
 
             return hourUTC;
         }
