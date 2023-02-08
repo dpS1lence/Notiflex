@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using Notiflex.Core.Models.DTOs;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Notiflex.Core.Services.Contracts
     public interface ITriggerService
     {
         Task CreateWeatherReportTriggerAsync(string userId, string triggerName, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek);
+
+        Task<int> GetHourUTC(string cityName, int hour);
     }
 }

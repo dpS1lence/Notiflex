@@ -1,11 +1,13 @@
-﻿using Notiflex.Infrastructure.Data.Models.UserModels;
-using Quartz;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Notiflex.ViewModels
+namespace Notiflex.Core.Models.DTOs
 {
-    public class TriggerAddViewModel
+    public class TriggerAddDto
     {
         public int Id { get; set; }
 
@@ -26,8 +28,6 @@ namespace Notiflex.ViewModels
 
         [Required]
         public string Meridiem { get; set; } = null!;
-
-        public bool GivenTimeZone { get; set; }
 
         [Required]
         public Dictionary<DayOfWeek, bool> DaySchedule { get; set; } = null!;

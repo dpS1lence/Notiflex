@@ -35,5 +35,7 @@ namespace Notiflex.Core.Models.DTOs
         public string Date { get; set; } = null!;
 
         public string Clouds { get; set; } = null!;
+
+        public int TimeZone { get; set; }
     }
 }
