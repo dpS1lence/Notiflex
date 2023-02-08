@@ -22,8 +22,10 @@ namespace Notiflex.Core.Services.Contracts
         Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword);
         Task<IdentityResult> ConfirmEmailAsync(string userId, string code);
         Task EditProfile(string userId, ProfileDto model);
-        Task<NotiflexUser> GetUserData(string userId);
-        Task AprooveUser(string userId, string telegramId, string homeTown);
+        Task<ProfileDto> GetUserData(string userId);
+        Task AprooveUser(string userId, string telegramId, string hometown);
+        Task<bool> IsInRole(string userId, string roleName);
 
-	}
+
+    }
 }

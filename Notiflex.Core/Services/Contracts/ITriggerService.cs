@@ -9,6 +9,6 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface ITriggerService
     {
-        Task CreateWeatherReportTriggerAsync(string userId, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek);
+        Task CreateWeatherReportTriggerAsync(string userId, string triggerName, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek);
     }
 }

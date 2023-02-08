@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Notiflex.Core.Exceptions;
@@ -7,10 +8,12 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Quartz;
+using Quartz.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,15 +23,22 @@ namespace Notiflex.Core.Services.AccountServices
     {
         private readonly UserManager<NotiflexUser> _userManager;
         private readonly SignInManager<NotiflexUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IRepository _repo;
+        private readonly IMapper _mapper;
+
         public AccountService(
            UserManager<NotiflexUser> userManager,
-           SignInManager<NotiflexUser> signInManager,
-           IRepository repo)
+               SignInManager<NotiflexUser> signInManager,
+               RoleManager<IdentityRole> roleManager,
+           IRepository repo,
+           IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _repo = repo;
+            _mapper = mapper;
+            _roleManager = roleManager;
         }
         public async Task<IdentityResult> CreateUserAsync(RegisterDto userDto, string password)
         {
@@ -42,10 +52,9 @@ namespace Notiflex.Core.Services.AccountServices
                 Age = userDto.Age,
                 Gender = userDto.Gender,
                 ProfilePic = userDto.ProfilePic,
-                IsUserApproved = false
             };
 
-            IdentityResult result = await _userManager.CreateAsync(user, password);            
+            IdentityResult result = await _userManager.CreateAsync(user, password);
             return result;
         }
         public async Task<bool> IsEmailConfirmedAsync(string email)
@@ -163,28 +172,48 @@ namespace Notiflex.Core.Services.AccountServices
             await _repo.SaveChangesAsync();
         }
 
-        public async Task<NotiflexUser> GetUserData(string userId)
+        public async Task<ProfileDto> GetUserData(string userId)
         {
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
-
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 throw new NotFoundException();
-            }
 
-            return user;
+            }
+            var profileDto = _mapper.Map<ProfileDto>(user);
+
+            return profileDto;
         }
 
-		public async Task AprooveUser(string userId, string telegramId, string homeTown)
-		{
-			NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
 
-			user.IsUserApproved = true;
-            user.TelegramInfo = telegramId;
-            user.HomeTown = homeTown; 
+        public async Task AprooveUser(string userId, string telegramId, string hometown)
+        {
+            string roleName = "ApprovedUser";
+            if (!await _roleManager.RoleExistsAsync(roleName))
+            {
+                IdentityRole role = new IdentityRole(roleName);
+                await _roleManager.CreateAsync(role);
+            }
+            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            if (await _userManager.IsInRoleAsync(user, roleName))
+            {
+                return;
+            }
+            if (user != null)
+            {
+                
+                user.TelegramInfo = telegramId;
+                user.HomeTown = hometown;
 
-            _repo.Update(user);
-            await _repo.SaveChangesAsync();
-		}
-	}
+                _repo.Update(user);
+                await _repo.SaveChangesAsync();
+                await _userManager.AddToRoleAsync(user, roleName);
+            }
+        }
+        public async Task<bool> IsInRole(string userId, string roleName)
+        {
+            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            return await _userManager.IsInRoleAsync(user, roleName);
+        }
+    }
 }

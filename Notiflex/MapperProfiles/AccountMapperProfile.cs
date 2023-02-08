@@ -10,7 +10,8 @@ namespace Notiflex.MapperProfiles
         public AccountMapperProfile() 
         {
             CreateMap<RegisterViewModel, RegisterDto>();
-            CreateMap<NotiflexUser, ProfileDto>();
+            CreateMap<NotiflexUser, ProfileDto>()
+                .ForMember(a => a.TelegramChatId, b => b.MapFrom(src => src.TelegramInfo));
             CreateMap<ProfileDto, ProfileViewModel>();
         }
     }

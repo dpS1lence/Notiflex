@@ -15,6 +15,7 @@ using Quartz;
 using Notiflex.Core.Quartz.Jobs;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using Notiflex.Core.Services.SchedulerServices;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddDbContext<NotiflexDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<NotiflexUser>(options => options.SignIn.RequireConfirmedAccount = false)
+     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<NotiflexDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options =>
@@ -34,8 +36,8 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Home/Index";
+	options.LoginPath = "/Home/Account/Login";
+	options.AccessDeniedPath = "/Home/Home/Index";
 });
 
 builder.Services.AddAutoMapper(config =>
@@ -110,12 +112,7 @@ app.UseEndpoints(endpoints =>
     app.MapControllerRoute(
     name: "areas",
     pattern: "{area=Home}/{controller=Home}/{action=Index}/{id?}"
-    );
-
-    //app.MapControllerRoute(
-    //name: "default",
-    //pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    );    
 });
 
 //app.MapRazorPages();

@@ -9,8 +9,6 @@ namespace Notiflex.Core.Services.Contracts
 {
     public interface IDashboardService
     {
-        Task<ProfileDto> GetUserData(string userId);
-
         Task<DashboardDto> LoadDashboardAsync(string userId);
     }
 }
