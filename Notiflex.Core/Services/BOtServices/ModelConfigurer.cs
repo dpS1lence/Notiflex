@@ -113,7 +113,8 @@ namespace Notiflex.Core.Services.BOtServices
                 TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
                 Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
                 Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
-                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString()
+                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
+                TimeZone = model.Timezone
             };
 
             return indexModel;

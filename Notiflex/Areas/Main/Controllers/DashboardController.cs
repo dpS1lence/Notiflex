@@ -125,12 +125,23 @@ namespace Notiflex.Areas.Main.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateTrigger(TriggerAddViewModel model)
-        {
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+        {   
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
             var user = await _accountService.GetUserData(userId);
 
+            int hourUTC;
+            if (model.GivenTimeZone)
+            {
+                hourUTC = await _triggerService.GetHourUTC(model.City, model.Hour);
+
+            }
+            else
+            {
+                hourUTC = await _triggerService.GetHourUTC(user.HomeTown, model.Hour);
+            }
+
             DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
-            await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(model.Hour - 2, int.Parse(model.Minutes)), daysSchedule);
+            await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
             return View();
         }
 
