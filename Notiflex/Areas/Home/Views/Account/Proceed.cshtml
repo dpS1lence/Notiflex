@@ -35,7 +35,7 @@
 
 					<div class="wrap-input100">
 						<a class="text-info-proceed">
-							Telegram chat Id <i class="fa fa-question-circle icon-active"></i>
+							Telegram chat Id <a asp-action="Telegram" asp-controller="Home" class="fa fa-question-circle icon-active"></a>
 						</a>
 					</div>
 					
@@ -50,9 +50,16 @@
 
 					<div class="wrap-input100">
 						<a class="text-info-proceed">
-							Home Town <i class="fa fa-question-circle icon-active"></i>
+							Home Town <i class="fa fa-question-circle icon-active town"></i>
 						</a>
 					</div>
+
+					@*<div class="wrap-input100">
+						<div class="tooltip">
+							Home Town <i class="fa fa-question-circle icon-active town"></i>
+							<span class="tooltiptext">We want your home town to generate most acurate data for you when...</span>
+						</div>
+					</div>*@
 					
 					<div class="wrap-input100">
 						<input asp-for="@Model.HomeTown" class="input100" type="text" name="HomeTown" placeholder="Town" />

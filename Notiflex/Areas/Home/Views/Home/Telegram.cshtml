@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Telegram-info";
+}
+<head>
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="~/templates/login_v1/images/icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/templates/login_v1/css/main.css">
+    <link href="~/css/chain/animated.css" rel="stylesheet" />
+    <link href="~/css/chain/owl.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-register100 wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
+                @*<div class="login100-pic js-tilt" data-tilt>
+                <img src="~/images/notifications@2x.jpg" alt="IMG">
+                </div>*@
+
+                <form method="post" asp-controller="Account" asp-action="Proceed" class="login100-form">
+                    <span class="login100-logo-span">
+                        <a class="login100-logo-a" asp-controller="Home" asp-action="Index"><img class="login100-logo" src="~/images/logos/notiflex_logo_01.png" /></a>
+                    </span>
+
+                    <div class="wrap-input100">
+                        <ul>
+                            <li>
+                                1. Open Telegram，Type userinfobot in the search bar.
+
+                            </li>
+                            <li>
+                                2. Then choose the contact.
+
+                            </li>
+                            <li>
+                                3. Click Start.
+
+                            </li>
+                            <li>
+                                4. You will see your UserID as the userinfobot sent to you. ( The Number ID)
+
+                            </li>
+                            <li>
+                                Why we need this information?
+
+                            </li>
+                            <li>
+                                Having the Telegram chat ID of the user in our web app is crucial for delivering weather reports directly to their device.
+                                This allows us to send notifications in real-time, ensuring that the user always has up-to-date information about the weather.
+                                Additionally, the chat ID allows us to personalize the weather reports and tailor them to the user's preferences.@*
+                                This ensures a seamless and efficient experience for the user, allowing them to access the information they need quickly and easily.
+                                By having the Telegram chat ID in our web app, we can provide users with a more convenient and streamlined weather report service.*@
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/js/chain/owl-carousel.js"></script>
+<script src="~/js/chain/animation.js"></script>
+<script src="~/js/chain/custom.js"></script>
