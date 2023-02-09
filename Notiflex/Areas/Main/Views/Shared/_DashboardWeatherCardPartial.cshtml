@@ -1,9 +1,98 @@
 ﻿@using Notiflex.ViewModels;
+@using System.Globalization;
 @model List<WeatherCardViewModel>
 @{
     string value = string.Empty;
-}
+    List<WeatherCardViewModel> days = new List<WeatherCardViewModel>();
 
+
+    foreach (var item in Model)
+    {
+        if (item.Date.Substring(8, 2) != value)
+        {
+            value = item.Date.Substring(8, 2);
+            days.Add(item);
+        }
+    }
+
+}
+<link href="~/css/weathercard.css" rel="stylesheet" />
+<div id="weatherCardContainer" class="container">
+    <div class="card card-1">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="temp">@Model.First().Temp</div>
+                            <div class="location">@Model.First().Name</div>
+                        </div>
+                        <div class="col-6 justify-content-right">
+                            <img class="img-fluid" src="https://img.icons8.com/plasticine/100/000000/sun.png">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card card-2">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        @for (int i = 0; i < 4; i++)
+                        {
+                            <div class="col">
+                                <div class="row row1">@Model[i].Temp</div>
+                                <div class="row row2"><img class="img-fluid" src="https://img.icons8.com/ios/100/000000/sun.png" /></div>
+                                <div class="row row3">@Model[i].Date.Substring(11, 5)</div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="card card-3">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        @foreach (var item in days)
+                        {
+                            <div class="col">
+                                <div class="row row1">@item.Temp</div>
+                                <div class="row row2"><img class="img-fluid" src="https://img.icons8.com/ios/100/000000/sun.png" /></div>
+                                <div class="row row3">@item.Date.Substring(5, 5)</div>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @*<div class="mainScreen">
     <div class="header vcenter">
         <div class="logoHold center">
@@ -64,132 +153,3 @@
         </div>
     </div>
 </div>*@
-
-<head>
-    <link href="css/style.css" rel="stylesheet">
-    <link href="~/vendors/weather/coreui-chartjs.css" rel="stylesheet" />
-</head>
-<body>
-
-    <div class="col-sm-6 col-lg-3">
-        <div class="card mb-4 text-white bg-primary">
-            <div class="card-body pb-0 d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="fs-4 fw-semibold">
-                        26K <span class="fs-6 fw-normal">
-                            (-12.4%
-                            <svg class="icon">
-                                <use xlink:href="~/vendors/weather/free.svg#cil-arrow-bottom"></use>
-                            </svg>)
-                        </span>
-                    </div>
-                    <div>Users</div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon">
-                            <use xlink:href="~/vendors/weather/free.svg#cil-options"></use>
-                        </svg>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
-                </div>
-            </div>
-            <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                <canvas class="chart" id="card-chart1" height="70"></canvas>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card mb-4 text-white bg-info">
-            <div class="card-body pb-0 d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="fs-4 fw-semibold">
-                        $6.200 <span class="fs-6 fw-normal">
-                            (40.9%
-                            <svg class="icon">
-                                <use xlink:href="~/vendors/weather/free.svg#cil-arrow-top"></use>
-                            </svg>)
-                        </span>
-                    </div>
-                    <div>Income</div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon">
-                            <use xlink:href="~/vendors/weather/free.svg#cil-options"></use>
-                        </svg>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
-                </div>
-            </div>
-            <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                <canvas class="chart" id="card-chart2" height="70"></canvas>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card mb-4 text-white bg-warning">
-            <div class="card-body pb-0 d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="fs-4 fw-semibold">
-                        2.49% <span class="fs-6 fw-normal">
-                            (84.7%
-                            <svg class="icon">
-                                <use xlink:href="~/vendors/weather/free.svg#cil-arrow-top"></use>
-                            </svg>)
-                        </span>
-                    </div>
-                    <div>Conversion Rate</div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon">
-                            <use xlink:href="~/vendors/weather/free.svg#cil-options"></use>
-                        </svg>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
-                </div>
-            </div>
-            <div class="c-chart-wrapper mt-3" style="height:70px;">
-                <canvas class="chart" id="card-chart3" height="70"></canvas>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-->
-    <div class="col-sm-6 col-lg-3">
-        <div class="card mb-4 text-white bg-danger">
-            <div class="card-body pb-0 d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="fs-4 fw-semibold">
-                        44K <span class="fs-6 fw-normal">
-                            (-23.6%
-                            <svg class="icon">
-                                <use xlink:href="~/vendors/weather/free.svg#cil-arrow-bottom"></use>
-                            </svg>)
-                        </span>
-                    </div>
-                    <div>Sessions</div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-transparent text-white p-0" type="button" data-coreui-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon">
-                            <use xlink:href="~/vendors/weather/free.svg#cil-options"></use>
-                        </svg>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
-                </div>
-            </div>
-            <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
-                <canvas class="chart" id="card-chart4" height="70"></canvas>
-            </div>
-        </div>
-    </div>
-    <script src="~/vendors/weather/coreui.bundle.min.js"></script>
-    <script src="~/vendors/weather/simplebar.min.js"></script>
-    <script src="~/vendors/weather/chart.min.js"></script>
-    <script src="~/vendors/weather/coreui-chartjs.js"></script>
-    <script src="~/vendors/weather/coreui-utils.js"></script>
-    <script src="~/vendors/weather/main.js"></script>
-</body>
