@@ -9,6 +9,7 @@ namespace Notiflex.MapperProfiles
         public DashboardMapperProfile()
         {
             CreateMap<WeatherCardDto, WeatherCardViewModel>();
+            CreateMap<TriggerGetOneDto, TriggerGetOneViewModel>();
         }
     }
 }
