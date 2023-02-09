@@ -35,5 +35,7 @@ namespace Notiflex.ViewModels
         public string Date { get; set; } = null!;
 
         public string Clouds { get; set; } = null!;
+
+        public string Icon { get; set; } = null!;
     }
 }

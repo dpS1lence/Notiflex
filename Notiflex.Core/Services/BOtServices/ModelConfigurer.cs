@@ -74,7 +74,8 @@ namespace Notiflex.Core.Services.BOtServices
                     Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
                     Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
                     Date = model.DtTxt.ToString(),
-                    Clouds = model.Clouds.All.ToString()
+                    Clouds = model.Clouds.All.ToString(),
+                    Icon = model.Weather.First().Icon
                 }) ;
             }
 
@@ -114,7 +115,8 @@ namespace Notiflex.Core.Services.BOtServices
                 Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
                 Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
                 Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
-                TimeZone = model.Timezone
+                TimeZone = model.Timezone,
+                Icon = model.Weather.First().Icon
             };
 
             return indexModel;

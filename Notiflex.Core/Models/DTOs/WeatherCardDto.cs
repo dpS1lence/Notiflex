@@ -37,5 +37,7 @@ namespace Notiflex.Core.Models.DTOs
         public string Clouds { get; set; } = null!;
 
         public int TimeZone { get; set; }
+
+        public string Icon { get; set; } = null!;
     }
 }
