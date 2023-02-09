@@ -1,4 +1,128 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
+
+#weatherCardContainer .container {
+	width: fit-content;
+}
+
+#weatherCardContainer > .card {
+	padding: 1.2rem 3rem 1rem 3rem;
+	margin: 1rem;
+	border-radius: 1.5rem;
+	border-color: rgba(238, 237, 237, 0.438);
+	box-shadow: 5px 8px 10px #80808033;
+}
+
+@media(max-width:767px) {
+	.card {
+		height: 10rem;
+		padding: 1.5rem 1.5rem 1rem 1.5rem;
+	}
+}
+
+.carousel-indicators li {
+	width: 5px;
+	height: 6px;
+	border-radius: 100%;
+	opacity: 0.2;
+	background-color: #000000;
+}
+
+.carousel-indicators {
+	margin-bottom: 0;
+}
+
+.temp {
+	font-size: 5rem;
+	color: rgb(57, 57, 58);
+}
+
+#weatherCardContainer > .card-1 {
+	background: linear-gradient(to right, #ffffff 50%, rgba(241, 224, 190, 0.507));
+}
+
+@media(max-width:767px) {
+	.temp {
+		font-size: 3rem;
+	}
+}
+
+.location {
+	margin-bottom: 1.5rem;
+}
+
+@media(max-width:767px) {
+	.location {
+		font-size: 0.75rem;
+	}
+}
+
+.img-fluid {
+	float: right;
+	width: 65%;
+	display: flex;
+	align-items: center;
+}
+
+.row2 .img-fluid {
+	margin: 10% 0;
+	opacity: 0.5;
+	width: 40%;
+}
+
+.card-2 .row {
+	justify-content: center;
+}
+
+.card-3 .row {
+	justify-content: center;
+}
+
+.row1 {
+	font-size: 0.7rem;
+	font-weight: bold;
+	color: black;
+}
+
+.row3 {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: black;
+}
+
+@media(max-width:400px) {
+	.row3 {
+		font-size: 0.7rem;
+		font-weight: bold;
+		color: black;
+	}
+}
+
+@media(max-width:320px) {
+	.row3 {
+		font-size: 0.6rem;
+		font-weight: bold;
+		color: black;
+	}
+}
+
+.row4 {
+	font-size: 0.6rem;
+	color: rgb(196, 196, 196);
+	margin: 5% 0 2.5rem;
+}
+
+.card-3 .row3 {
+	margin: 5% 0 2.5rem;
+}
+
+#weatherCardContainer > .col {
+	overflow: visible;
+}
+
+#weatherCardContainer > .row {
+	overflow: visible;
+}
+
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
 :root {
 	--gradient: linear-gradient( 135deg, 40%, #5151E5 100%);
@@ -126,9 +250,9 @@ body {
 
 .today-info {
 	padding: 15px;
-	margin: 0 25px 25px 25px;
+	margin: 0 25px 25px 25px;*/
 	/* 	box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25); */
-	border-radius: 10px;
+	/*border-radius: 10px;
 }
 
 	.today-info > div:not(:last-child) {
@@ -219,4 +343,4 @@ body {
 	width: 100%;
 	filter: blur(6px);
 	-webkit-filter: blur(6px);
-}
+}*/
