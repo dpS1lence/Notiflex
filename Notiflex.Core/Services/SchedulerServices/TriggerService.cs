@@ -42,23 +42,36 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, startingTime.Minute, daysOfWeek)
                 .InTimeZone(TimeZoneInfo.Utc))
                 .Build();
+
             var scheduler = await _schedulerFactory.GetScheduler();
             var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();
+
             if (triggers.Any(a => a.Key.Name.ToString() == (identity)))
             {
                 await scheduler.UnscheduleJob(trigger.Key);
             }
-            NotiflexTrigger notiflexTrigger = new NotiflexTrigger()
+
+            string days = string.Empty;
+            foreach (var item in daysOfWeek)
+            {
+                days += item + ", ";
+            }
+            days = days.Substring(0, days.Length - 2);
+
+            var notiflexTrigger = new NotiflexTrigger()
             {
                 Name = triggerName,
                 Identity = identity,
                 City = city,
                 Hour = startingTime.Hour,
                 Minutes = startingTime.Minute.ToString(),
-                UserId = userId
+                UserId = userId,
+                DaysOfWeek = days
             };
+
             await _repository.AddAsync(notiflexTrigger);
             await _repository.SaveChangesAsync();
+
             await scheduler.ScheduleJob(trigger);
         }
 
@@ -83,6 +96,26 @@ namespace Notiflex.Core.Services.SchedulerServices
             }
 
             return model;
+        }
+
+        public async Task DeleteTrigger(int triggerId, string userId)
+        {
+            var trigger = await _repository.GetByIdAsync<NotiflexTrigger>(triggerId);
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if(trigger.UserId != user.Id)
+            {
+                throw new ArgumentException("Given trigger doesen't belong to the user!");
+            }
+
+            user.Triggers.Remove(trigger);
+            _repository.Delete(trigger);
+
+            var scheduler = await _schedulerFactory.GetScheduler();
+            //scheduler.UnscheduleJob();
+
+            await _repository.SaveChangesAsync();
         }
 
         public async Task<int> GetHourUTC(string cityName, int hour)
