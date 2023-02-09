@@ -4,8 +4,6 @@
     {
         public string? HomeTown { get; set; }
 
-        public string? DefaultTime { get; set; }
-
         public string? ProfilePic { get; set; }
 
         public string? Description { get; set; }

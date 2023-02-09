@@ -1,0 +1,61 @@
+﻿@using Notiflex.ViewModels;
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+<link href="~/css/profile.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<div class="container">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150" alt="@Model.FirstName" src="@Model.ProfilePic"><span class="font-weight-bold">@Model.FirstName @Model.LastName</span><span class="text-black-50"></span><span> </span></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <form method="post" asp-area="Home" asp-controller="Account" asp-action="Profile">
+
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile Settings</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">First Name</label>
+                                <input class="form-control" asp-for="@Model.FirstName" type="text" class="input" placeholder="FirstName">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Last Surname</label>
+                                <input class="form-control" asp-for="@Model.LastName" type="text" class="input" placeholder="LastName">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">Description</label>
+                                <input class="form-control" asp-for="@Model.Description" type="text" class="input" placeholder="Description">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Profile Pictire</label>
+                                <input class="form-control" asp-for="@Model.ProfilePic" type="text" class="input" placeholder="ProfilePic">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Home Town</label>
+                                <input class="form-control" asp-for="@Model.HomeTown" type="text" class="input" placeholder="HomeTown">
+                            </div>
+                        </div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit Telegram data</span></div>
+                    <div class="col-md-12">
+                        <label class="labels">Telegram Chat Id</label>
+                        <input asp-for="@Model.TelegramChatId" type="text" class="input" placeholder="TelegramChatId">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

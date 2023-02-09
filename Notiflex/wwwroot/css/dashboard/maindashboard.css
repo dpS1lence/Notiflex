@@ -4,7 +4,22 @@
 	background-position: center top;
 	background-size: 100% 400px;
 	background-repeat: no-repeat;
-	
 }
 
+@media (max-width: 767px) {
+	#layoutWrapper {
+		background-size: 200% 400px;
+	}
+}
 
+@media (max-width: 576px) {
+	#layoutWrapper {
+		background-size: 300% 300px;
+	}
+}
+
+@media (max-width: 400px) {
+	#layoutWrapper {
+		background-size: 300% 300px;
+	}
+}
