@@ -13,5 +13,7 @@ namespace Notiflex.Core.Services.Contracts
         Task CreateWeatherReportTriggerAsync(string userId, string triggerName, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek);
 
         Task<int> GetHourUTC(string cityName, int hour);
+
+        Task<List<TriggerGetOneDto>> GetAllTriggers(string userId);
     }
 }

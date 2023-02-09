@@ -81,39 +81,12 @@ namespace Notiflex.Areas.Main.Controllers
         }
 
         [HttpGet]
-        public IActionResult Triggers()
+        public async Task<IActionResult> Triggers()
         {
-            var model = new List<TriggerAddViewModel>()
-                {
-                    new TriggerAddViewModel()
-                    {
-                        Id = 2,
-                        Name = "Trigger Name",
-                        City = "Varna",
-                        Hour = 8,
-                        Minutes = "00",
-                        Meridiem = "PM",
-                        DaySchedule = new Dictionary<DayOfWeek, bool>
-                        {
-                            { DayOfWeek.Monday, true },
-                            { DayOfWeek.Saturday, true }
-                        }
-                    },
-                    new TriggerAddViewModel()
-                    {
-                        Id = 1,
-                        Name = "School",
-                        City = "Veliko Tarnovo",
-                        Hour = 7,
-                        Minutes = "00",
-                        Meridiem = "AM",
-                        DaySchedule = new Dictionary<DayOfWeek, bool>
-                        {
-                            { DayOfWeek.Monday, true },
-                            { DayOfWeek.Tuesday, true }
-                        }
-                    }
-                };
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
+
+            var model = _mapper.Map<List<TriggerGetOneViewModel>>(await _triggerService.GetAllTriggers(userId));
+
             return View(model);
         }
 

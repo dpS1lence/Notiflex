@@ -27,7 +27,7 @@ namespace Notiflex.Infrastructure.Data.Models.ScheduleModels
 
         public int Interval { get; set; }
 
-        public IntervalUnit IntervalUnit { get; set; }
+        public string DaysOfWeek { get; set; } = null!;
 
         public string UserId { get; set; } = null!;
 

@@ -1,6 +1,6 @@
 ﻿@using Notiflex.ViewModels;
 @using System.Text;
-@model List<TriggerAddViewModel>
+@model List<TriggerGetOneViewModel>
 
 <link href="~/css/triggers/createtrigger.css" rel="stylesheet" />
 <link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
@@ -19,9 +19,8 @@
                                     <th data-priority="1">City</th>
                                     <th data-priority="2">Hour</th>
                                     <th data-priority="3">Minutes</th>
-                                    <th data-priority="4">Meridiem</th>
-                                    <th data-priority="5">Days</th>
-                                    <th data-priority="6">Delete</th>
+                                    <th data-priority="4">Days</th>
+                                    <th data-priority="5">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,21 +33,8 @@
                                             <td>@item.City</td>
                                             <td>@item.Hour</td>
                                             <td>@item.Minutes</td>
-                                            <td>@item.Meridiem</td>
-                                            @{
-                                                var dict = item.DaySchedule;
-                                                var sb = new StringBuilder();
-                                                foreach (var pair in dict)
-                                                {
-                                                    if (pair.Value == true)
-                                                    {
-                                                        sb.Append($"{pair.Key.ToString()}, ");
-                                                    }
-                                                }
-                                                string days = sb.ToString().Substring(0, sb.Length - 2);
+                                            <td>@item.DaySchedule</td>
 
-                                                <td>@days</td>
-                                            }
                                             <td>
                                                 <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-route-triggerId="@item.Id" class="fa fa-trash delete-icn"></a>
                                             </td>
