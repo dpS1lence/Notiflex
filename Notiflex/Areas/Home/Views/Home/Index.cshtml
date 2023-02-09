@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    @*<div class="container">
         <div class="row">
             <div class="col-lg-4">
                 <div class="service-item first-service">
@@ -123,10 +123,10 @@
                 </div>
             </div>            
         </div>
-    </div>
+    </div>*@
 </div>
 
-<div id="about" class="about-us section">
+@*<div id="about" class="about-us section">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">
@@ -176,7 +176,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <footer id="newsletter">
     <div class="container">
@@ -207,25 +207,19 @@
             <div class="col-lg-3">
                 <div class="footer-widget">
                     <h4>Contact Us</h4>
-                    <p>Rio de Janeiro - RJ, 22795-008, Brazil</p>
-                    <p><a href="#">010-020-0340</a></p>
-                    <p><a href="#">info@company.co</a></p>
+                    <p>Veliko Tarnovo, Bulgaria</p>
+                    <p><a href="#">+359 89 557 9275</a></p>
+                    <p><a href="#">notiflexnoreply@gmail.com</a></p>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="footer-widget">
                     <h4>About Us</h4>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">Pricing</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li>
+                            <a href="#">
+                                With Notiflex, you can stay ahead of the weather.
+                        </a></li>
                     </ul>
                 </div>
             </div>
@@ -234,34 +228,22 @@
                     <h4>Contributions</h4>
                     <ul>
                         <li><a href="https://www.freepik.com/free-vector/meteorology-abstract-concept-vector-illustration-met-station-meteorology-program-university-degree-weather-prediction-method-measuring-instruments-atmosphere-study-abstract-metaphor_11668297.htm#query=weather&position=20&from_view=search&track=sph">Images by vectorjuice on Freepik</a></li>
-                        <li><a href="#">App Engine</a></li>
-                        <li><a href="#">Programming</a></li>
-                        <li><a href="#">Development</a></li>
-                        <li><a href="#">App News</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">App Dev Team</a></li>
-                        <li><a href="#">Digital Web</a></li>
-                        <li><a href="#">Normal Apps</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="footer-widget">
-                    <h4>About Our Company</h4>
+                    <h4>About Us</h4>
                     <div class="logo">
-                        <img src="~/images/chain/white-logo.png" alt="">
+                        <img src="~/images/logos/325426440_3308245386059525_1586448652035003285_n.png" />
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                    <p>Get ready for anything with Notiflex - advanced weather reports and fashionably smart outfit suggestions.</p>
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="copyright-text">
                     <p>
-                        Copyright © 2022 Chain App Dev Company. All Rights Reserved.
-                        <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a><br>
-
-                        Distributed By: <a href="https://themewagon.com/" target="_blank" title="Bootstrap Template World">ThemeWagon</a>
+                        Copyright © 2023 Notiflex App. All Rights Reserved.
                     </p>
                 </div>
             </div>
@@ -278,28 +260,3 @@
 <script src="~/js/chain/custom.js"></script>
 <script src="~/js/chain/imagesloaded.js"></script>
 <script src="~/js/chain/popup.js"></script>
-
-@*@using Notiflex.Core.Models.HomePageModels;
-@model List<IndexModel>
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<link href="~/css/homepage.css" rel="stylesheet" />
-
-<div class="welcome text-center">
-    <img class="logo-bg unselectable" src="~/css/logo-no-background (2).png" />
-    <div class="bg-text">
-        <p class="unselectable">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a tincidunt neque. Curabitur euismod sit amet sem non cursus. Nulla dictum neque neque, vitae laoreet diam ullamcorper at. Phasellus eget efficitur tortor, sed rutrum quam. Nulla quis venenatis ex, non placerat ipsum. Cras vulputate interdum ante a venenatis. Integer auctor massa dui, sit amet placerat nibh rhoncus eu. Sed tellus justo, venenatis in sem vitae, pellentesque pulvinar tortor. Pellentesque dictum, ipsum a lobortis semper, est massa euismod enim, ut tincidunt odio diam ut erat. Duis sit amet felis efficitur, condimentum sem nec, tristique neque. Nam ac lacus eget ipsum tincidunt tempus vel vitae risus. Nam aliquam odio eu fermentum porttitor. Duis finibus nisl leo, sit amet ultrices sem eleifend nec.
-        </p>
-    </div>
-    @if(User?.Identity?.IsAuthenticated ?? false)
-    {
-        <a type="submit" href="@Url.Action("Browse", "Home")" class="button">Browse</a>
-    }
-    else
-    {
-        <a type="submit" href="@Url.Action("Register", "Account")" class="button">Join us</a>
-    }
-</div>*@

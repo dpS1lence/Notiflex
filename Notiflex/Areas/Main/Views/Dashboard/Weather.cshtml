@@ -14,12 +14,12 @@
     </div>
 </form>*@
 <div class="row height">
-
     <div id="searchContainer" class="container">
-        
         <div class="form mb-5">
             <i class="fa fa-search"></i>
-            <input type="text" class="form-control form-input" placeholder="Search for a city...">
+            <form asp-action="Weather" asp-controller="Dashboard" asp-area="Main" method="post">
+                <input asp-route-value="value" asp-for="@value" type="search" class="form-control form-input" placeholder="Search for a city...">
+            </form>
         </div>
     </div>
 </div>

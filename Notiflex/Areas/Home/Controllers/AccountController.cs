@@ -159,51 +159,5 @@ namespace Notiflex.Areas.Home.Controllers
 
             return RedirectToAction("Logout", "Account", new { area = "Home" });
 		}
-
-		[HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Profile()
-        {
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
-
-            ProfileDto user = await _accountService.GetUserData(userId);
-
-            var model = _mapper.Map<ProfileViewModel>(user);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Profile(ProfileViewModel model)
-        {
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
-
-            ProfileDto dto = new()
-            {
-                TelegramChatId = model.TelegramChatId,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Description = model.Description,
-                ProfilePic = model.ProfilePic,
-                DefaultTime = model.DefaultTime,
-                HomeTown = model.HomeTown
-            };
-
-            await _accountService.EditProfile(userId, dto);
-
-            ProfileViewModel prModel = new()
-            {
-                TelegramChatId = dto.TelegramChatId,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Description = dto.Description,
-                ProfilePic = dto.ProfilePic,
-                DefaultTime = dto.DefaultTime,
-                HomeTown = dto.HomeTown
-            };
-
-            return View(prModel);
-        }
     }
 }

@@ -8,17 +8,9 @@
             <img class="scaledown" src="~/images/logos/notiflex_logo_01.png" alt="Notiflex" />
         </div>
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-        <li class="nav-title">Information</li>
-
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Weather" asp-controller="Dashboard" asp-asp-area="Main">
-                    Weather
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="colors.html">
-                    Colors
-                </a>
-            </li>           
+        <li class="nav-title">Navigation</li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Weather">Weather</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Dashboard" asp-action="Triggers">Triggers</a></li>
          </ul>
     </div>

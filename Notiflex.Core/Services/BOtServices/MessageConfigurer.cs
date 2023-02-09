@@ -129,7 +129,7 @@ namespace Notiflex.Core.Services.BOtServices
             message.AppendLine($"🌬️ Wind Direction: {model.Wind.Deg} - Which Way is the Wind Blowing?");
             message.AppendLine();
             message.AppendLine($"🌳 Pressure: {model.Main.Pressure} hPa");
-            message.AppendLine($"🌬️ Humidity: {model.Main.Humidity}%");
+            message.AppendLine($"🌬️ Humidity: {model.Main.Humidity}%");/*
             message.AppendLine();
             message.AppendLine($"💃 Outfit Recommendations:");
             message.AppendLine();
@@ -142,7 +142,7 @@ namespace Notiflex.Core.Services.BOtServices
             message.AppendLine($"👖 A t-shirt paired with shorts and sneakers is a comfortable and casual choice for those warm days.");
             message.AppendLine();
             message.AppendLine($"3️⃣ \"Summer Vibes\" Option:");
-            message.AppendLine($"🌊 A tropical print shirt with cropped pants and slides is a fun and summery choice for those warm days.");
+            message.AppendLine($"🌊 A tropical print shirt with cropped pants and slides is a fun and summery choice for those warm days.");*/
 
             return message.ToString();
         }

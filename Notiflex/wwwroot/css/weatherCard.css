@@ -36,8 +36,9 @@
 }
 
 #weatherCardContainer > .card-1 {
-	background: linear-gradient(to right, #ffffff 50%, rgba(241, 224, 190, 0.507));
+	background: linear-gradient(to right, #fff 50%, rgba(61, 175, 245, 0.51));
 }
+
 
 @media(max-width:767px) {
 	.temp {

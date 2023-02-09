@@ -16,6 +16,10 @@
     <link href="~/vendors/svg/coreui-chartjs.css" rel="stylesheet" />
 </head>
 
+<div class="row">
+    <h2 class="table-title text-white">Welcome back @Model.ProfileView.FirstName.</h2>
+</div>
+
 <body onload="ChartData('@Model.DashboardWeatherCard.First().Name',
 '@Model.TimeRanges[0]', '@Model.TimeRanges[1]', '@Model.TimeRanges[2]',
 '@Model.TimeRanges[3]', '@Model.TimeRanges[4]', '@Model.TimeRanges[5]', '@Model.TimeRanges[6]',

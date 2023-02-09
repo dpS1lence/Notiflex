@@ -150,7 +150,51 @@ namespace Notiflex.Areas.Main.Controllers
         {
             await _triggerService.DeleteTrigger(triggerId);
 
-            return RedirectToAction(nameof(Dashboard));
+            return RedirectToAction(nameof(Triggers));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
+
+            ProfileDto user = await _accountService.GetUserData(userId);
+
+            var model = _mapper.Map<ProfileViewModel>(user);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            ProfileDto dto = new()
+            {
+                TelegramChatId = model.TelegramChatId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Description = model.Description,
+                ProfilePic = model.ProfilePic,
+                HomeTown = model.HomeTown
+            };
+
+            await _accountService.EditProfile(userId, dto);
+
+            ProfileViewModel prModel = new()
+            {
+                TelegramChatId = dto.TelegramChatId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Description = dto.Description,
+                ProfilePic = dto.ProfilePic,
+                HomeTown = dto.HomeTown
+            };
+
+            return RedirectToAction(nameof(Profile));
         }
     }
 }
