@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Notiflex.Core.Exceptions;
 using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.ScheduleModels;
@@ -32,7 +33,7 @@ namespace Notiflex.Core.Services.SchedulerServices
 
         public async Task CreateWeatherReportTriggerAsync(string userId, string triggerName, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek)
         {
-            string identity = telegramChatId + " Report Trigger";
+            string identity = Guid.NewGuid().ToString();
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity(identity)
@@ -44,12 +45,7 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .Build();
 
             var scheduler = await _schedulerFactory.GetScheduler();
-            var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();
-
-            if (triggers.Any(a => a.Key.Name.ToString() == (identity)))
-            {
-                await scheduler.UnscheduleJob(trigger.Key);
-            }
+            var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();            
 
             string days = string.Empty;
             foreach (var item in daysOfWeek)
@@ -78,6 +74,10 @@ namespace Notiflex.Core.Services.SchedulerServices
         public async Task<List<TriggerGetOneDto>> GetAllTriggers(string userId)
         {
             var user = await _userManager.Users.Include(a => a.Triggers).Where(a => a.Id == userId).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
 
             var model = new List<TriggerGetOneDto>();
 
@@ -98,23 +98,17 @@ namespace Notiflex.Core.Services.SchedulerServices
             return model;
         }
 
-        public async Task DeleteTrigger(int triggerId, string userId)
+        public async Task DeleteTrigger(int triggerId)
         {
             var trigger = await _repository.GetByIdAsync<NotiflexTrigger>(triggerId);
-
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if(trigger.UserId != user.Id)
-            {
-                throw new ArgumentException("Given trigger doesen't belong to the user!");
-            }
-
-            user.Triggers.Remove(trigger);
-            _repository.Delete(trigger);
+           
 
             var scheduler = await _schedulerFactory.GetScheduler();
-            //scheduler.UnscheduleJob();
+            var key = new TriggerKey(trigger.Identity);
 
+            await _repository.DeleteAsync<NotiflexTrigger>(trigger.Id);
+
+            await scheduler.UnscheduleJob(key);
             await _repository.SaveChangesAsync();
         }
 

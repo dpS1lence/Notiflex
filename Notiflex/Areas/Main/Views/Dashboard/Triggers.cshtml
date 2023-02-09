@@ -5,50 +5,48 @@
 <link href="~/css/triggers/createtrigger.css" rel="stylesheet" />
 <link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
 
-<h2 class="table-title">Active Triggers</h2>
-<form method="get" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
-    <div class="dashboardContainer wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive" data-pattern="priority-columns">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th data-priority="1">City</th>
-                                    <th data-priority="2">Hour</th>
-                                    <th data-priority="3">Minutes</th>
-                                    <th data-priority="4">Days</th>
-                                    <th data-priority="5">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null)
-                                {
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@item.Name</td>
-                                            <td>@item.City</td>
-                                            <td>@item.Hour</td>
-                                            <td>@item.Minutes</td>
-                                            <td>@item.DaySchedule</td>
+<h2 class="table-title text-white">Active triggers</h2>
+<div class="row">
+    <div id="buttonContainer" class="container">
+        <form asp-action="CreateTrigger" asp-controller="Dashboard" asp-area="Main" method="get">
+            <button type="submit" class="triggers-form-btn">Create Trigger</button>
 
-                                            <td>
-                                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-route-triggerId="@item.Id" class="fa fa-trash delete-icn"></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+        </form>
+    </div>
+</div>
+<div id="triggersContainer" class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                    <div class="card-body pt-0 mt-1">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-primary">
+                                    <i class="fa-solid fa-clock fa-2xl"></i>
+                                    @*<span class="widget-49-date-day">09</span>
+                                <span class="widget-49-date-month">apr</span>*@
+                                </div>
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">Created at: no value</span>
+                                </div>
+                            </div>
+                            <ol class="widget-49-meeting-points">
+                                <li class="widget-49-meeting-item"><span>@item.DaySchedule</span></li>
+                                <li class="widget-49-meeting-item"><span>Will notify at: @item.Hour:@item.Minutes</span></li>
+                                <li class="widget-49-meeting-item"><span>Type: Daily Report</span></li>
+                            </ol>
+                            <div class="widget-49-meeting-action">
+                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-area="Main" asp-route-triggerId="@item.Id" class="btn btn-sm btn-flash-border-primary text-danger">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-    <button class="create-trigger-btn" type="submit">
-        Create New Trigger
-    </button>
-</form>
+</div>

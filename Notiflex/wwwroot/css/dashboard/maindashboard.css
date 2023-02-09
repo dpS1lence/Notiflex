@@ -1,25 +1,10 @@
 ﻿#layoutWrapper {
-	background-image: url(../../images/dashboard/bluebgtop.jpg);
+	background-image: url(../../images/dashboardbackground3.png);
 	width: 100%;
-	background-position: top;
-	background-size: 100% 700px;
+	background-position: center top;
+	background-size: 100% 400px;
 	background-repeat: no-repeat;
+	
 }
 
-@media (max-width: 767px) {
-	#layoutWrapper {
-		background-size: 150% 550px;
-	}
-}
 
-@media (max-width: 576px) {
-	#layoutWrapper {
-		background-size: 200% 500px;
-	}
-}
-
-@media (max-width: 400px) {
-	#layoutWrapper {
-		background-size: 300% 400px;
-	}
-}

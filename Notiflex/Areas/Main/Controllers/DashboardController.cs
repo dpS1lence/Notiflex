@@ -148,9 +148,7 @@ namespace Notiflex.Areas.Main.Controllers
 
         public async Task<IActionResult> DeleteTrigger(int triggerId)
         {
-            //TODO
-            //Check if the given triggerId belongs to the user
-            //If so, delete it
+            await _triggerService.DeleteTrigger(triggerId);
 
             return RedirectToAction(nameof(Dashboard));
         }
