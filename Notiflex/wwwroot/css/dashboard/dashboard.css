@@ -57,7 +57,7 @@
   --cui-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --cui-body-font-family: var(--cui-font-sans-serif);
   --cui-body-font-size: 1rem;
-  --cui-body-font-weight: 400;
+  --cui-body-font-weight: 500;
   --cui-body-line-height: 1.5;
   --cui-body-color: rgba(44, 56, 74, 0.95);
   --cui-body-bg: #fff;
@@ -92,7 +92,7 @@
 
 body {
   margin: 0;
-  font-family: var(--cui-body-font-family);
+  font-family: Roboto, sans-serif;
   font-size: var(--cui-body-font-size);
   font-weight: var(--cui-body-font-weight);
   line-height: var(--cui-body-line-height);

@@ -15,5 +15,6 @@ namespace Notiflex.Core.Services.Contracts
         Task<int> GetHourUTC(string cityName, int hour);
 
         Task<List<TriggerGetOneDto>> GetAllTriggers(string userId);
+        Task DeleteTrigger(int triggerId);
     }
 }
