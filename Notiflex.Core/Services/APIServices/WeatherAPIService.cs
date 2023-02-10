@@ -59,6 +59,10 @@ namespace Notiflex.Core.Services.APIServices
             {
                 throw new NullReferenceException();
             }
+            else if(result.Count <= 0)
+            {
+                return new NameToCoordinatesModel();
+            }
             return result.First();
         }
     }

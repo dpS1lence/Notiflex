@@ -80,6 +80,11 @@ ul, li {
 	list-style-type: none;
 }
 
+.alert-container {
+	display: flex;
+	justify-content: center;
+}
+
 .icon-active{
 	cursor: pointer;
 }
