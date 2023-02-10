@@ -148,7 +148,9 @@ namespace Notiflex.Areas.Main.Controllers
 
         public async Task<IActionResult> DeleteTrigger(int triggerId)
         {
-            await _triggerService.DeleteTrigger(triggerId);
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            await _triggerService.DeleteTrigger(triggerId, userId);
 
             return RedirectToAction(nameof(Triggers));
         }
@@ -170,6 +172,13 @@ namespace Notiflex.Areas.Main.Controllers
         [Authorize]
         public async Task<IActionResult> Profile(ProfileViewModel model)
         {
+            if ((await _modelConfigurer.ConvertNameToCoordinates(model.HomeTown))[2] == null)
+            {
+                TempData["StatusMessageDanger"] = "Invalid city name!";
+
+                return RedirectToAction(nameof(Profile));
+            }
+
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
 
             ProfileDto dto = new()

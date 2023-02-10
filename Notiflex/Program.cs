@@ -37,7 +37,7 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
 	options.LoginPath = "/Home/Account/Login";
-	options.AccessDeniedPath = "/Home/Account/Login";
+	options.AccessDeniedPath = "/Home/Account/Logout";
 });
 
 builder.Services.AddAutoMapper(config =>

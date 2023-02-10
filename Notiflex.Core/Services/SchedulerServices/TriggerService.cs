@@ -35,12 +35,22 @@ namespace Notiflex.Core.Services.SchedulerServices
         {
             string identity = Guid.NewGuid().ToString();
 
+            int minutes;
+            if(startingTime.Minute.ToString() == "00")
+            {
+                minutes = 0;
+            }
+            else
+            {
+                minutes = startingTime.Minute;
+            }
+
             var trigger = TriggerBuilder.Create()
                 .WithIdentity(identity)
                 .ForJob("ReportSenderJob")
                 .UsingJobData("city", city)
                 .UsingJobData("telegramChatId", telegramChatId)
-                .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, startingTime.Minute, daysOfWeek)
+                .WithSchedule(CronScheduleBuilder.AtHourAndMinuteOnGivenDaysOfWeek(startingTime.Hour, minutes, daysOfWeek)
                 .InTimeZone(TimeZoneInfo.Utc))
                 .Build();
 
@@ -98,17 +108,21 @@ namespace Notiflex.Core.Services.SchedulerServices
             return model;
         }
 
-        public async Task DeleteTrigger(int triggerId)
+        public async Task DeleteTrigger(int triggerId, string userId)
         {
             var trigger = await _repository.GetByIdAsync<NotiflexTrigger>(triggerId);
-           
+
+            if(trigger.UserId != userId || userId == null)
+            {
+                throw new ArgumentException("Invalid user!");
+            }
 
             var scheduler = await _schedulerFactory.GetScheduler();
             var key = new TriggerKey(trigger.Identity);
 
             await _repository.DeleteAsync<NotiflexTrigger>(trigger.Id);
-
             await scheduler.UnscheduleJob(key);
+
             await _repository.SaveChangesAsync();
         }
 

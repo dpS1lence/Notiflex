@@ -2,107 +2,118 @@
 @model TriggerAddViewModel
 
 <link href="~/css/triggers/createtrigger.css" rel="stylesheet" />
+<link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
+
 <div class="trigger-form">
-    <form method="post" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
-        <h1>New Trigger</h1>
-        <div class="inpt-box">
-            <a class="title-inpt">Name</a>
-            <input class="form-control text-bx" asp-for="@Model.Name" type="text" placeholder="Enter Name">
+    <div>
+        <div class="card card-margin">
+            <div class="card-header no-border">
+                <h3 class="card-title">New Trigger</h3>
+            </div>
+            <div class="card-body pt-0 mt-1">
+                <form method="post" asp-area="Main" asp-controller="Dashboard" asp-action="CreateTrigger">
+                    <div class="inpt-box">
+                        <a class="title-inpt">Name</a>
+                        <input class="form-control text-bx" asp-for="@Model.Name" type="text" placeholder="Enter Name" required>
+                    </div>
+                    <div class="inpt-box">
+                        <a class="title-inpt">Location</a>
+                        <input class="form-control text-bx" asp-for="@Model.City" type="text" placeholder="Enter Location" required>
+                    </div>
+                    <div class="inpt-box">
+                        <a class="title-inpt">Notify me at</a>
+                        <select class="form-control text-bx" asp-for="@Model.Hour" placeholder="Option" required>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                        </select>
+                        <select class="form-control text-bx" asp-for="@Model.Minutes" placeholder="Option" required>
+                            <option>00</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                        </select>@*
+                        <select class="form-control text-bx" asp-for="@Model.Meridiem" placeholder="Option">
+                        <option>AM</option>
+                        <option>PM</option>
+                        </select>*@
+                    </div>
+                    <div class="inpt-box">
+                        <a class="title-inpt">Choose day interval</a>
+                        <ul class="list">
+                            <li>
+                                <input id="Monday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Monday]" type="checkbox" class="check-box">
+                                <label for="Monday">Monday</label>
+                            </li>
+                            <li>
+                                <input id="Tuesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Tuesday]" type="checkbox" class="check-box">
+                                <label for="Tuesday">Tuesday</label>
+                            </li>
+                            <li>
+                                <input id="Wednesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Wednesday]" type="checkbox" class="check-box">
+                                <label for="Wednesday">Wednesday</label>
+                            </li>
+                            <li>
+                                <input id="Thursday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Thursday]" type="checkbox" class="check-box">
+                                <label for="Thursday">Thursday</label>
+                            </li>
+                            <li>
+                                <input id="Friday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Friday]" type="checkbox" class="check-box">
+                                <label for="Friday">Friday</label>
+                            </li>
+                            <li>
+                                <input id="Saturday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Saturday]" type="checkbox" class="check-box">
+                                <label for="Saturday">Saturday</label>
+                            </li>
+                            <li>
+                                <input id="Sunday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Sunday]" type="checkbox" class="check-box">
+                                <label for="Sunday">Sunday</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="inpt-box">
+                        <a class="title-inpt">Timezone</a>
+                        <ul class="list">
+                            <li>
+                                <input id="given" value=true asp-for="@Model.GivenTimeZone" type="radio" class="check-box">
+                                <label for="given">Given timezone</label>
+                            </li>
+                            <li>
+                                <input id="my" value=false asp-for="@Model.GivenTimeZone" type="radio" class="check-box">
+                                <label for="my">My timezone</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary profile-button" type="submit">
+                        Create Trigger
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="inpt-box">
-            <a class="title-inpt">Location</a>
-            <input class="form-control text-bx" asp-for="@Model.City" type="text" placeholder="Enter Location">
-        </div>
-        <div class="inpt-box">
-            <a class="title-inpt">Notify me at</a>
-            <select class="form-control text-bx" asp-for="@Model.Hour" placeholder="Option">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-            </select>
-            <select class="form-control text-bx" asp-for="@Model.Minutes" placeholder="Option">
-                <option>00</option>
-                <option>10</option>
-                <option>20</option>
-                <option>30</option>
-                <option>40</option>
-                <option>50</option>
-            </select>@*
-            <select class="form-control text-bx" asp-for="@Model.Meridiem" placeholder="Option">
-            <option>AM</option>
-            <option>PM</option>
-            </select>*@
-        </div>
-        <div class="inpt-box">
-            <a class="title-inpt">Choose day interval</a>
-            <ul class="list">
-                <li>
-                    <input id="Monday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Monday]" type="checkbox" class="check-box">
-                    <label for="Monday">Monday</label>
-                </li>
-                <li>
-                    <input id="Tuesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Tuesday]" type="checkbox" class="check-box">
-                    <label for="Tuesday">Tuesday</label>
-                </li>
-                <li>
-                    <input id="Wednesday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Wednesday]" type="checkbox" class="check-box">
-                    <label for="Wednesday">Wednesday</label>
-                </li>
-                <li>
-                    <input id="Thursday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Thursday]" type="checkbox" class="check-box">
-                    <label for="Thursday">Thursday</label>
-                </li>
-                <li>
-                    <input id="Friday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Friday]" type="checkbox" class="check-box">
-                    <label for="Friday">Friday</label>
-                </li>
-                <li>
-                    <input id="Saturday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Saturday]" type="checkbox" class="check-box">
-                    <label for="Saturday">Saturday</label>
-                </li>
-                <li>
-                    <input id="Sunday" value=true asp-for="@Model.DaySchedule[DayOfWeek.Sunday]" type="checkbox" class="check-box">
-                    <label for="Sunday">Sunday</label>
-                </li>
-            </ul>
-        </div>
-        <div class="inpt-box">
-            <a class="title-inpt">Timezone</a>
-            <ul class="list">
-                <li>
-                    <input id="given" value=true asp-for="@Model.GivenTimeZone" type="radio" class="check-box">
-                    <label for="given">Given timezone</label>
-                </li>
-                <li>
-                    <input id="my" value=false asp-for="@Model.GivenTimeZone" type="radio" class="check-box">
-                    <label for="my">My timezone</label>
-                </li>
-            </ul>
-        </div>
-        <button class="create-trigger-btn" type="submit">
-            Create Trigger
-        </button>
-    </form>
+    </div>
+    
 </div>
 
