@@ -41,13 +41,13 @@ figure, header, nav, section, article, aside, footer, figcaption {
 	padding: 0;
 	border: 0;
 	outline: 0;
-	
 }
+
 html, body {
 	margin: 0;
 	height: 100%;
 	background-image: url(../../images/chain/slider-left-dec.png);
-	background-repeat:no-repeat;
+	background-repeat: no-repeat;
 }
 
 /* clear fix */
@@ -148,7 +148,6 @@ global styles
 */
 html,
 body {
-	
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -340,7 +339,6 @@ header
 .header-area {
 	background-color: transparent;
 	border-bottom: 1px solid rgba(42,42,42,0.2);
-	
 	left: 0px;
 	right: 0px;
 	z-index: 10;
@@ -537,6 +535,21 @@ header
 	display: none;
 }
 
+@media (max-width: 767px) {
+	.header-area .main-nav .menu-trigger {
+		cursor: pointer;
+		display: block;
+		position: absolute;
+		top: 33px;
+		width: 32px;
+		height: 40px;
+		text-indent: 0em;
+		z-index: 0;
+		right: 40px;
+		display: none;
+	}
+}
+
 .background-header .main-nav .menu-trigger {
 	top: 23px;
 }
@@ -716,7 +729,6 @@ header
 		}
 
 		.header-area .logo {
-			margin-left: 30px;
 		}
 
 		.header-area .menu-trigger {
@@ -2319,4 +2331,10 @@ responsive
 
 .logo {
 	width: 20%;
+}
+
+@media (max-width: 767px) {
+	.logo {
+		width: 50%;
+	}
 }
