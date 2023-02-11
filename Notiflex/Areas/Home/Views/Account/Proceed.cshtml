@@ -22,7 +22,6 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-register100 wow slideInRight" data-wow-duration="0.75s" data-wow-delay="0s">
-
                 <form method="post" asp-controller="Account" asp-action="Proceed" class="login100-form">
                     @if (TempData["StatusMessage"] != null)
                     {
@@ -49,6 +48,7 @@
                             Complete a few more steps to unlock the full potential of our weather app.
                         </a>
                     </div>
+                    <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="Notiflex_bot" data-size="large" data-auth-url="https://notiflex20230210192522.azurewebsites.net/Home/Account/Proceed" data-request-access="write"></script>
 
                     <div class="wrap-input100">
                         <a class="text-info-proceed">
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="wrap-input100">
-                        <input asp-for="@Model.TelegramId" class="input100" type="password" name="TelegramId" placeholder="Id" />
+                        <input asp-for="@Model.TelegramId" readonly value="@ViewData["id"]" class="input100" type="password" name="TelegramId" placeholder="Id" />
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -86,7 +86,7 @@
                         </span>
                         <span asp-validation-for="@Model.HomeTown"></span>
                     </div>
-
+                    <input type="hidden" asp-for=@Model.PhotoUrl value="@ViewData["photo_url"]">
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn">
                             Proceed

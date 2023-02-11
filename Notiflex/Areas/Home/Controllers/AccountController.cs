@@ -15,6 +15,7 @@ using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.ViewModels;
 using System.Security.Claims;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace Notiflex.Areas.Home.Controllers
 {
@@ -177,24 +178,29 @@ namespace Notiflex.Areas.Home.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Proceed()
+        public IActionResult Proceed(string? id, string? photo_url)
         {
+            if (photo_url == null)
+            {
+                photo_url = "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg";
+            }
             if (User.IsInRole("ApprovedUser"))
             {
                 return RedirectToAction("Profile", "Dashboard", new { area = "Main" });
             }
-
+            ViewData["id"] = id;
+            ViewData["photo_url"] = photo_url;
             return PartialView();
         }
 
 		[HttpPost]
 		[Authorize]
 		public async Task<IActionResult> Proceed(ProceedViewModel model)
-		{
+		{           
             if (!ModelState.IsValid)
 			{
 				return PartialView(model);
-			}
+			}           
 
             if ((await _modelConfigurer.ConvertNameToCoordinates(model.HomeTown))[2] == null)
             {
@@ -204,9 +210,9 @@ namespace Notiflex.Areas.Home.Controllers
             }
 
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
-            await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown);
+            await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown, model.PhotoUrl);
 
             return RedirectToAction("Logout", "Account", new { area = "Home" });
-		}
+		}        
     }
 }

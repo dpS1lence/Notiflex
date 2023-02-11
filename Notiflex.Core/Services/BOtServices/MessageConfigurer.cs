@@ -118,7 +118,7 @@ namespace Notiflex.Core.Services.BOtServices
 
             message.AppendLine($"🌤️ Weather Report for {cityName}({model.Sys.Country}) - Your One-Stop Shop for All Things Weather and Style!");
             message.AppendLine();
-            message.AppendLine($"📅 {DateTime.FromFileTime(model.Timezone)} - Time to Check the Skies and Your Closet!");
+            //message.AppendLine($"📅 {DateTime.FromFileTime(model.Dt)} - Time to Check the Skies and Your Closet!");
             message.AppendLine($"🌦️ Current Conditions: {model.Weather.First().Description} - How's the Weather Outside?");
             message.AppendLine();
             message.AppendLine($"🌡️ Temperature: {(model.Main.Temp - 273.15):f2}°C - How's the Heat?");
@@ -129,20 +129,7 @@ namespace Notiflex.Core.Services.BOtServices
             message.AppendLine($"🌬️ Wind Direction: {model.Wind.Deg} - Which Way is the Wind Blowing?");
             message.AppendLine();
             message.AppendLine($"🌳 Pressure: {model.Main.Pressure} hPa");
-            message.AppendLine($"🌬️ Humidity: {model.Main.Humidity}%");/*
-            message.AppendLine();
-            message.AppendLine($"💃 Outfit Recommendations:");
-            message.AppendLine();
-            message.AppendLine($"🌞 Warm and Breezy 🌞");
-            message.AppendLine();
-            message.AppendLine($"1️⃣ \"Effortless Chic\" Option:");
-            message.AppendLine($"💃 A lightweight sundress with a denim jacket and sandals is a breezy and stylish option for warmer days.");
-            message.AppendLine();
-            message.AppendLine($"2️⃣ \"Comfortable Casual\" Option:");
-            message.AppendLine($"👖 A t-shirt paired with shorts and sneakers is a comfortable and casual choice for those warm days.");
-            message.AppendLine();
-            message.AppendLine($"3️⃣ \"Summer Vibes\" Option:");
-            message.AppendLine($"🌊 A tropical print shirt with cropped pants and slides is a fun and summery choice for those warm days.");*/
+            message.AppendLine($"🌬️ Humidity: {model.Main.Humidity}%");          
 
             return message.ToString();
         }

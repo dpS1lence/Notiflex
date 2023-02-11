@@ -25,6 +25,7 @@ namespace Notiflex.Core.Services.BotServices
         {
             TelegramBotClient bot = new(config.GetValue<string>("Notiflex_botId"));
             
+            
             if(message == null)
             {
                 throw new ArgumentException("null message");
