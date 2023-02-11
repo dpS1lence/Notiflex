@@ -186,7 +186,7 @@ namespace Notiflex.Core.Services.AccountServices
         }
 
 
-        public async Task AprooveUser(string userId, string telegramId, string hometown)
+        public async Task AprooveUser(string userId, string telegramId, string hometown, string photo)
         {
             string roleName = "ApprovedUser";
             if (!await _roleManager.RoleExistsAsync(roleName))
@@ -204,6 +204,7 @@ namespace Notiflex.Core.Services.AccountServices
                 
                 user.TelegramInfo = telegramId;
                 user.HomeTown = hometown;
+                user.ProfilePic = photo;
 
                 _repo.Update(user);
                 await _repo.SaveChangesAsync();

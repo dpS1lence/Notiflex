@@ -303,6 +303,7 @@ iframe {
 	width: 100%;
 	z-index: 1;
 	margin-bottom: 10px;
+	
 }
 
 .input100 {
@@ -316,6 +317,7 @@ iframe {
 	height: 50px;
 	border-radius: 25px;
 	padding: 0 30px 0 64px;
+	border: none;
 }
 
 .symbol-input100 {

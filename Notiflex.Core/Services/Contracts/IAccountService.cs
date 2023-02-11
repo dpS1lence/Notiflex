@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bots.Types;
 
 namespace Notiflex.Core.Services.Contracts
 {
@@ -23,7 +24,7 @@ namespace Notiflex.Core.Services.Contracts
         Task<IdentityResult> ConfirmEmailAsync(string userId, string code);
         Task EditProfile(string userId, ProfileDto model);
         Task<ProfileDto> GetUserData(string userId);
-        Task AprooveUser(string userId, string telegramId, string hometown);
+        Task AprooveUser(string userId, string telegramId, string hometown, string photo);
         Task<bool> IsInRole(string userId, string roleName);
 
 

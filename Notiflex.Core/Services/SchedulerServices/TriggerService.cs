@@ -111,7 +111,11 @@ namespace Notiflex.Core.Services.SchedulerServices
         public async Task DeleteTrigger(int triggerId, string userId)
         {
             var trigger = await _repository.GetByIdAsync<NotiflexTrigger>(triggerId);
-
+            if (trigger == null)
+            {
+                throw new NotFoundException();
+            }
+            
             if(trigger.UserId != userId || userId == null)
             {
                 throw new ArgumentException("Invalid user!");
