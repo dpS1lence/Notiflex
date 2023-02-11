@@ -9,5 +9,8 @@ namespace Notiflex.ViewModels
 
         [Required]
         public string HomeTown { get; set; } = null!;
+        [Required]
+        
+        public string PhotoUrl { get; set; } = null!;
     }
 }
