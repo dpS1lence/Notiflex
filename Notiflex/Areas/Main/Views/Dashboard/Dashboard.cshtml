@@ -1,24 +1,13 @@
 ﻿@using Notiflex.ViewModels;
-@using System.Text;
 @model DashboardViewModel
 @{
-    //var weatherData = Model.DashboardWeatherCard;
-    //foreach (var item in weatherData)
-    //{
-    //    if(item.)
-    //}
-}
-<head>
-    <link rel="manifest" href="assets/favicon/manifest.json">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
-    <link href="css/examples.css" rel="stylesheet">
-    <link href="~/vendors/svg/coreui-chartjs.css" rel="stylesheet" />
-</head>
 
-<div class="row">
-    <h2 class="table-title text-white">Welcome back @Model.ProfileView.FirstName.</h2>
-</div>
+}
+
+<head>
+    <link href="~/vendors/svg/coreui-chartjs.css" rel="stylesheet" />
+    <link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />
+</head>
 
 <body onload="ChartData('@Model.DashboardWeatherCard.First().Name',
 '@Model.TimeRanges[0]', '@Model.TimeRanges[1]', '@Model.TimeRanges[2]',
@@ -30,75 +19,56 @@
 '@Model.PressureData[0]', '@Model.PressureData[1]', '@Model.PressureData[2]', '@Model.PressureData[3]',
 '@Model.PressureData[4]', '@Model.PressureData[5]', '@Model.PressureData[6]',
 '@Model.DashboardWeatherCard.First().Humidity')">
-    <div class="body flex-grow-1 px-3">
-        <div class="container-lg">
-            <div class="row row-cols-2">
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Temperature</strong></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-691">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-1"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+    <div class="row">
+        <div id="buttonContainer" class="container">
+            <h2 class="table-title text-white">Welcome back @Model.ProfileView.FirstName</h2>
+        </div>
+    </div>
+    <div id="triggersContainer" class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">Temperature</h5>
+                    </div>
+                    <div class="card-body pt-0 mt-1">
+                        <canvas id="canvas-1"></canvas>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Clouds</strong></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1105">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-2"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">Clouds</h5>
+                    </div>
+                    <div class="card-body pt-0 mt-1">
+                        <canvas id="canvas-2"></canvas>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Humidity</strong></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-974">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-3"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">Humidity</h5>
+                    </div>
+                    <div class="card-body pt-0 mt-1">
+                        <canvas id="canvas-3"></canvas>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header"><strong>Pressure</strong></div>
-                        <div class="card-body">
-                            <div class="example">
-                                <div class="tab-content rounded-bottom">
-                                    <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-15">
-                                        <div class="c-chart-wrapper">
-                                            <canvas id="canvas-10"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title">Pressure</h5>
+                    </div>
+                    <div class="card-body pt-0 mt-1">
+                        <canvas id="canvas-10"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 
