@@ -62,6 +62,32 @@ a {
 		color: #6495ED;
 	}
 
+.tooltip {
+	visibility: hidden;
+	width: 200px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -100px;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.telegram:hover .tooltip {
+	visibility: visible;
+	opacity: 1;
+}
+
+.town:hover .tooltip {
+	visibility: visible;
+	opacity: 1;
+}
 /*---------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
 	margin: 0px;
@@ -86,7 +112,6 @@ ul, li {
 }
 
 .icon-active{
-	cursor: pointer;
 }
 /*---------------------------------------------*/
 input {

@@ -51,9 +51,11 @@
                     <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="Notiflex_bot" data-size="large" data-auth-url="https://notiflex20230210192522.azurewebsites.net/Home/Account/Proceed" data-request-access="write"></script>
 
                     <div class="wrap-input100">
-                        <a class="text-info-proceed">
-                            Telegram chat Id <a asp-action="Telegram" asp-controller="Home" class="fa fa-question-circle icon-active"></a>
-                        </a>
+                        <div class="text-info-proceed telegram">
+                            Telegram chat Id 
+                            <i class="fa fa-question-circle icon-active"></i>
+                            <span class="tooltip">To fill out this field use the button above. Note: You need an active telegram account.</span>
+                        </div>
                     </div>
 
                     <div class="wrap-input100">
@@ -66,20 +68,15 @@
                     </div>
 
                     <div class="wrap-input100">
-                        <a class="text-info-proceed">
-                            Home Town <i class="fa fa-question-circle icon-active town"></i>
-                        </a>
+                        <div class="text-info-proceed town">
+                            City
+                           <i class="fa fa-question-circle icon-active"></i>
+                            <span class="tooltip">We need this information for accurate weather data.</span>
+                        </div>
                     </div>
-
-                    @*<div class="wrap-input100">
-                    <div class="tooltip">
-                    Home Town <i class="fa fa-question-circle icon-active town"></i>
-                    <span class="tooltiptext">We want your home town to generate most acurate data for you when...</span>
-                    </div>
-                    </div>*@
 
                     <div class="wrap-input100">
-                        <input asp-for="@Model.HomeTown" class="input100" type="text" name="HomeTown" placeholder="Town" />
+                        <input asp-for="@Model.HomeTown" class="input100" type="text" name="HomeTown" placeholder="City name" />
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-bars" aria-hidden="true"></i>

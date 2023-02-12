@@ -239,10 +239,8 @@ namespace Notiflex.Areas.Home.Controllers
         [Authorize]
         public IActionResult Proceed(string? id, string? photo_url)
         {
-            if (photo_url == null)
-            {
-                photo_url = "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg";
-            }
+            photo_url ??= "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg";
+
             if (User.IsInRole("ApprovedUser"))
             {
                 return RedirectToAction("Profile", "Dashboard", new { area = "Main" });
@@ -253,7 +251,7 @@ namespace Notiflex.Areas.Home.Controllers
         }
 
 		[HttpPost]
-		[Authorize]
+		[Authorize] 
 		public async Task<IActionResult> Proceed(ProceedViewModel model)
 		{           
             if (!ModelState.IsValid)
