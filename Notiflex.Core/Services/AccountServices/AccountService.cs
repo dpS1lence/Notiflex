@@ -42,7 +42,6 @@ namespace Notiflex.Core.Services.AccountServices
         }
         public async Task<IdentityResult> CreateUserAsync(RegisterDto userDto, string password)
         {
-
             var user = new NotiflexUser
             {
                 Email = userDto.Email,
@@ -53,6 +52,10 @@ namespace Notiflex.Core.Services.AccountServices
                 Gender = userDto.Gender,
                 ProfilePic = userDto.ProfilePic,
             };
+            if (await _userManager.FindByEmailAsync(userDto.Email) != null)
+            {
+                return IdentityResult.Failed();
+            }
 
             IdentityResult result = await _userManager.CreateAsync(user, password);
             return result;
@@ -72,8 +75,8 @@ namespace Notiflex.Core.Services.AccountServices
                 .FirstOrDefaultAsync();
             if (user == null)
             {
-                throw new NotFoundException();
-            }
+                return SignInResult.Failed;
+            }            
 
             return await _signInManager.PasswordSignInAsync(
                 user,
@@ -109,30 +112,34 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new NotFoundException();
             }
-
+            await _userManager.UpdateSecurityStampAsync(user);
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
         public async Task<string> GeneratePasswordResetTokenAsync(string userId)
         {
+            
             NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             if (user == null)
             {
                 throw new NotFoundException();
             }
+            await _userManager.UpdateSecurityStampAsync(user);
 
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
         public async Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword)
         {
-            NotiflexUser? user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email)
+            NotiflexUser? user = await _repo.All<NotiflexUser>(u => u.Email == email)
                 .FirstOrDefaultAsync();
             if (user == null)
             {
                 throw new NotFoundException();
             }
-            IdentityResult result = await _userManager.ChangePasswordAsync(user, code, newPassword);
+            //_repo.Detach<NotiflexUser>(user);
+
+            IdentityResult result = await _userManager.ResetPasswordAsync(user, code, newPassword);
             if (result.Succeeded)
             {
                 await _signInManager.RefreshSignInAsync(user);

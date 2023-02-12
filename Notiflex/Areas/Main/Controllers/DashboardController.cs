@@ -115,7 +115,7 @@ namespace Notiflex.Areas.Main.Controllers
 
             DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
             await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
-            return View();
+            return RedirectToAction("Triggers", "Dashboard", "Main");
         }
 
         [HttpGet]

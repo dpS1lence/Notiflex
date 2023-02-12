@@ -7847,6 +7847,8 @@ html:not([dir=rtl]) .callout {
   justify-content: space-between;
   min-height: var(--cui-header-min-height);
   padding: var(--cui-header-padding-y) var(--cui-header-padding-x);
+  background: none;
+  border: none;
 }
 .header > .container,
 .header > .container-fluid,
@@ -7885,7 +7887,7 @@ html:not([dir=rtl]) .callout {
   min-height: calc(var(--cui-subheader-min-height) - 2 * var(--cui-header-padding-y));
 }
 
-.header.header-sticky {
+.header .header-sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;

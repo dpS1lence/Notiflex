@@ -21,11 +21,11 @@ namespace Notiflex.Areas.Home.Controllers
             switch (error)
             {
                 case NotFoundException:
-                    return RedirectToAction("ErrorPage", new { statusCode = 404 });
+                    return RedirectToAction("ErrorPage", "Error", new { area ="Home", statusCode = 404 });
                 case ArgumentException:
-                    return RedirectToAction("ErrorPage", new { statusCode = 500 });
+                    return RedirectToAction("ErrorPage", "Error", new { area = "Home", statusCode = 500 });
 
-                default: return RedirectToAction("ErrorPage", new { statusCode = 500 });
+                default: return RedirectToAction("ErrorPage", "Error", new { area = "Home", statusCode = 500 });
             }
         }
         public IActionResult ErrorPage(int statusCode)

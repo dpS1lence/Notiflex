@@ -36,43 +36,43 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.LoginPath = "/Home/Account/Login";
-	options.AccessDeniedPath = "/Home/Account/Logout";
+    options.LoginPath = "/Home/Account/Login";
+    options.AccessDeniedPath = "/Home/Account/Logout";
 });
 
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AccountMapperProfile>();
-	config.AddProfile<DashboardMapperProfile>();
+    config.AddProfile<DashboardMapperProfile>();
 });
 
 builder.Services.AddQuartz(config =>
 {
-	config.SchedulerId = "Notiflex-Scheduler";
-	config.UseMicrosoftDependencyInjectionJobFactory();
-	config.UseSimpleTypeLoader();
-	config.UsePersistentStore(a =>
-	{
-		a.UseSqlServer(connectionString);
-		a.UseProperties = true;
-		a.UseJsonSerializer();
-	});
-	config.UseDefaultThreadPool(tp =>
-	{
-		tp.MaxConcurrency = 20;
-	});
-	
-	config.AddJob<ReportSenderJob>(j =>
-	{
-		j.WithIdentity("ReportSenderJob");
-		j.StoreDurably(true);
-	});
-	
-	
+    config.SchedulerId = "Notiflex-Scheduler";
+    config.UseMicrosoftDependencyInjectionJobFactory();
+    config.UseSimpleTypeLoader();
+    config.UsePersistentStore(a =>
+    {
+        a.UseSqlServer(connectionString);
+        a.UseProperties = true;
+        a.UseJsonSerializer();
+    });
+    config.UseDefaultThreadPool(tp =>
+    {
+        tp.MaxConcurrency = 20;
+    });
+
+    config.AddJob<ReportSenderJob>(j =>
+    {
+        j.WithIdentity("ReportSenderJob");
+        j.StoreDurably(true);
+    });
+
+
 });
 builder.Services.AddQuartzHostedService(options =>
 {
-	options.WaitForJobsToComplete = false;
+    options.WaitForJobsToComplete = false;
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
@@ -112,7 +112,7 @@ app.UseEndpoints(endpoints =>
     app.MapControllerRoute(
     name: "areas",
     pattern: "{area=Home}/{controller=Home}/{action=Index}/{id?}"
-    );   
+    );
 });
 
 //app.MapRazorPages();

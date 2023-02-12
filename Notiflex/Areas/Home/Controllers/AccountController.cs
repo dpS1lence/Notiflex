@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.AspNetCore.WebUtilities;
 using Notiflex.Core.Models;
 using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Services.AccountServices;
@@ -127,15 +128,23 @@ namespace Notiflex.Areas.Home.Controllers
 
                 return PartialView(model);
             }
+
+            if (!await _accountService.UserExistsByEmail(model.Email))
+            {
+                return PartialView(model);
+            }
             if (!await _accountService.IsEmailConfirmedAsync(model.Email))
             {
                 TempData["StatusMessage"] = "Email not confirmed!";
+
                 return PartialView(model);
             }
+
             var signInResult = await _accountService.SignInUserAsync(model.Email, model.Password);
 
             if (signInResult.Succeeded)
             {
+               
                 string userId = await _accountService.GetUserIdByEmail(model.Email);
                 var user = await _accountService.GetUserData(userId);
 
@@ -175,7 +184,57 @@ namespace Notiflex.Areas.Home.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public  IActionResult ForgotPassword()
+        {
+            var model = new ForgotPasswordViewModel();
+            
+            return View(model);
+        }        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!await _accountService.UserExistsByEmail(model.Email))
+            {
+                return View(model);
+            }
+            var userId = await _accountService.GetUserIdByEmail(model.Email);
+            var token = await  _accountService.GeneratePasswordResetTokenAsync(userId);
 
+            string callbackUrl = Url.Action("ResetPassword", "Account", new { email = model.Email, token }, Request.Scheme)!;
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine(callbackUrl);
+            await _emailSender.SendEmailAsync(model.Email, "Password Reset Confirmation for Notiflex", sb.ToString());
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            ViewData["email"] = email; 
+            ViewData["token"] = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
+            var model = new ResetPasswordViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                //TempData
+                return RedirectToAction("Login", "Account");
+            }
+            await _accountService.ResetPasswordAsync(model.Email, model.Token, model.Password);
+            return RedirectToAction("Login", "Account");
+
+        }
         [HttpGet]
         [Authorize]
         public IActionResult Proceed(string? id, string? photo_url)
