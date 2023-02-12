@@ -38,12 +38,5 @@ namespace Notiflex.Areas.Home.Controllers
 
             return View();
         }
-
-		public IActionResult Telegram()
-		{
-			return View();
-		}
-
-		
     }
 }
