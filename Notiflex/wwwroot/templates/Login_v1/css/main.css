@@ -411,11 +411,19 @@ iframe {
 	.login100-form {
 		width: 100%;
 	}
+
+	.wrap-register100 {
+		padding: 40px 70px 40px 70px;
+	}
 }
 
 @media (max-width: 576px) {
 	.wrap-login100 {
 		padding: 100px 15px 33px 15px;
+	}
+
+	.wrap-register100 {
+		padding: 30px 30px 30px 30px;
 	}
 }
 
