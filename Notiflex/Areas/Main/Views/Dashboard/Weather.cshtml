@@ -1,19 +1,13 @@
 ﻿@using Notiflex.ViewModels;
 @model List<WeatherCardViewModel>
 @{
-    ViewData["Title"] = "Dashboard - Weather";
+    ViewData["Title"] = "Weather";
     string value = string.Empty;
 }
 <link href="~/css/chain/animated.css" rel="stylesheet" />
 <link href="~/css/chain/owl.css" rel="stylesheet" />
 <link href="~/css/searchbar.css" rel="stylesheet" />
 
-@*<form method="post">
-    <div id="tochange" class="box">
-        <input id="tochange" asp-for="@value" type="text" type="text" class="input" placeholder="Search">
-        <button id="searchBtn" onclick="Transform()" class="btn" type="submit"><i><img src="~/images/search.svg" /></i></button>
-    </div>
-</form>*@
 <div class="row height">
     <div id="searchContainer" class="container">
         <div class="form mb-5">

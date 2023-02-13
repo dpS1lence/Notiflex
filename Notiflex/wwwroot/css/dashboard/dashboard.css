@@ -708,6 +708,28 @@ html:not([dir=rtl]) .list-inline-item:not(:last-child) {
   margin-top: var(--cui-gutter-y);
 }
 
+.row-main {
+    --cui-gutter-x: 1.5rem;
+    --cui-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--cui-gutter-y));
+    margin-right: calc(-0.5 * var(--cui-gutter-x));
+    margin-left: calc(-0.5 * var(--cui-gutter-x));
+}
+
+@media(max-width: 678px) {
+    .row-main {
+        --cui-gutter-x: 3.5rem;
+        --cui-gutter-y: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
 .col {
   flex: 1 0 0%;
 }
@@ -780,6 +802,12 @@ html:not([dir=rtl]) .list-inline-item:not(:last-child) {
 .col-6 {
   flex: 0 0 auto;
   width: 50%;
+}
+@media(max-width: 500px) {
+    .col-6 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
 }
 
 .col-7 {
