@@ -16,6 +16,7 @@ using Notiflex.Core.Quartz.Jobs;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using Notiflex.Core.Services.SchedulerServices;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics.CodeAnalysis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,3 +119,6 @@ app.UseEndpoints(endpoints =>
 //app.MapRazorPages();
 
 app.Run();
+
+[ExcludeFromCodeCoverage]
+public partial class Program { }
