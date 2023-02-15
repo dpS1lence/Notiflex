@@ -2,24 +2,31 @@
 	background-image: url(../../images/dashboardbackground3.png);
 	width: 100%;
 	background-position: center top;
-	background-size: 100% 400px;
+	margin-top: -1px;
+	background-size: 150% 300px;
 	background-repeat: no-repeat;
+}
+
+@media (max-width: 900px) {
+	#layoutWrapper {
+		background-size: 150% 250px;
+	}
 }
 
 @media (max-width: 767px) {
 	#layoutWrapper {
-		background-size: 200% 400px;
+		background-size: 200% 250px;
 	}
 }
 
 @media (max-width: 576px) {
 	#layoutWrapper {
-		background-size: 300% 300px;
+		background-size: 300% 200px;
 	}
 }
 
 @media (max-width: 400px) {
 	#layoutWrapper {
-		background-size: 300% 300px;
+		background-size: 500% 250px;
 	}
 }

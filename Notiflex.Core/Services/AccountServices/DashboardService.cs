@@ -56,6 +56,12 @@ namespace Notiflex.Core.Services.AccountServices
                 pressureDataList.Add(weatherCard[i].Pressure);
             }
 
+            List<string> humidityDataList = new();
+            for (int i = 0; i < 7; i++)
+            {
+                humidityDataList.Add(weatherCard[i].Humidity);
+            }
+
             var model = new DashboardDto()
             {
                 DashboardWeatherCard = weatherCard,
@@ -66,7 +72,8 @@ namespace Notiflex.Core.Services.AccountServices
                 TimeRanges = timesList,
                 TempData = temperaturesList,
                 CloudsData = cloudDataList,
-                PressureData = pressureDataList
+                PressureData = pressureDataList,
+                HumidityData = humidityDataList
             };
 
             return model;

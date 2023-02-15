@@ -8,7 +8,7 @@ function ChartData(cityName,
     tempData1, tempData2, tempData3, tempData4, tempData5, tempData6, tempData7,
     cloudsData1, cloudsData2, cloudsData3, cloudsData4, cloudsData5, cloudsData6, cloudsData7,
     pressureData1, pressureData2, pressureData3, pressureData4, pressureData5, pressureData6, pressureData7,
-    humidity) {
+    humidityData1, humidityData2, humidityData3, humidityData4, humidityData5, humidityData6, humidityData7) {
 
     // eslint-disable-next-line no-unused-vars
     const lineChart = new Chart(document.getElementById('canvas-1'), {
@@ -17,9 +17,9 @@ function ChartData(cityName,
             labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
             datasets: [{
                 label: cityName,
-                backgroundColor: 'rgba(64, 45, 170, 0.2)',
-                borderColor: 'rgba(64, 45, 170, 1)',
-                pointBackgroundColor: 'rgba(64, 45, 170, 1)',
+                backgroundColor: 'rgba(37, 97, 221, 0.2)',
+                borderColor: 'rgba(37, 97, 221, 1)',
+                pointBackgroundColor: 'rgba(37, 97, 221, 1)',
                 pointBorderColor: '#fff',
                 data: [tempData1, tempData2, tempData3, tempData4, tempData5, tempData6, tempData7]
             }]
@@ -48,11 +48,29 @@ function ChartData(cityName,
         }
     });
 
+    const hubidityChart = new Chart(document.getElementById('canvas-3'), {
+        type: 'bar',
+        data: {
+            labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
+            datasets: [{
+                label: cityName,
+                backgroundColor: 'rgba(143, 193, 246, 0.5)',
+                borderColor: 'rgba(143, 193, 246, 0.8)',
+                highlightFill: 'rgba(143, 193, 246, 0.75)',
+                highlightStroke: 'rgba(143, 193, 246, 1)',
+                data: [humidityData1, humidityData2, humidityData3, humidityData4, humidityData5, humidityData6, humidityData7]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+/*
     // eslint-disable-next-line no-unused-vars
-    const doughnutChart = new Chart(document.getElementById('canvas-3'), {
+    const doughnutChart = new Chart(document.getElementById('canvas-6'), {
         type: 'doughnut',
         data: {
-            labels: ['Humidity', '%'],
+            labels: ['Humidity %', ' '],
             datasets: [{
                 data: [humidity, 100 - humidity],
                 backgroundColor: ['#402DAA', '#4d4d4d'],
@@ -62,10 +80,10 @@ function ChartData(cityName,
         options: {
             responsive: true
         }
-    });
+    });*/
 
     // eslint-disable-next-line no-unused-vars
-    const linePressureChart = new Chart(document.getElementById('canvas-10'), {
+    const linePressureChart = new Chart(document.getElementById('canvas-4'), {
         type: 'line',
         data: {
             labels: [timeRange1, timeRange2, timeRange3, timeRange4, timeRange5, timeRange6, timeRange7],
@@ -85,7 +103,7 @@ function ChartData(cityName,
 }
 
 
-
+/*
 // eslint-disable-next-line no-unused-vars
 const radarChart = new Chart(document.getElementById('canvas-4'), {
   type: 'radar',
@@ -146,4 +164,4 @@ const polarAreaChart = new Chart(document.getElementById('canvas-6'), {
     responsive: true
   }
 });
-//# sourceMappingURL=charts.js.map
+//# sourceMappingURL=charts.js.map*/

@@ -16,37 +16,54 @@
 </div>
 <div id="triggersContainer" class="container">
     <div class="row">
-        @foreach (var item in Model)
+        @if (Model.Count <= 0)
         {
-            <div class="col-lg-4">
-                <div class="card card-margin">
-                    <div class="card-header no-border">
-                        <h5 class="card-title">@item.Name</h5>
-                    </div>
-                    <div class="card-body pt-0 mt-1">
-                        <div class="widget-49">
-                            <div class="widget-49-title-wrapper">
-                                <div class="widget-49-date-primary">
-                                    <i class="fa-solid fa-clock fa-2xl"></i>
-                                    @*<span class="widget-49-date-day">09</span>
-                                <span class="widget-49-date-month">apr</span>*@
+            <div class="no-trigger-ctr">
+                <div class="no-trigger-box"><img class="no-tirgger-img" src="~/images/lost-amico.png" alt="image" /></div>
+                <div class="no-trigger-box">No triggers? - <a class="create-trigger" asp-action="CreateTrigger" asp-controller="Dashboard" asp-area="Main">Create one!</a></div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4">
+                    <div class="card card-margin">
+                        <div class="card-header no-border">
+                            <h5 class="card-title">@item.Name</h5>
+                        </div>
+                        <div class="card-body pt-0 mt-1">
+                            <div class="widget-49">
+                                <div class="widget-49-title-wrapper">
+                                    <div class="widget-49-date-primary">
+                                        <i class="fa-solid fa-clock fa-2xl"></i>
+                                    </div>
+                                    <div class="widget-49-meeting-info">
+                                        <span class="widget-49-pro-title">Created for: @item.City</span>
+                                    </div>
                                 </div>
-                                <div class="widget-49-meeting-info">
-                                    <span class="widget-49-pro-title">Created at: no value</span>
+                                <ol class="widget-49-meeting-points">
+                                    <li class="widget-49-meeting-item"><span>@item.DaySchedule</span></li>
+                                    <li class="widget-49-meeting-item">
+                                        @if (item.Minutes == "0")
+                                        {
+                                            <span>Will notify at: @item.Hour:00 (UTC)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Will notify at: @item.Hour:@item.Minutes (UTC)</span>
+                                        }
+                                    </li>
+                                    <li class="widget-49-meeting-item"><span>Type: Daily Report</span></li>
+                                </ol>
+                                <div class="widget-49-meeting-action">
+                                    <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-area="Main" asp-route-triggerId="@item.Id" class="btn btn-sm btn-flash-border-primary text-danger">Delete</a>
                                 </div>
-                            </div>
-                            <ol class="widget-49-meeting-points">
-                                <li class="widget-49-meeting-item"><span>@item.DaySchedule</span></li>
-                                <li class="widget-49-meeting-item"><span>Will notify at: @item.Hour:@item.Minutes (UTC)</span></li>
-                                <li class="widget-49-meeting-item"><span>Type: Daily Report</span></li>
-                            </ol>
-                            <div class="widget-49-meeting-action">
-                                <a asp-action="DeleteTrigger" asp-controller="Dashboard" asp-area="Main" asp-route-triggerId="@item.Id" class="btn btn-sm btn-flash-border-primary text-danger">Delete</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>

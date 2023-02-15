@@ -228,7 +228,6 @@ namespace Notiflex.Areas.Home.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //TempData
                 return RedirectToAction("Login", "Account");
             }
             await _accountService.ResetPasswordAsync(model.Email, model.Token, model.Password);
@@ -245,8 +244,10 @@ namespace Notiflex.Areas.Home.Controllers
             {
                 return RedirectToAction("Profile", "Dashboard", new { area = "Main" });
             }
+
             ViewData["id"] = id;
             ViewData["photo_url"] = photo_url;
+
             return PartialView();
         }
 

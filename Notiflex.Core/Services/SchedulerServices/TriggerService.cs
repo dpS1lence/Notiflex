@@ -33,6 +33,16 @@ namespace Notiflex.Core.Services.SchedulerServices
 
         public async Task CreateWeatherReportTriggerAsync(string userId, string triggerName, string city, string telegramChatId, TimeOfDay startingTime, DayOfWeek[] daysOfWeek)
         {
+            if ((await _modelConfigurer.ConvertNameToCoordinates(city))[2] == null)
+            {
+                throw new ArgumentException("Invalid city name!");
+            }
+
+            if(userId == null || telegramChatId == null)
+            {
+                throw new ArgumentException("Invalid model!");
+            }
+
             string identity = Guid.NewGuid().ToString();
 
             int minutes;
