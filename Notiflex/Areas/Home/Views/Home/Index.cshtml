@@ -103,16 +103,16 @@
 
 <footer id="newsletter">
     <div class="container">
-        <div class="row flex align-content-center">
-            <div class="col-lg-8 offset-lg-2">
+        <div id="footerRow"class="row">
+            <div class="col-lg-8">
                 <div class="section-heading">
                     <h4>Join Us Now And Forget Checking The Weather!</h4>
                 </div>
             </div>
-            <div class="col-lg-6 offset-lg-3">
+            <div id="footerContainer" class="col-lg-6">
                 <form id="search" asp-action="Register" asp-controller="Account" asp-area="Home" method="get">
                     <div class="row">                        
-                        <div class="col-lg-6 col-sm-6">
+                        <div class="col-lg-6 col-sm-6" style="width:200px;">
                             <fieldset>                                
                                 <button type="submit" class="main-button">Register Now <i class="fa fa-angle-right"></i></button>
                             </fieldset>
