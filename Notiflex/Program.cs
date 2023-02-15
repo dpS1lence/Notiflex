@@ -116,7 +116,6 @@ app.UseEndpoints(endpoints =>
     );
 });
 
-//app.MapRazorPages();
 app.Run();
 
 [ExcludeFromCodeCoverage]

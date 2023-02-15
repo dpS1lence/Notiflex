@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Notiflex.Core.Models.DTOs;
-using Notiflex.Core.Services.BOtServices;
+using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
@@ -15,13 +15,11 @@ namespace Notiflex.Core.Services.AccountServices
 {
     public class DashboardService : IDashboardService
     {
-        private readonly IRepository _repo;
         private readonly IModelConfigurer _modelConfigurer;
         private readonly IAccountService _accountService;
 
-        public DashboardService(IRepository repo, IModelConfigurer modelConfigurer, IAccountService accountService)
+        public DashboardService(IModelConfigurer modelConfigurer, IAccountService accountService)
         {
-            _repo = repo;
             _modelConfigurer = modelConfigurer;
             _accountService = accountService;
         }

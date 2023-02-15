@@ -22,30 +22,21 @@ namespace Notiflex.Areas.Main.Controllers
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dashboardService;
-        private readonly IMessageSender _messageSender;
-        private readonly IMessageConfigurer _messageConfigurer;
         private readonly IAccountService _accountService;
         private readonly IModelConfigurer _modelConfigurer;
-        private readonly IWeatherApiService _weatherApiService;
         private readonly ITriggerService _triggerService;
         private readonly IMapper _mapper;
 
-        public DashboardController(IDashboardService dashboardService,
-            IMessageSender messageSender,
-            IMessageConfigurer messageConfigurer,
+        public DashboardController(IDashboardService dashboardService,            
             IAccountService accountService,
             IModelConfigurer modelConfigurer,
-            IWeatherApiService weatherApiService,
             ITriggerService triggerService,
             IMapper mapper
         )
         {
             _dashboardService = dashboardService;
-            _messageSender = messageSender;
-            _messageConfigurer = messageConfigurer;
             _accountService = accountService;
             _modelConfigurer = modelConfigurer;
-            _weatherApiService = weatherApiService;
             _triggerService = triggerService;
             _mapper = mapper;
         }
@@ -113,7 +104,7 @@ namespace Notiflex.Areas.Main.Controllers
                 hourUTC = await _triggerService.GetHourUTC(user.HomeTown, model.Hour);
             }
 
-            DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value == true).Select(a => a.Key).ToArray();
+            DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value).Select(a => a.Key).ToArray();
             await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
             return RedirectToAction("Triggers", "Dashboard", "Main");
         }
@@ -148,7 +139,7 @@ namespace Notiflex.Areas.Main.Controllers
 
         public async Task<IActionResult> DeleteTrigger(int triggerId)
         {
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
 
             await _triggerService.DeleteTrigger(triggerId, userId);
 
@@ -179,9 +170,9 @@ namespace Notiflex.Areas.Main.Controllers
                 return RedirectToAction(nameof(Profile));
             }
 
-            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
 
-            ProfileDto dto = new()
+            var dto = new ProfileDto()
             {
                 TelegramChatId = model.TelegramChatId,
                 FirstName = model.FirstName,
@@ -192,17 +183,7 @@ namespace Notiflex.Areas.Main.Controllers
             };
 
             await _accountService.EditProfile(userId, dto);
-
-            ProfileViewModel prModel = new()
-            {
-                TelegramChatId = dto.TelegramChatId,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Description = dto.Description,
-                ProfilePic = dto.ProfilePic,
-                HomeTown = dto.HomeTown
-            };
-
+            
             return RedirectToAction(nameof(Profile));
         }
     }

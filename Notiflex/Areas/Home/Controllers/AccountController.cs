@@ -14,6 +14,7 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.ViewModels;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 using static System.Net.WebRequestMethods;
@@ -54,9 +55,14 @@ namespace Notiflex.Areas.Home.Controllers
         {
             if (!ModelState.IsValid)
             {
+                if (ModelState.Root.Children == null)
+                {
+                    return PartialView(model);
+                }
                 foreach (var item in ModelState.Root.Children)
                 {
-                    if(item.ValidationState == ModelValidationState.Invalid)
+
+                    if (item.ValidationState == ModelValidationState.Invalid)
                     {
                         TempData["StatusMessageDanger"] = $"{item.AttemptedValue} is invalid";
                     }
@@ -64,14 +70,9 @@ namespace Notiflex.Areas.Home.Controllers
                 return PartialView(model);
             }
             RegisterDto userDto;
-            try
-            {
-                userDto = _mapper.Map<RegisterDto>(model);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            userDto = _mapper.Map<RegisterDto>(model);
+
 
             var result = await _accountService.CreateUserAsync(userDto, model.Password);
 
@@ -86,7 +87,6 @@ namespace Notiflex.Areas.Home.Controllers
                 sb.AppendLine(callbackUrl);
                 await _emailSender.SendEmailAsync(model.Email, "Email Confirmation for Notiflex", sb.ToString());
 
-                //TODO: Send email confirmation
                 return RedirectToAction("Login", "Account");
             }
 
@@ -118,6 +118,10 @@ namespace Notiflex.Areas.Home.Controllers
         {
             if (!ModelState.IsValid)
             {
+                if (ModelState.Root.Children == null)
+                {
+                    return PartialView(model);
+                }
                 foreach (var item in ModelState.Root.Children)
                 {
                     if (item.ValidationState == ModelValidationState.Invalid)
@@ -144,9 +148,8 @@ namespace Notiflex.Areas.Home.Controllers
 
             if (signInResult.Succeeded)
             {
-               
+
                 string userId = await _accountService.GetUserIdByEmail(model.Email);
-                var user = await _accountService.GetUserData(userId);
 
                 if (!await _accountService.IsInRole(userId, "ApprovedUser"))
                 {
@@ -186,12 +189,12 @@ namespace Notiflex.Areas.Home.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public  IActionResult ForgotPassword()
+        public IActionResult ForgotPassword()
         {
             var model = new ForgotPasswordViewModel();
-            
+
             return View(model);
-        }        
+        }
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
@@ -201,7 +204,7 @@ namespace Notiflex.Areas.Home.Controllers
                 return View(model);
             }
             var userId = await _accountService.GetUserIdByEmail(model.Email);
-            var token = await  _accountService.GeneratePasswordResetTokenAsync(userId);
+            var token = await _accountService.GeneratePasswordResetTokenAsync(userId);
 
             string callbackUrl = Url.Action("ResetPassword", "Account", new { email = model.Email, token }, Request.Scheme)!;
 
@@ -217,7 +220,7 @@ namespace Notiflex.Areas.Home.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string email, string token)
         {
-            ViewData["email"] = email; 
+            ViewData["email"] = email;
             ViewData["token"] = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
             var model = new ResetPasswordViewModel();
             return View(model);
@@ -250,14 +253,14 @@ namespace Notiflex.Areas.Home.Controllers
             return PartialView();
         }
 
-		[HttpPost]
-		[Authorize] 
-		public async Task<IActionResult> Proceed(ProceedViewModel model)
-		{           
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Proceed(ProceedViewModel model)
+        {
             if (!ModelState.IsValid)
-			{
-				return PartialView(model);
-			}           
+            {
+                return PartialView(model);
+            }
 
             if ((await _modelConfigurer.ConvertNameToCoordinates(model.HomeTown))[2] == null)
             {
@@ -270,6 +273,6 @@ namespace Notiflex.Areas.Home.Controllers
             await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown, model.PhotoUrl);
 
             return RedirectToAction("Logout", "Account", new { area = "Home" });
-		}        
+        }
     }
 }

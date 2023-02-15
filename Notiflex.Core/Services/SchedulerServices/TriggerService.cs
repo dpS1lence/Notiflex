@@ -55,8 +55,6 @@ namespace Notiflex.Core.Services.SchedulerServices
                 .Build();
 
             var scheduler = await _schedulerFactory.GetScheduler();
-            var triggers = (await scheduler.GetTriggersOfJob(new JobKey("ReportSenderJob"))).ToList();            
-
             string days = string.Empty;
             foreach (var item in daysOfWeek)
             {

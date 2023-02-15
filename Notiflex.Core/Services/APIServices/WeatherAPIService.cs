@@ -18,8 +18,7 @@ namespace Notiflex.Core.Services.APIServices
             var json = await client.GetStringAsync(url);
             if (string.IsNullOrEmpty(json))
             {
-                //TODO: New Specific Exception Type
-                throw new NullReferenceException();
+                throw new ArgumentException();
             }
             var result = JsonConvert.DeserializeObject<WeatherDataModel>(json);
             if (result == null)
@@ -34,7 +33,6 @@ namespace Notiflex.Core.Services.APIServices
             var json = await client.GetStringAsync(url);
             if (string.IsNullOrEmpty(json))
             {
-                //TODO: New Specific Exception Type
                 throw new NullReferenceException();
             }
             var result = JsonConvert.DeserializeObject<ForecastDataModel>(json);
