@@ -35,18 +35,14 @@
                     {
                         <div class="alert alert-success alert-dismissible fade show">
                             @TempData["StatusMessage"]
-                            <button type="button" class="btn-close" data-bs-dismiss="alert">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            
                         </div>
                     }
                     @if (TempData["StatusMessageDanger"] != null)
                     {
                         <div class="alert alert-danger alert-dismissible fade show">
                             @TempData["StatusMessageDanger"]
-                            <button type="button" class="btn-close" data-bs-dismiss="alert">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            
                         </div>
                     }
                     @RenderBody()
