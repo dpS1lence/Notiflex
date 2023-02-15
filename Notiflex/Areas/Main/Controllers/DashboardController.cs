@@ -60,7 +60,7 @@ namespace Notiflex.Areas.Main.Controllers
                 throw new NotFoundException("UserId null.");
             }
 
-            var profileData = await _accountService.GetUserData(userId ?? string.Empty);
+            var profileData = await _accountService.GetUserData(userId);
             var dto = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
             List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(dto);
 
