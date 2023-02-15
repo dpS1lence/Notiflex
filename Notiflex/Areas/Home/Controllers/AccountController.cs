@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Notiflex.Core.Models;
 using Notiflex.Core.Models.DTOs;
 using Notiflex.Core.Services.AccountServices;
-using Notiflex.Core.Services.BOtServices;
+using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;

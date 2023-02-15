@@ -9,7 +9,7 @@ using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.APIServices;
-using Notiflex.Core.Services.BOtServices;
+using Notiflex.Core.Services.BotServices;
 using Notiflex.MapperProfiles;
 using Quartz;
 using Notiflex.Core.Quartz.Jobs;

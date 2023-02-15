@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace Notiflex.Core.Services.BOtServices
+namespace Notiflex.Core.Services.BotServices
 {
     public class ModelConfigurer : IModelConfigurer
     {

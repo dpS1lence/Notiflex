@@ -4,7 +4,7 @@ using Notiflex.Core.Models.DTOs;
 using Notiflex.ViewModels;
 using Notiflex.Core.Services.AccountServices;
 using Notiflex.Core.Services.BotServices;
-using Notiflex.Core.Services.BOtServices;
+using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.SchedulerServices;
 using System.Security.Claims;
