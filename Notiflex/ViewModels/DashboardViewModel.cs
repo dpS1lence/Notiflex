@@ -20,5 +20,7 @@ namespace Notiflex.ViewModels
         public List<string> CloudsData { get; set; } = null!;
 
         public List<string> PressureData { get; set; } = null!;
+
+        public List<string> HumidityData { get; set; } = null!;
     }
 }

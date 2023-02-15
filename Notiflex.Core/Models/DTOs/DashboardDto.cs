@@ -19,5 +19,7 @@ namespace Notiflex.Core.Models.DTOs
         public List<string> CloudsData { get; set; } = null!;
 
         public List<string> PressureData { get; set; } = null!;
+
+        public List<string> HumidityData { get; set; } = null!;
     }
 }

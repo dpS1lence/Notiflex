@@ -67,7 +67,22 @@ namespace Notiflex.Areas.Main.Controllers
             {
                 throw new ArgumentException("UserId null.");
             }
-            List<WeatherCardViewModel> model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(value ?? string.Empty));
+
+            var user = await _accountService.GetUserData(userId ?? string.Empty);
+
+            List<WeatherCardViewModel> model = new();
+
+            try
+            {
+                model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(value ?? string.Empty));
+            }
+            catch(ArgumentException ex)
+            {
+                model = _mapper.Map<List<WeatherCardViewModel>>(await _modelConfigurer.ConfigureForecastReport(user.HomeTown));
+
+                TempData["StatusMessageDanger"] = ex.Message;
+            }
+
             return View(model);
         }
 
@@ -104,8 +119,26 @@ namespace Notiflex.Areas.Main.Controllers
                 hourUTC = await _triggerService.GetHourUTC(user.HomeTown, model.Hour);
             }
 
+            if(model.DaySchedule.Select(a => a.Value).Where(a => a == true).ToList().Count <= 0)
+            {
+                TempData["StatusMessageDanger"] = "Invalid Data!";
+
+                return RedirectToAction(nameof(CreateTrigger));
+            }
+            
             DayOfWeek[] daysSchedule = model.DaySchedule.Where(a => a.Value).Select(a => a.Key).ToArray();
-            await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name,  model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
+            
+            try
+            {
+                await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name, model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
+            }
+            catch (ArgumentException ex)
+            {
+                TempData["StatusMessageDanger"] = ex.Message;
+
+                return RedirectToAction(nameof(CreateTrigger));
+            }
+            
             return RedirectToAction("Triggers", "Dashboard", "Main");
         }
 
@@ -131,7 +164,8 @@ namespace Notiflex.Areas.Main.Controllers
                 TimeRanges = dashboardData.TimeRanges,
                 TempData = dashboardData.TempData,
                 CloudsData = dashboardData.CloudsData,
-                PressureData = dashboardData.PressureData
+                PressureData = dashboardData.PressureData,
+                HumidityData = dashboardData.HumidityData
             };
 
             return View(model);

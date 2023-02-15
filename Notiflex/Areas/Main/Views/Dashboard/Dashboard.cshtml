@@ -18,11 +18,12 @@
 '@Model.CloudsData[4]', '@Model.CloudsData[5]', '@Model.CloudsData[6]',
 '@Model.PressureData[0]', '@Model.PressureData[1]', '@Model.PressureData[2]', '@Model.PressureData[3]',
 '@Model.PressureData[4]', '@Model.PressureData[5]', '@Model.PressureData[6]',
-'@Model.DashboardWeatherCard.First().Humidity')">
+'@Model.HumidityData[0]', '@Model.HumidityData[1]', '@Model.HumidityData[2]', '@Model.HumidityData[3]',
+'@Model.HumidityData[4]', '@Model.HumidityData[5]', '@Model.HumidityData[6]')">
 
     <div class="row">
         <div id="buttonContainer" class="container">
-            <h2 class="table-title text-white">Welcome back @Model.ProfileView.FirstName</h2>
+            <h2 class="table-title text-white">Welcome back, @Model.ProfileView.FirstName!</h2>
         </div>
     </div>
     <div id="triggersContainer" class="container">
@@ -40,7 +41,7 @@
             <div class="col-lg-5">
                 <div class="card card-margin">
                     <div class="card-header no-border">
-                        <h5 class="card-title">Clouds</h5>
+                        <h5 class="card-title">Cloud cover</h5>
                     </div>
                     <div class="card-body pt-0 mt-1">
                         <canvas id="canvas-2"></canvas>
@@ -63,7 +64,7 @@
                         <h5 class="card-title">Pressure</h5>
                     </div>
                     <div class="card-body pt-0 mt-1">
-                        <canvas id="canvas-10"></canvas>
+                        <canvas id="canvas-4"></canvas>
                     </div>
                 </div>
             </div>

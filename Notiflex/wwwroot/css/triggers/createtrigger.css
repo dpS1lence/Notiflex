@@ -50,7 +50,38 @@
     list-style-type: none;
 }
 
+.no-tirgger-img {
+    width: 400px;
+    height: auto
+}
+
+.no-trigger-ctr {
+    display: block;
+    margin-top: 100px;
+}
+
+.no-trigger-box {
+    text-align: center;
+    display: block;
+    font-size: 25px;
+}
+
+.create-trigger {
+    color: rgb(77, 137, 240);
+    text-decoration: none;
+}
+
+    .create-trigger:hover {
+        color: rgb(77, 137, 240);
+        text-decoration: underline;
+    }
+
 @media (max-width: 767px) {
+    .no-tirgger-img {
+        width: 300px;
+        height: auto
+    }
+
     .inpt-box {
         width: 500px;
         padding: 10px;
