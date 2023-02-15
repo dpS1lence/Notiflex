@@ -20,7 +20,7 @@ namespace Notiflex.Core.Services.Helpers
             FileStream = fileStream;
         }
 
-        public Message Message { get; set; } = null!;
+        public Message Message { get; set; }
         public FileStream? FileStream { get; set; }
     }
 }

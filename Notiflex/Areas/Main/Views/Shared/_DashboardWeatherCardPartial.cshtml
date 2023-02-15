@@ -39,7 +39,7 @@
                         {
                             <div class="col">
                                 <div class="row row1">@Model[i].Temp C</div>
-                                <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{Model[i].Icon}.png")" /></div>
+                                <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{Model[i].Icon}.png")" alt="icon"/></div>
                                 <div class="row row3">@Model[i].Date.Substring(11, 5)</div>
                             </div>
                         }
@@ -57,7 +57,7 @@
                         {
                             <div class="col">
                                 <div class="row row1">@item.Temp C</div>
-                                <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{item.Icon}.png")" /></div>
+                                <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{item.Icon}.png")" alt="icon"/></div>
                                 <div class="row row3">@item.Date.Substring(5, 5)</div>
                             </div>
                         }

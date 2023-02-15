@@ -11,7 +11,7 @@ namespace Notiflex.Core.Models.ForecastApiModel
     public class ForecastDataModel
     {
         [JsonProperty("cod")]
-        public string Cod { get; set; }
+        public string Cod { get; set; } = null!;
 
         [JsonProperty("message")]
         public int Message { get; set; }
@@ -20,10 +20,10 @@ namespace Notiflex.Core.Models.ForecastApiModel
         public int Cnt { get; set; }
 
         [JsonProperty("list")]
-        public List<DailyDataModel> List { get; set; }
+        public List<DailyDataModel> List { get; set; } = null!;
 
         [JsonProperty("city")]
-        public City City { get; set; }
+        public City City { get; set; } = null!;
     }
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class City
@@ -32,13 +32,13 @@ namespace Notiflex.Core.Models.ForecastApiModel
         public int Id { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [JsonProperty("coord")]
-        public Coord Coord { get; set; }
+        public Coord Coord { get; set; } = null!;
 
         [JsonProperty("country")]
-        public string Country { get; set; }
+        public string Country { get; set; } = null!;
 
         [JsonProperty("population")]
         public int Population { get; set; }
@@ -74,16 +74,16 @@ namespace Notiflex.Core.Models.ForecastApiModel
         public int Dt { get; set; }
 
         [JsonProperty("main")]
-        public Main Main { get; set; }
+        public Main Main { get; set; } = null!;
 
         [JsonProperty("weather")]
-        public List<Weather> Weather { get; set; }
+        public List<Weather> Weather { get; set; } = null!;
 
         [JsonProperty("clouds")]
-        public Clouds Clouds { get; set; }
+        public Clouds Clouds { get; set; } = null!;
 
         [JsonProperty("wind")]
-        public Wind Wind { get; set; }
+        public Wind Wind { get; set; } = null!;
 
         [JsonProperty("visibility")]
         public int Visibility { get; set; }
@@ -92,17 +92,17 @@ namespace Notiflex.Core.Models.ForecastApiModel
         public double Pop { get; set; }
 
         [JsonProperty("sys")]
-        public Sys Sys { get; set; }
+        public Sys Sys { get; set; } = null!;
 
         [JsonProperty("dt_txt")]
-        public string DtTxt { get; set; }
+        public string DtTxt { get; set; } = null!;
 
         [JsonProperty("rain")]
-        public Rain Rain { get; set; }
+        public Rain Rain { get; set; } = null!;
 
         [JsonProperty("snow")]
-        public Snow Snow { get; set; }
-    }
+        public Snow Snow { get; set; } = null!;
+    } 
 
     public class Main
     {
@@ -158,13 +158,13 @@ namespace Notiflex.Core.Models.ForecastApiModel
         public int Id { get; set; }
 
         [JsonProperty("main")]
-        public string Main { get; set; }
+        public string Main { get; set; } = null!;
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
 
         [JsonProperty("icon")]
-        public string Icon { get; set; }
+        public string Icon { get; set; } = null!;
     }
 
     public class Wind

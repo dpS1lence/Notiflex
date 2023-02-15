@@ -137,7 +137,6 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new NotFoundException();
             }
-            //_repo.Detach<NotiflexUser>(user);
 
             IdentityResult result = await _userManager.ResetPasswordAsync(user, code, newPassword);
             if (result.Succeeded)

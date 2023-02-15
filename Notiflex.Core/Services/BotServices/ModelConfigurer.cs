@@ -5,7 +5,6 @@ using Notiflex.Core.Models.ForecastApiModel;
 using Notiflex.Core.Services.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,11 +43,6 @@ namespace Notiflex.Core.Services.BotServices
 
         public async Task<List<WeatherCardDto>> ConfigureForecastReport(string name)
         {
-            if (string.IsNullOrEmpty(name) || (await ConvertNameToCoordinates(name))[2] == null)
-            {
-                throw new ArgumentException("Invalid city name!");
-            }
-
             List<string> coors = await ConvertNameToCoordinates(name);
 
             string lat = coors[0];

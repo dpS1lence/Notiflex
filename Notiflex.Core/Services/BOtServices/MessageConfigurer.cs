@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace Notiflex.Core.Services.BOtServices
+namespace Notiflex.Core.Services.BotServices
 {
     public class MessageConfigurer : IMessageConfigurer
     {
@@ -118,7 +118,6 @@ namespace Notiflex.Core.Services.BOtServices
 
             message.AppendLine($"🌤️ Weather Report for {cityName}({model.Sys.Country}) - Your One-Stop Shop for All Things Weather and Style!");
             message.AppendLine();
-            //message.AppendLine($"📅 {DateTime.FromFileTime(model.Dt)} - Time to Check the Skies and Your Closet!");
             message.AppendLine($"🌦️ Current Conditions: {model.Weather.First().Description} - How's the Weather Outside?");
             message.AppendLine();
             message.AppendLine($"🌡️ Temperature: {(model.Main.Temp - 273.15):f2}°C - How's the Heat?");

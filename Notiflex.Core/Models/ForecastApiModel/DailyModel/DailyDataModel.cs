@@ -13,16 +13,16 @@ namespace Notiflex.Core.Models.ForecastApiModel.DailyModel
         public double Dt { get; set; }
 
         [JsonProperty("main")]
-        public Main Main { get; set; }
+        public Main Main { get; set; } = null!;
 
         [JsonProperty("weather")]
-        public List<Weather> Weather { get; set; }
+        public List<Weather> Weather { get; set; } = null!;
 
         [JsonProperty("clouds")]
-        public Clouds Clouds { get; set; }
+        public Clouds Clouds { get; set; } = null!;
 
         [JsonProperty("wind")]
-        public Wind Wind { get; set; }
+        public Wind Wind { get; set; } = null!;
 
         [JsonProperty("visibility")]
         public double Visibility { get; set; }
@@ -31,10 +31,10 @@ namespace Notiflex.Core.Models.ForecastApiModel.DailyModel
         public double Pop { get; set; }
 
         [JsonProperty("sys")]
-        public Sys Sys { get; set; }
+        public Sys Sys { get; set; } = null!;
 
         [JsonProperty("dt_txt")]
-        public string DtTxt { get; set; }
+        public string DtTxt { get; set; } = null!;
     }
 
     public class Clouds
