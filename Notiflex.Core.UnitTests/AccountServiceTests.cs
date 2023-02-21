@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Notiflex.UnitTests.Core
 {
-    public abstract class TestBase
+    public class AccountServiceTests
     {
-        [SetUp]
-        public void Setup()
-        {
 
-        }
     }
 }
