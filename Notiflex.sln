@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.Common", "Notiflex.Common\Notiflex.Common.csproj", "{FAC25191-9378-4F33-9AB1-3C82FD6F9442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notiflex.Core.UnitTests", "Notiflex.Core.UnitTests\Notiflex.Core.UnitTests.csproj", "{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.UnitTests.Core", "Notiflex.Core.UnitTests\Notiflex.UnitTests.Core.csproj", "{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

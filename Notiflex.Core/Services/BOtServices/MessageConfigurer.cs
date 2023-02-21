@@ -114,6 +114,7 @@ namespace Notiflex.Core.Services.BotServices
 
         private static string ConfigureMessageText(WeatherDataModel model, string cityName)
         {
+
             StringBuilder message = new();
 
             message.AppendLine($"🌤️ Weather Report for {cityName}({model.Sys.Country}) - Your One-Stop Shop for All Things Weather and Style!");

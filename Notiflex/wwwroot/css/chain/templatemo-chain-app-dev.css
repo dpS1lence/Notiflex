@@ -1657,6 +1657,7 @@ footer {
 		}
 
 		footer #search button {
+			width: 100px;
 			height: 46px;
 			border-radius: 23px;
 			border: 1px solid #fff;
@@ -2337,4 +2338,14 @@ responsive
 	.logo {
 		width: 50%;
 	}
+}
+#footerContainer{
+	display: flex;
+	justify-content:center;
+	align-content:center;
+}
+#footerRow {
+	display: flex;
+	flex-direction:row;
+	justify-content:center;
 }

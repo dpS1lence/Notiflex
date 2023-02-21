@@ -22,7 +22,7 @@
                 <div class="carousel-item active">
                     <div class="row">
                         <div class="col-6">
-                            <div class="temp">@Model.First().Temp C</div>
+                            <div class="temp">@(Model.First().Temp)C</div>
                             <div class="location">@Model.First().Name</div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         @for (int i = 0; i < 4; i++)
                         {
                             <div class="col">
-                                <div class="row row1">@Model[i].Temp C</div>
+                                <div class="row row1">@(Model[i].Temp)C</div>
                                 <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{Model[i].Icon}.png")" alt="icon"/></div>
                                 <div class="row row3">@Model[i].Date.Substring(11, 5)</div>
                             </div>
@@ -56,7 +56,7 @@
                         @foreach (var item in days)
                         {
                             <div class="col">
-                                <div class="row row1">@item.Temp C</div>
+                                <div class="row row1">@(item.Temp)C</div>
                                 <div class="row row2"><img class="img-fluid" src="@($"http://openweathermap.org/img/w/{item.Icon}.png")" alt="icon"/></div>
                                 <div class="row row3">@item.Date.Substring(5, 5)</div>
                             </div>
