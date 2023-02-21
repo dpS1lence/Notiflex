@@ -5,7 +5,7 @@ Notiflex is the ultimate weather app for anyone who wants to stay informed and p
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Notiflex)
 
 ## 🅰️ Azure Url
-[https://quizleweb20221217200413.azurewebsites.net](https://notiflex20230210192522.azurewebsites.net/)
+[https://notiflex20230210192522.azurewebsites.net/](https://notiflex20230210192522.azurewebsites.net/)
 
 
 ## 🚀Benefits
