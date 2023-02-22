@@ -12,7 +12,8 @@ namespace Notiflex.UnitTests.Core.Helpers
 {
     public  class MockProvider
     {
-        public static Mock<UserManager<NotiflexUser>> MockUserManager(List<NotiflexUser> ls, List<IdentityUserRole<string>>? userRoles, List<IdentityRole>? roles)
+        
+        public static Mock<UserManager<NotiflexUser>> MockUserManager(List<NotiflexUser> ls, List<IdentityUserRole<string>> userRoles, List<IdentityRole> roles)
         {
 
             var store = new Mock<IUserStore<NotiflexUser>>();
@@ -79,6 +80,24 @@ namespace Notiflex.UnitTests.Core.Helpers
 
             return manager;
 
+        }
+        public static Mock<SignInManager<NotiflexUser>> MockSignInManager()
+        {
+            var manager = new Mock<SignInManager<NotiflexUser>>();
+
+            manager.Setup(sm => sm.PasswordSignInAsync(It.IsAny<NotiflexUser>(), It.IsAny<string>(), false, false))!
+                .ReturnsAsync(SignInResult.Success);
+            return manager;
+        }
+
+        public static Mock<RoleManager<IdentityRole>> MockRoleManager(List<IdentityRole> ls)
+        {
+            var store = new Mock<IRoleStore<IdentityRole>>();
+            var manager = new Mock<RoleManager<IdentityRole>>(store.Object);
+
+            manager.Setup(rm => rm.RoleExistsAsync(It.IsAny<string>()))!
+                .ReturnsAsync((string rolename) => ls.Any(a => a.Name == rolename));
+            return manager;
         }
     }
 }

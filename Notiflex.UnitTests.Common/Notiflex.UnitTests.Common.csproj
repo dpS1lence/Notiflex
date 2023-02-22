@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Notiflex.Infrastructure\Notiflex.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
