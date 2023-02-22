@@ -13,18 +13,23 @@ namespace Notiflex.UnitTests.Common.DataStorages
     {
         public UsersDataStorage()
         {
+            Users = new List<NotiflexUser>();
+            Roles = new List<IdentityRole>();
+            UserRoles = new List<IdentityUserRole<string>>();
+
             InstantiateUsers();
             InstantiateRoles();
             InstantiateUserRoles();
         }
+
         public List<NotiflexUser> Users { get; private set; }
 
         public List<IdentityRole> Roles { get; private set; }
         
         public List<IdentityUserRole<string>> UserRoles { get; private set; }
 
-
         public  NotiflexUser NotiflexUserDefault { get; private set; }
+
         public  NotiflexUser NotiflexUserApproved { get; private set; }
 
         public  NotiflexUser NotiflexUserNoTelegramInfo { get; private set;  }

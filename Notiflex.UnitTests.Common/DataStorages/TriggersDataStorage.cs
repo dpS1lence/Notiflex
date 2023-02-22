@@ -7,62 +7,82 @@ using System.Threading.Tasks;
 
 namespace Notiflex.UnitTests.Common.DataStorages
 {
-    public static class TriggersDataStorage
+    public class TriggersDataStorage
     {
-        private static readonly NotiflexTrigger trigger = new()
+        public TriggersDataStorage() 
         {
-            Id = 1,
-            City = "Sofia",
-            Interval = 1000,
-            UserId = "1",
-            Hour = 2,
-            Minutes = "20",
-            Name = "TestTrigger",
-            DaysOfWeek = "Monday, Friday"
-        };
+            Triggers = new List<NotiflexTrigger>();
 
-        private static readonly NotiflexTrigger triggerWrongCity = new()
+            InstantiateTriggers();
+        }
+
+        public List<NotiflexTrigger> Triggers { get; private set; }
+
+        public NotiflexTrigger Trigger { get; private set; }
+
+        public NotiflexTrigger TriggerWrongCity { get; private set; }
+
+        public NotiflexTrigger TriggerWrongUserId { get; private set; }
+
+        public NotiflexTrigger TriggerWrongTime { get; private set; }
+
+        private void InstantiateTriggers()
         {
-            Id = 1,
-            City = "asdasdasdasdasd",
-            Interval = 1000,
-            UserId = "1",
-            Hour = 2,
-            Minutes = "20",
-            Name = "TestTrigger",
-            DaysOfWeek = "Monday, Friday"
-        };
+            NotiflexTrigger trigger = new()
+            {
+                Id = 1,
+                City = "Sofia",
+                Interval = 1000,
+                UserId = "1",
+                Hour = 2,
+                Minutes = "20",
+                Name = "TestTrigger",
+                DaysOfWeek = "Monday, Friday"
+            };
+            Trigger = trigger;
+            Triggers.Add(trigger);
 
-        private static readonly NotiflexTrigger triggerWrongUserId = new()
-        {
-            Id = 1,
-            City = "Sofia",
-            Interval = 1000,
-            UserId = "-1",
-            Hour = 2,
-            Minutes = "20",
-            Name = "TestTrigger",
-            DaysOfWeek = "Monday, Friday"
-        };
+            NotiflexTrigger triggerWrongCity = new()
+            {
+                Id = 1,
+                City = "asdasdasdasdasd",
+                Interval = 1000,
+                UserId = "1",
+                Hour = 2,
+                Minutes = "20",
+                Name = "TestTrigger",
+                DaysOfWeek = "Monday, Friday"
+            };
+            TriggerWrongCity = triggerWrongCity;
+            Triggers.Add(triggerWrongCity);
 
-        private static readonly NotiflexTrigger triggerWrongTime = new()
-        {
-            Id = 1,
-            City = "Sofia",
-            Interval = 1000,
-            UserId = "1",
-            Hour = 222,
-            Minutes = "222",
-            Name = "TestTrigger",
-            DaysOfWeek = "Monday, Friday"
-        };
+            NotiflexTrigger triggerWrongUserId = new()
+            {
+                Id = 1,
+                City = "Sofia",
+                Interval = 1000,
+                UserId = "-1",
+                Hour = 2,
+                Minutes = "20",
+                Name = "TestTrigger",
+                DaysOfWeek = "Monday, Friday"
+            };
+            TriggerWrongUserId = triggerWrongUserId;
+            Triggers.Add(triggerWrongUserId);
 
-        public static NotiflexTrigger Trigger { get => trigger; }
-
-        public static NotiflexTrigger TriggerWrongCity { get => triggerWrongCity; }
-
-        public static NotiflexTrigger TriggerWrongUserId { get => triggerWrongUserId; }
-
-        public static NotiflexTrigger TriggerWrongTime { get => triggerWrongTime; }
+            NotiflexTrigger triggerWrongTime = new()
+            {
+                Id = 1,
+                City = "Sofia",
+                Interval = 1000,
+                UserId = "1",
+                Hour = 222,
+                Minutes = "222",
+                Name = "TestTrigger",
+                DaysOfWeek = "Monday, Friday"
+            };
+            TriggerWrongTime = triggerWrongTime;
+            Triggers.Add(TriggerWrongTime);
+        }
     }
 }

@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace Notiflex.UnitTests.Core.Helpers
 {
-    public  class MockProvider
+    public class IdentityMockProvider
     {
-        
         public static Mock<UserManager<NotiflexUser>> MockUserManager(List<NotiflexUser> ls, List<IdentityUserRole<string>> userRoles, List<IdentityRole> roles)
         {
 
