@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Notiflex.Core\Notiflex.Core.csproj" />
     <ProjectReference Include="..\Notiflex.Infrastructure\Notiflex.Infrastructure.csproj" />
+    <ProjectReference Include="..\Notiflex.UnitTests.Common\Notiflex.UnitTests.Common.csproj" />
   </ItemGroup>
 
 </Project>
