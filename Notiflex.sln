@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.Common", "Notiflex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.UnitTests.Core", "Notiflex.Core.UnitTests\Notiflex.UnitTests.Core.csproj", "{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.UnitTests.Common", "Notiflex.UnitTests.Common\Notiflex.UnitTests.Common.csproj", "{6E7D1BAB-7A86-41E6-8FB9-3416F3C19667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notiflex.UnitTests.Common", "Notiflex.UnitTests.Common\Notiflex.UnitTests.Common.csproj", "{A70DF11E-716F-4013-A31B-72300FCB18CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539E61A4-E8BC-48A2-B423-26B2EF06ED6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E7D1BAB-7A86-41E6-8FB9-3416F3C19667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E7D1BAB-7A86-41E6-8FB9-3416F3C19667}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E7D1BAB-7A86-41E6-8FB9-3416F3C19667}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E7D1BAB-7A86-41E6-8FB9-3416F3C19667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A70DF11E-716F-4013-A31B-72300FCB18CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70DF11E-716F-4013-A31B-72300FCB18CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70DF11E-716F-4013-A31B-72300FCB18CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70DF11E-716F-4013-A31B-72300FCB18CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
