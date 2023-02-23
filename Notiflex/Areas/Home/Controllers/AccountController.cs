@@ -239,9 +239,9 @@ namespace Notiflex.Areas.Home.Controllers
         }
         [HttpGet]
         [Authorize]
-        public IActionResult Proceed(string? id, string? photo_url)
+        public IActionResult Proceed(string? id, string? photoUrl)
         {
-            photo_url ??= "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg";
+            photoUrl ??= "https://i.pinimg.com/550x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg";
 
             if (User.IsInRole("ApprovedUser"))
             {
@@ -249,7 +249,7 @@ namespace Notiflex.Areas.Home.Controllers
             }
 
             ViewData["id"] = id;
-            ViewData["photo_url"] = photo_url;
+            ViewData["photo_url"] = photoUrl;
 
             return PartialView();
         }
@@ -271,7 +271,7 @@ namespace Notiflex.Areas.Home.Controllers
             }
 
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
-            await _accountService.AprooveUser(userId, model.TelegramId, model.HomeTown, model.PhotoUrl);
+            await _accountService.AproveUser(userId, model.TelegramId, model.HomeTown, model.PhotoUrl);
 
             return RedirectToAction("Logout", "Account", new { area = "Home" });
         }

@@ -14,16 +14,16 @@ namespace Notiflex.Core.Services.BotServices
 {
     public class MessageSender : IMessageSender
     {
-        private readonly IConfiguration config;
+        private readonly IConfiguration _config;
 
         public MessageSender(IConfiguration config)
         {
-            this.config = config;
+            this._config = config;
         }
 
         public async Task SendMessage(Message message, string chatId)
         {
-            TelegramBotClient bot = new(config.GetValue<string>("Notiflex_botId"));
+            TelegramBotClient bot = new(_config.GetValue<string>("Notiflex_botId"));
             
             
             if(message == null)
@@ -43,9 +43,9 @@ namespace Notiflex.Core.Services.BotServices
         }
         public async Task SendMessageWithFile(WeatherReportReturnType report, string chatId)
         {
-            TelegramBotClient bot = new(config.GetValue<string>("Notiflex_botId"));
+            TelegramBotClient bot = new(_config.GetValue<string>("Notiflex_botId"));
 
-            if (report == null || report.Message == null)
+            if (report?.Message == null)
             {
                 throw new ArgumentException("null message");
             }

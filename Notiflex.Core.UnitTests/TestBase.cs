@@ -16,28 +16,28 @@ namespace Notiflex.UnitTests.Core
 {
     public abstract class TestBase
     {
-        protected Mock<UserManager<NotiflexUser>> _userManager = null!;
-        protected Mock<SignInManager<NotiflexUser>> _signInManager = null!;
-        protected Mock<RoleManager<IdentityRole>> _roleManager = null!;
-        protected Mock<IModelConfigurer> _modelConfigurer = null!;
-        protected Mock<ISchedulerFactory> _schedulerFactory = null!;
-        protected Mock<IScheduler> _scheduler = null!;
-        protected UsersDataStorage _usersDataStorage = null!;
-        protected TriggersDataStorage _triggersDataStorage = null!;
-        protected Mock<IRepository>? repoMock;
+        protected Mock<UserManager<NotiflexUser>> UserManager = null!;
+        protected Mock<SignInManager<NotiflexUser>> SignInManager = null!;
+        protected Mock<RoleManager<IdentityRole>> RoleManager = null!;
+        protected Mock<IModelConfigurer> ModelConfigurer = null!;
+        protected Mock<ISchedulerFactory> SchedulerFactory = null!;
+        protected Mock<IScheduler> Scheduler = null!;
+        protected UsersDataStorage UsersDataStorage = null!;
+        protected TriggersDataStorage TriggersDataStorage = null!;
+        protected Mock<IRepository>? RepoMock;
 
         [SetUp]
         public void Setup()
         {
-            _usersDataStorage = new UsersDataStorage();
-            _triggersDataStorage = new TriggersDataStorage();
+            UsersDataStorage = new UsersDataStorage();
+            TriggersDataStorage = new TriggersDataStorage();
 
-            _userManager = IdentityMockProvider.MockUserManager(_usersDataStorage.Users, _usersDataStorage.UserRoles, _usersDataStorage.Roles);
-            _signInManager = IdentityMockProvider.MockSignInManager();
-            _roleManager = IdentityMockProvider.MockRoleManager(_usersDataStorage.Roles);
-            _modelConfigurer = ModelConfigurerMockProvider.MockModelConfigurer();
-            _schedulerFactory = SchedulerFactoryMockProvider.MockSchedulerFactory();
-            _scheduler = SchedulerMockProvider.MockScheduler();
+            UserManager = IdentityMockProvider.MockUserManager(UsersDataStorage.Users, UsersDataStorage.UserRoles, UsersDataStorage.Roles);
+            SignInManager = IdentityMockProvider.MockSignInManager();
+            RoleManager = IdentityMockProvider.MockRoleManager(UsersDataStorage.Roles);
+            ModelConfigurer = ModelConfigurerMockProvider.MockModelConfigurer();
+            SchedulerFactory = SchedulerFactoryMockProvider.MockSchedulerFactory();
+            Scheduler = SchedulerMockProvider.MockScheduler();
         }
     }
 }

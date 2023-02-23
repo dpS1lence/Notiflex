@@ -2,11 +2,11 @@
 @using Notiflex.Core.Services.Contracts;
 @using Notiflex.ViewModels;
 @using System.Security.Claims;
-@inject IMapper mapper;
-@inject IAccountService _accountService;
+@inject IMapper Mapper;
+@inject IAccountService AccountService;
 @{
     var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
-    var profileData = mapper.Map<ProfileViewModel>(await _accountService.GetUserData(userId ?? string.Empty));
+    var profileData = Mapper.Map<ProfileViewModel>(await AccountService.GetUserData(userId ?? string.Empty));
     var viewPath = ViewContext.View.Path;
 }
 <link href="~/css/triggers/dashboardtriggerlist.css" rel="stylesheet" />

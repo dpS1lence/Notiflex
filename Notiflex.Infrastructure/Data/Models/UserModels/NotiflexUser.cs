@@ -18,34 +18,34 @@ namespace Notiflex.Infrastructure.Data.Models.UserModels
         }
 
         [Required]
-        [MinLength(DbValidationConstants.NAME_MIN_LENGTH)]
-        [MaxLength(DbValidationConstants.NAME_MAX_LENGTH)]
+        [MinLength(DbValidationConstants.NameMinLength)]
+        [MaxLength(DbValidationConstants.NameMaxLength)]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [MinLength(DbValidationConstants.NAME_MIN_LENGTH)]
-        [MaxLength(DbValidationConstants.NAME_MAX_LENGTH)]
+        [MinLength(DbValidationConstants.NameMinLength)]
+        [MaxLength(DbValidationConstants.NameMaxLength)]
         public string LastName { get; set; } = null!;
 
         [Required]
         public string Age { get; set; } = null!;
 
-        [MinLength(DbValidationConstants.DESCRIPTION_MIN_LENGTH)]
-        [MaxLength(DbValidationConstants.DESCRIPTION_MAX_LENGTH)]
+        [MinLength(DbValidationConstants.DescriptionMinLength)]
+        [MaxLength(DbValidationConstants.DescriptionMaxLength)]
         public string? Description { get; set; }
 
         [Required]
         public string Gender { get; set; } = null!;
 
-        [MaxLength(DbValidationConstants.PROFILE_PIC_SIZE_MAZ_LENGTH)]
+        [MaxLength(DbValidationConstants.ProfilePicSizeMazLength)]
         public string? ProfilePic { get; set; }
 
         public string? TelegramInfo { get; set; }
 
         public string? DefaultTime { get; set; }
 
-        [MinLength(DbValidationConstants.TOWN_NAME_MIN_LENGTH)]
-        [MaxLength(DbValidationConstants.TOWN_NAME_MAX_LENGTH)]
+        [MinLength(DbValidationConstants.TownNameMinLength)]
+        [MaxLength(DbValidationConstants.TownNameMaxLength)]
         public string? HomeTown { get; set; }
         public ICollection<NotiflexTrigger> Triggers { get; set; }
     }

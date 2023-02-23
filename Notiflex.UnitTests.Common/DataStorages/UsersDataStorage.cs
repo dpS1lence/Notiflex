@@ -30,6 +30,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
 
         public  NotiflexUser NotiflexUserDefault { get; private set; }
 
+        public  NotiflexUser NotiflexUserNoId { get; private set; }
+
         public  NotiflexUser NotiflexUserApproved { get; private set; }
 
         public  NotiflexUser NotiflexUserNoTelegramInfo { get; private set;  }
@@ -153,6 +155,25 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 EmailConfirmed = true
             };
             NotiflexUserNoEmail = notiflexUserNoEmail;
+            Users.Add(notiflexUserNoEmail);
+
+            NotiflexUser notiflexUserNoId = new()
+            {
+                Id = null,
+                FirstName = "Pesho",
+                LastName = "Peshov",
+                Age = "02-12-2012",
+                Description = "Hi i am Pesho!",
+                Gender = "Male",
+                ProfilePic = "image.url",
+                TelegramInfo = "1234",
+                DefaultTime = "12:20",
+                HomeTown = "Sofia",
+                UserName = "peshkata",
+                Email = null,
+                EmailConfirmed = true
+            };
+            NotiflexUserNoId = notiflexUserNoId;
             Users.Add(notiflexUserNoEmail);
         }
         private void InstantiateRoles()

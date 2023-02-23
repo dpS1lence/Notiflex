@@ -31,31 +31,31 @@ namespace Notiflex.Core.Services.AccountServices
             var weatherCard = await _modelConfigurer.ConfigureForecastReport(profileData.HomeTown ?? string.Empty);
 
             List<string> timesList = new();
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 timesList.Add(weatherCard[i].Date.Substring(10, 6));
             }
 
             List<string> temperaturesList = new();
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 temperaturesList.Add(weatherCard[i].Temp[..^1]);
             }
 
             List<string> cloudDataList = new();
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 cloudDataList.Add(weatherCard[i].Clouds);
             }
 
             List<string> pressureDataList = new();
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 pressureDataList.Add(weatherCard[i].Pressure);
             }
 
             List<string> humidityDataList = new();
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 humidityDataList.Add(weatherCard[i].Humidity);
             }

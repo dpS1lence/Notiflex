@@ -108,15 +108,15 @@ namespace Notiflex.Areas.Main.Controllers
             var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value!;
             var user = await _accountService.GetUserData(userId);
 
-            int hourUTC;
+            int hourUtc;
             if (model.GivenTimeZone)
             {
-                hourUTC = await _triggerService.GetHourUTC(model.City, model.Hour);
+                hourUtc = await _triggerService.GetHourUtc(model.City, model.Hour);
 
             }
             else
             {
-                hourUTC = await _triggerService.GetHourUTC(user.HomeTown, model.Hour);
+                hourUtc = await _triggerService.GetHourUtc(user.HomeTown, model.Hour);
             }
 
             if(model.DaySchedule.Select(a => a.Value).Where(a => a == true).ToList().Count <= 0)
@@ -130,7 +130,7 @@ namespace Notiflex.Areas.Main.Controllers
             
             try
             {
-                await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name, model.City, user.TelegramChatId, new TimeOfDay(hourUTC, int.Parse(model.Minutes)), daysSchedule);
+                await _triggerService.CreateWeatherReportTriggerAsync(userId, model.Name, model.City, user.TelegramChatId, new TimeOfDay(hourUtc, int.Parse(model.Minutes)), daysSchedule);
             }
             catch (ArgumentException ex)
             {

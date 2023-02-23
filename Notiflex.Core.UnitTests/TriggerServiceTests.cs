@@ -1,43 +1,42 @@
 ﻿using Moq;
+using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.SchedulerServices;
+using Notiflex.Infrastructure.Data.Models.ScheduleModels;
+using Notiflex.Infrastructure.Data.Models.UserModels;
 using Notiflex.Infrastructure.Repositories.Contracts;
 using Notiflex.UnitTests.Core.Helpers;
 using Quartz;
-using Quartz.Impl;
-using Quartz.Impl.Matchers;
-using Quartz.Spi;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Notiflex.UnitTests.Core
 {
+    [TestFixture]
     public class TriggerServiceTests : TestBase
     {
+        private ITriggerService triggerService;
+        private NotiflexTrigger trigger;
+        private NotiflexTrigger triggerWrongCity;
+        private NotiflexTrigger triggerWrongUserId;
+        private NotiflexTrigger triggerWrongTime;
+        private NotiflexUser user;
+        private NotiflexUser userNoTelegramInfo;
+        private NotiflexUser userNoId;
+        private List<DayOfWeek> daysSchedule;
+
         [SetUp]
         public void TestInitialize()
         {
+            trigger = TriggersDataStorage.Trigger;
+            triggerWrongCity = TriggersDataStorage.TriggerWrongCity;
+            triggerWrongUserId = TriggersDataStorage.TriggerWrongUserId;
+            triggerWrongTime = TriggersDataStorage.TriggerWrongTime;
+            user = UsersDataStorage.NotiflexUserDefault;
+            userNoTelegramInfo = UsersDataStorage.NotiflexUserNoTelegramInfo;
+            userNoId = UsersDataStorage.NotiflexUserNoId;
 
-        }
+            var days = trigger.DaysOfWeek.Split(", ").ToArray();
 
-        [Test]
-        public async Task CreateWeatherReportTriggerAsyncCreatesReport()
-        {
-            repoMock = new Mock<IRepository>();
-
-            ITriggerService triggerService = new TriggerService(_schedulerFactory.Object, repoMock.Object, _modelConfigurer.Object, _userManager.Object);
-
-            var trigger = _triggersDataStorage.Trigger;
-
-            var user = _usersDataStorage.NotiflexUserDefault;
-
-            string[] days = trigger.DaysOfWeek.Split(", ").ToArray();
-
-            List<DayOfWeek> daysSchedule = new();
+            daysSchedule = new List<DayOfWeek>();
             foreach (var item in days)
             {
                 switch (item.ToLower())
@@ -58,16 +57,109 @@ namespace Notiflex.UnitTests.Core
                         daysSchedule.Add(DayOfWeek.Sunday); break;
                 }
             }
+        }
 
-            IJobDetail job = JobBuilder
+        /// <summary>
+        /// Tests for CreateWeatherReportTriggerAsync method.
+        /// </summary>
+        [Test]
+        public async Task CreateWeatherReportTriggerAsyncCreatesReport()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            var job = JobBuilder
                 .Create<ReportSenderJob>()
                 .StoreDurably(true)
                 .WithIdentity("ReportSenderJob", "fails")
                 .Build();
 
-            await _scheduler.Object.AddJob(job, false);
+            await Scheduler.Object.AddJob(job, false);
 
-            Assert.DoesNotThrowAsync(async () => await triggerService.CreateWeatherReportTriggerAsync(user.Id, trigger.Name, trigger.City, user.TelegramInfo, new TimeOfDay(trigger.Hour, int.Parse(trigger.Minutes)), daysSchedule.ToArray()));
+            async Task CreateReport() => await triggerService
+                .CreateWeatherReportTriggerAsync(user.Id
+                    , trigger.Name
+                    , trigger.City
+                    , user.TelegramInfo
+                    , new TimeOfDay(trigger.Hour
+                        , int.Parse(trigger.Minutes))
+                    , daysSchedule.ToArray());
+
+            Assert.DoesNotThrowAsync(CreateReport);
+        }
+        [Test]
+        public void ThrowArgumentExceptionWhenCityNameInvalid()
+        {
+            RepoMock = new Mock<IRepository>();
+            var modelConfig = ModelConfigurer;
+
+            modelConfig.Setup(x => x.ConvertNameToCoordinates(It.IsAny<string>()))
+                .ReturnsAsync(new List<string>()
+                {
+                    "1",
+                    "1"
+                });
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, modelConfig.Object, UserManager.Object);
+            
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService
+                .CreateWeatherReportTriggerAsync(user.Id
+                    , triggerWrongCity.Name
+                    , triggerWrongCity.City, user.TelegramInfo
+                    , new TimeOfDay(triggerWrongCity.Hour
+                        , int.Parse(triggerWrongCity.Minutes))
+                    , daysSchedule.ToArray()), "Invalid city name!");
+
+            modelConfig.Setup(x => x.ConvertNameToCoordinates(It.IsAny<string>()))
+                .ReturnsAsync(new List<string>()
+                {
+                    "1",
+                    "1",
+                    null
+                });
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, modelConfig.Object, UserManager.Object);
+
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService
+                .CreateWeatherReportTriggerAsync(user.Id
+                    , triggerWrongCity.Name
+                    , triggerWrongCity.City, user.TelegramInfo
+                    , new TimeOfDay(triggerWrongCity.Hour
+                        , int.Parse(triggerWrongCity.Minutes))
+                    , daysSchedule.ToArray()), "Invalid city name!");
+        }
+        [Test]
+        public void ThrowArgumentExceptionWhenUserIdInvalid()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+            
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService
+                .CreateWeatherReportTriggerAsync(userNoId.Id
+                    , triggerWrongUserId.Name
+                    , triggerWrongUserId.City
+                    , user.TelegramInfo
+                    , new TimeOfDay(triggerWrongUserId.Hour
+                        , int.Parse(triggerWrongUserId.Minutes))
+                    , daysSchedule.ToArray()), "Invalid model!");
+        }
+        [Test]
+        public void ThrowArgumentExceptionWhenTelegramDataInvalid()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService
+                .CreateWeatherReportTriggerAsync(userNoTelegramInfo.Id
+                    , trigger.Name
+                    , trigger.City
+                    , userNoTelegramInfo.TelegramInfo
+                    , new TimeOfDay(trigger.Hour
+                        , int.Parse(trigger.Minutes))
+                    , daysSchedule.ToArray()), "Invalid model!");
         }
     }
 }

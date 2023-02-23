@@ -6,6 +6,7 @@ using Notiflex.Core.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,28 +17,28 @@ namespace Notiflex.Core.Services.BotServices
 {
     public class ModelConfigurer : IModelConfigurer
     {
-        private readonly IConfiguration config;
-        private readonly IWeatherApiService weatherService;
+        private readonly IConfiguration _config;
+        private readonly IWeatherApiService _weatherService;
 
         public ModelConfigurer(IConfiguration config, IWeatherApiService weatherService)
         {
-            this.config = config;
-            this.weatherService = weatherService;
+            this._config = config;
+            this._weatherService = weatherService;
         }
 
         public async Task<WeatherCardDto> ConfigureWeatherReport(string name)
         {
-            List<string> coors = await ConvertNameToCoordinates(name);
+            var coors = await ConvertNameToCoordinates(name);
 
-            string lat = coors[0];
-            string lon = coors[1];
+            var lat = coors[0];
+            var lon = coors[1];
 
             StringBuilder api = new();
-            api.Append(config.GetValue<string>("WeatherApi"));
+            api.Append(_config.GetValue<string>("WeatherApi"));
             api.Append($"lat={lat}&lon={lon}&appid=");
-            api.Append(config.GetValue<string>("WeatherKey"));
+            api.Append(_config.GetValue<string>("WeatherKey"));
 
-            WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
+            var model = await _weatherService.GetDataAsync(api.ToString());
 
             return FillModel(model);
         }
@@ -49,53 +50,52 @@ namespace Notiflex.Core.Services.BotServices
                 throw new ArgumentException("Invalid city name!");
             }
 
-            List<string> coors = await ConvertNameToCoordinates(name);
+            var coors = await ConvertNameToCoordinates(name);
 
-            string lat = coors[0];
-            string lon = coors[1];
-            string ctyName = coors[2];
+            var lat = coors[0];
+            var lon = coors[1];
+            var ctyName = coors[2];
 
             StringBuilder api = new();
-            api.Append(config.GetValue<string>("ForecastApi"));
+            api.Append(_config.GetValue<string>("ForecastApi"));
             api.Append($"lat={lat}&lon={lon}&appid=");
-            api.Append(config.GetValue<string>("WeatherKey"));
+            api.Append(_config.GetValue<string>("WeatherKey"));
 
-            ForecastDataModel modelList = await weatherService.GetForecastDataAsync(api.ToString());
-            List<WeatherCardDto> indexModels = new();
+            var modelList = await _weatherService.GetForecastDataAsync(api.ToString());
 
-            foreach (var model in modelList.List)
-            {
-                indexModels.Add(new WeatherCardDto()
+            return modelList.List.Select(model => new WeatherCardDto()
                 {
-                    Avalable = true,
-                    Name = ctyName,
-                    Country = modelList.City.Country,
-                    Weather = model.Weather.First().Main,
-                    Description = model.Weather.First().Description,
-                    Temp = Math.Round((decimal)(model.Main.Temp - 273.15), 2).ToString() + "°",
-                    FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString() + "°",
-                    TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString() + "°",
-                    TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
-                    Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
-                    Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
-                    Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
-                    Date = model.DtTxt.ToString(),
-                    Clouds = model.Clouds.All.ToString(),
-                    Icon = model.Weather.First().Icon
-                }) ;
-            }
-
-            return indexModels;
+                    Avalable = true
+                    , Name = ctyName
+                    , Country = modelList.City.Country
+                    , Weather = model.Weather.First().Main
+                    , Description = model.Weather.First().Description
+                    , Temp = Math.Round((decimal) (model.Main.Temp - 273.15), 2)
+                        .ToString(CultureInfo.InvariantCulture) + "°"
+                    , FeelsLike = Math.Round((decimal) (model.Main.FeelsLike - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°"
+                    , TempMin = Math.Round((decimal) (model.Main.TempMin - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°"
+                    , TempMax = Math.Round((decimal) (model.Main.TempMax - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°"
+                    , Pressure = Math.Round((decimal) (model.Main.Pressure), 2)
+                        .ToString(CultureInfo.InvariantCulture)
+                    , Humidity = Math.Round((decimal) (model.Main.Humidity), 2)
+                        .ToString(CultureInfo.InvariantCulture)
+                    , Speed = Math.Round((decimal) (model.Wind.Speed), 2)
+                        .ToString(CultureInfo.InvariantCulture)
+                    , Date = model.DtTxt.ToString()
+                    , Clouds = model.Clouds.All.ToString()
+                    , Icon = model.Weather.First().Icon
+                })
+                .ToList();
         }
 
         public async Task<List<string>> ConvertNameToCoordinates(string cityName)
         {
             StringBuilder api = new();
-            api.Append(config.GetValue<string>("CityNameConverterUrl"));
+            api.Append(_config.GetValue<string>("CityNameConverterUrl"));
             api.Append($"{cityName}&limit=1&appid=");
-            api.Append(config.GetValue<string>("WeatherKey"));
+            api.Append(_config.GetValue<string>("WeatherKey"));
 
-            NameToCoordinatesModel model = await weatherService.ConvertFromNameAsync(api.ToString());
+            var model = await _weatherService.ConvertFromNameAsync(api.ToString());
 
             return new List<string>()
             {
@@ -114,13 +114,13 @@ namespace Notiflex.Core.Services.BotServices
                 Country = model.Sys.Country,
                 Weather = model.Weather.First().Main,
                 Description = model.Weather.First().Description,
-                Temp = Math.Round((decimal)(model.Main.Temp - 273.15), 2).ToString() + "°",
-                FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString() + "°",
-                TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString() + "°",
-                TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString() + "°",
-                Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(),
-                Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(),
-                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(),
+                Temp = Math.Round((decimal)(model.Main.Temp - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°",
+                FeelsLike = Math.Round((decimal)(model.Main.FeelsLike - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°",
+                TempMin = Math.Round((decimal)(model.Main.TempMin - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°",
+                TempMax = Math.Round((decimal)(model.Main.TempMax - 273.15), 2).ToString(CultureInfo.InvariantCulture) + "°",
+                Pressure = Math.Round((decimal)(model.Main.Pressure), 2).ToString(CultureInfo.InvariantCulture),
+                Humidity = Math.Round((decimal)(model.Main.Humidity), 2).ToString(CultureInfo.InvariantCulture),
+                Speed = Math.Round((decimal)(model.Wind.Speed), 2).ToString(CultureInfo.InvariantCulture),
                 TimeZone = model.Timezone,
                 Icon = model.Weather.First().Icon
             };
