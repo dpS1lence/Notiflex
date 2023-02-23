@@ -119,7 +119,7 @@ namespace Notiflex.Core.Services.Contracts
         /// <param name="hometown">Home town of the user.</param>
         /// <param name="photo">Profile picture of the user.</param>
         /// <exception cref="ArgumentException">Invalid arguments.</exception>
-        Task AprooveUser(string userId, string telegramId, string hometown, string photo);
+        Task AproveUser(string userId, string telegramId, string hometown, string photo);
 
         /// <summary>
         /// Checks if the user with the specified id has the specified role.

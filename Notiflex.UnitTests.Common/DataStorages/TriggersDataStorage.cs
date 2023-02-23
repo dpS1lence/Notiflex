@@ -45,7 +45,7 @@ namespace Notiflex.UnitTests.Common.DataStorages
             NotiflexTrigger triggerWrongCity = new()
             {
                 Id = 1,
-                City = "asdasdasdasdasd",
+                City = null,
                 Interval = 1000,
                 UserId = "1",
                 Hour = 2,
@@ -61,7 +61,7 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 Id = 1,
                 City = "Sofia",
                 Interval = 1000,
-                UserId = "-1",
+                UserId = null,
                 Hour = 2,
                 Minutes = "20",
                 Name = "TestTrigger",

@@ -13,20 +13,20 @@ namespace Notiflex.Core.Services.BotServices
 {
     public class MessageConfigurer : IMessageConfigurer
     {
-        private readonly IConfiguration config;
-        private readonly IWeatherApiService weatherService;
+        private readonly IConfiguration _config;
+        private readonly IWeatherApiService _weatherService;
 
         public MessageConfigurer(IConfiguration config, IWeatherApiService weatherService)
         {
-            this.config = config;
-            this.weatherService = weatherService;
+            this._config = config;
+            this._weatherService = weatherService;
         }
 
         public async Task<WeatherReportReturnType> ConfigureWeatherReportWithFile(string name)
         {
-            List<string> coors = await ConvertNameToCoordinates(name);
+            var coors = await ConvertNameToCoordinates(name);
 
-            string message = string.Empty;
+            var message = string.Empty;
             var location = new Location();
 
             if (coors.Count != 0)
@@ -35,11 +35,11 @@ namespace Notiflex.Core.Services.BotServices
                 location.Longitude = double.Parse(coors[1]);
 
                 StringBuilder api = new();
-                api.Append(config.GetValue<string>("WeatherApi"));
+                api.Append(_config.GetValue<string>("WeatherApi"));
                 api.Append($"lat={location.Latitude}&lon={location.Longitude}&appid=");
-                api.Append(config.GetValue<string>("WeatherKey"));
+                api.Append(_config.GetValue<string>("WeatherKey"));
 
-                WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
+                var model = await _weatherService.GetDataAsync(api.ToString());
 
                 message = ConfigureMessageText(model, name);
             }
@@ -57,9 +57,9 @@ namespace Notiflex.Core.Services.BotServices
 
         public async Task<Message> ConfigureWeatherReportMessage(string name)
         {
-            List<string> coors = await ConvertNameToCoordinates(name);
+            var coors = await ConvertNameToCoordinates(name);
 
-            string message = string.Empty;
+            var message = string.Empty;
             var location = new Location();
 
             if (coors.Count != 0)
@@ -68,11 +68,11 @@ namespace Notiflex.Core.Services.BotServices
                 location.Longitude = double.Parse(coors[1]);
 
                 StringBuilder api = new();
-                api.Append(config.GetValue<string>("WeatherApi"));
+                api.Append(_config.GetValue<string>("WeatherApi"));
                 api.Append($"lat={location.Latitude}&lon={location.Longitude}&appid=");
-                api.Append(config.GetValue<string>("WeatherKey"));
+                api.Append(_config.GetValue<string>("WeatherKey"));
 
-                WeatherDataModel model = await weatherService.GetDataAsync(api.ToString());
+                var model = await _weatherService.GetDataAsync(api.ToString());
 
                 message = ConfigureMessageText(model, name);
             }
@@ -89,15 +89,15 @@ namespace Notiflex.Core.Services.BotServices
         public async Task<List<string>> ConvertNameToCoordinates(string cityName)
         {
             StringBuilder api = new();
-            api.Append(config.GetValue<string>("CityNameConverterUrl"));
+            api.Append(_config.GetValue<string>("CityNameConverterUrl"));
             api.Append($"{cityName}&limit=1&appid=");
-            api.Append(config.GetValue<string>("WeatherKey"));
+            api.Append(_config.GetValue<string>("WeatherKey"));
 
             NameToCoordinatesModel model;
 
             try
             {
-                model = await weatherService.ConvertFromNameAsync(api.ToString());
+                model = await _weatherService.ConvertFromNameAsync(api.ToString());
             }
             catch (Exception)
             {

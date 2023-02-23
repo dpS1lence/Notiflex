@@ -11,36 +11,42 @@ using System.Threading.Tasks;
 
 namespace Notiflex.Core.Services.APIServices
 {
-    public class WeatherAPIService : IWeatherApiService
+    public class WeatherApiService : IWeatherApiService
     {
         public async Task<WeatherDataModel> GetDataAsync(string url)
         {
             var client = new HttpClient();
             var json = await client.GetStringAsync(url);
+
             if (string.IsNullOrEmpty(json))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("NullOrEmpty");
             }
+
             var result = JsonConvert.DeserializeObject<WeatherDataModel>(json);
             if (result == null)
             {
                 throw new NotFoundException();
             }
+
             return result;
         }
         public async Task<ForecastDataModel> GetForecastDataAsync(string url)
         {
             var client = new HttpClient();
             var json = await client.GetStringAsync(url);
+
             if (string.IsNullOrEmpty(json))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("NullOrEmpty");
             }
+
             var result = JsonConvert.DeserializeObject<ForecastDataModel>(json);
             if (result == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("NullOrEmpty");
             }
+
             return result;
         }
 
@@ -48,21 +54,20 @@ namespace Notiflex.Core.Services.APIServices
         {
             var client = new HttpClient();
             var json = await client.GetStringAsync(url);
+
             if (string.IsNullOrEmpty(json))
             {
                 //TODO: New Specific Exception Type
-                throw new ArgumentException();
+                throw new ArgumentException("NullOrEmpty");
             }
+
             var result = JsonConvert.DeserializeObject<List<NameToCoordinatesModel>>(json);
             if (result == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("NullOrEmpty");
             }
-            else if(result.Count <= 0)
-            {
-                return new NameToCoordinatesModel();
-            }
-            return result.First();
+
+            return result.Count <= 0 ? new NameToCoordinatesModel() : result.First();
         }
     }
 }

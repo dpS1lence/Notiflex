@@ -9,14 +9,14 @@ namespace Notiflex.UnitTests.Core.Helpers
 {
     public class ReportSenderJob : IJob
     {
-        private int counter;
+        private int _counter;
         public ReportSenderJob()
         {
-            this.counter = 0;
+            this._counter = 0;
         }
         public int Counter
         {
-            get { return this.counter; }
+            get { return this._counter; }
         }
 
         Task IJob.Execute(IJobExecutionContext context)

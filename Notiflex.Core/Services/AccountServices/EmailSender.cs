@@ -30,16 +30,16 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 Text = body
             };
-            using (var client = new SmtpClient())
-            {
-                await client.ConnectAsync("smtp.gmail.com", 465, true);
+#pragma warning disable IDE0063
+            using var client = new SmtpClient();
+#pragma warning restore IDE0063
+            await client.ConnectAsync("smtp.gmail.com", 465, true);
 
-                // Note: only needed if the SMTP server requires authentication
-                await client.AuthenticateAsync(email, _config.GetSection("EmailSender")["AuthPassword"]);
+            // Note: only needed if the SMTP server requires authentication
+            await client.AuthenticateAsync(email, _config.GetSection("EmailSender")["AuthPassword"]);
 
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
-            }
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);
         }
     }
 }

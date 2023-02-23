@@ -64,13 +64,13 @@ namespace Notiflex.Core.Services.AccountServices
                 return IdentityResult.Failed();
             }
 
-            IdentityResult result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, password);
             return result;
         }
         /// <inheritdoc />
         public async Task<bool> IsEmailConfirmedAsync(string email)
         {
-            NotiflexUser? user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email).FirstOrDefaultAsync();
+            var user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email).FirstOrDefaultAsync();
             if (user == null)
             {
                 throw new NotFoundException();
@@ -80,7 +80,7 @@ namespace Notiflex.Core.Services.AccountServices
         /// <inheritdoc />
         public async Task<SignInResult> SignInUserAsync(string email, string password)
         {
-            NotiflexUser? user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email)
+            var user = await _repo.AllReadonly<NotiflexUser>(u => u.Email == email)
                 .FirstOrDefaultAsync();
             if (user == null)
             {
@@ -102,7 +102,7 @@ namespace Notiflex.Core.Services.AccountServices
         /// <inheritdoc />
         public async Task<string> GetUserIdByEmail(string email)
         {
-            NotiflexUser? user = await this._repo.AllReadonly<NotiflexUser>(
+            var user = await this._repo.AllReadonly<NotiflexUser>(
                     u => u.Email == email)
                 .FirstOrDefaultAsync();
             if (user == null)
@@ -121,33 +121,33 @@ namespace Notiflex.Core.Services.AccountServices
         /// <inheritdoc />
         public async Task<string> GenerateEmailConfirmationTokenAsync(string userId)
         {
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             if (user == null)
             {
                 throw new NotFoundException();
             }
             await _userManager.UpdateSecurityStampAsync(user);
-            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
         /// <inheritdoc />
         public async Task<string> GeneratePasswordResetTokenAsync(string userId)
         {
             
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             if (user == null)
             {
                 throw new NotFoundException();
             }
             await _userManager.UpdateSecurityStampAsync(user);
 
-            string code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
         /// <inheritdoc />
         public async Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword)
         {
-            NotiflexUser? user = await _repo.All<NotiflexUser>(u => u.Email == email)
+            var user = await _repo.All<NotiflexUser>(u => u.Email == email)
                 .FirstOrDefaultAsync();
             if (user == null)
             {
@@ -157,7 +157,7 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new ArgumentNullException();
             }
-            IdentityResult result = await _userManager.ResetPasswordAsync(user, code, newPassword);
+            var result = await _userManager.ResetPasswordAsync(user, code, newPassword);
             if (result.Succeeded)
             {
                 await _signInManager.RefreshSignInAsync(user);
@@ -167,12 +167,12 @@ namespace Notiflex.Core.Services.AccountServices
         /// <inheritdoc />
         public async Task<IdentityResult> ConfirmEmailAsync(string userId, string code)
         {
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             if (user == null)
             {
                 throw new NotFoundException();
             }
-            string token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             return await _userManager.ConfirmEmailAsync(user, token);
 
         }
@@ -183,7 +183,7 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new ArgumentException();
             }
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
 
             if (user == null)
             {
@@ -216,17 +216,17 @@ namespace Notiflex.Core.Services.AccountServices
 
             return profileDto;
         }
-
-        /// <inheritdoc />
-        public async Task AprooveUser(string userId, string telegramId, string hometown, string photo)
+        
+        public async Task AproveUser(string userId, string telegramId, string hometown, string photo)
         {
-            string roleName = "ApprovedUser";
+            const string roleName = "ApprovedUser";
+
             if (!await _roleManager.RoleExistsAsync(roleName))
             {
-                IdentityRole role = new IdentityRole(roleName);
+                var role = new IdentityRole(roleName);
                 await _roleManager.CreateAsync(role);
             }
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             if (await _userManager.IsInRoleAsync(user, roleName))
             {
                 return;
@@ -235,22 +235,19 @@ namespace Notiflex.Core.Services.AccountServices
             {
                 throw new ArgumentException();
             }
-            if (user != null)
-            {
-                
-                user.TelegramInfo = telegramId;
-                user.HomeTown = hometown;
-                user.ProfilePic = photo;
 
-                _repo.Update(user);
-                await _repo.SaveChangesAsync();
-                await _userManager.AddToRoleAsync(user, roleName);
-            }
+            user.TelegramInfo = telegramId;
+            user.HomeTown = hometown;
+            user.ProfilePic = photo;
+
+            _repo.Update(user);
+            await _repo.SaveChangesAsync();
+            await _userManager.AddToRoleAsync(user, roleName);
         }
         /// <inheritdoc />
         public async Task<bool> IsInRole(string userId, string roleName)
         {
-            NotiflexUser user = await _repo.GetByIdAsync<NotiflexUser>(userId);
+            var user = await _repo.GetByIdAsync<NotiflexUser>(userId);
             return await _userManager.IsInRoleAsync(user, roleName);
         }
     }
