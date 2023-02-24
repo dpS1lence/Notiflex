@@ -78,7 +78,7 @@ namespace Notiflex.Core.Services.SchedulerServices
         public async Task<List<TriggerGetOneDto>> GetAllTriggers(string userId)
         {
             var user = await _userManager.Users.Include(a => a.Triggers).Where(a => a.Id == userId).FirstOrDefaultAsync();
-            if (user == null)
+            if (user == null || user.Equals(default(NotiflexUser)))
             {
                 throw new NotFoundException();
             }
@@ -103,7 +103,7 @@ namespace Notiflex.Core.Services.SchedulerServices
                 throw new NotFoundException();
             }
             
-            if(trigger.UserId != userId || userId == null)
+            if(userId == null || trigger.UserId != userId)
             {
                 throw new ArgumentException("Invalid user!");
             }
@@ -121,32 +121,31 @@ namespace Notiflex.Core.Services.SchedulerServices
         {
             var report = await _modelConfigurer.ConfigureWeatherReport(cityName);
 
-            if (report == null || report?.ToString()?.Length < 1) throw new ArgumentException("Invalid city name");
-
-            var utcOffset = ((report?.TimeZone ?? throw new ArgumentException("Invalid city name")) / 60) / 60;
-
-            // ReSharper disable once InconsistentNaming
-            int hourUTC;
-            
-            switch (hour - utcOffset)
+            if (report == null)
             {
-                case <= 0:
-                    hourUTC = 24 + (hour - utcOffset);
-                    break;
-                case > 24:
-                    hourUTC = (hour - utcOffset) - 24;
-                    break;
-                default:
-                    hourUTC = hour - utcOffset;
-                    break;
+                throw new ArgumentException("Invalid city name!");
             }
 
-            if (hourUTC == 24)
+            if (report.ToString()!.Length < 1)
             {
-                hourUTC = 0;
+                throw new ArgumentException("Invalid city name!");
             }
 
-            return hourUTC;
+            var utcOffset = (report.TimeZone) / 60 / 60;
+
+            var hourUtc = (hour - utcOffset) switch
+            {
+                <= 0 => 24 + (hour - utcOffset)
+                , > 24 => hour - utcOffset - 24
+                , _ => hour - utcOffset
+            };
+
+            if (hourUtc == 24)
+            {
+                hourUtc = 0;
+            }
+
+            return hourUtc;
         }
     }
 }

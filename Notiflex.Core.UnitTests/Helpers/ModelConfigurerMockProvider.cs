@@ -18,7 +18,10 @@ namespace Notiflex.UnitTests.Core.Helpers
             var modelConfigurer = new Mock<IModelConfigurer>();
 
             modelConfigurer.Setup(x => x.ConfigureWeatherReport(It.IsAny<string>()))
-                .ReturnsAsync(new WeatherCardDto());
+                .ReturnsAsync(new WeatherCardDto
+                {
+                    TimeZone = 10800
+                });
 
             modelConfigurer.Setup(x => x.ConfigureForecastReport(It.IsAny<string>()))
                 .ReturnsAsync(new List<WeatherCardDto>());
