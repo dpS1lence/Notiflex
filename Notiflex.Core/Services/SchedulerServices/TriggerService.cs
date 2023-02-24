@@ -119,6 +119,11 @@ namespace Notiflex.Core.Services.SchedulerServices
 
         public async Task<int> GetHourUtc(string cityName, int hour)
         {
+            if (cityName == null)
+            {
+                throw new ArgumentException("Invalid city name!");
+            }
+
             var report = await _modelConfigurer.ConfigureWeatherReport(cityName);
 
             if (report == null)
