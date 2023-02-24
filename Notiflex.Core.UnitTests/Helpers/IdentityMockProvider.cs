@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Moq;
 using Notiflex.Infrastructure.Data.Models.UserModels;
 using System;
@@ -91,8 +93,15 @@ namespace Notiflex.UnitTests.Core.Helpers
         }
         public Mock<SignInManager<NotiflexUser>> MockSignInManager()
         {
-            
-            var manager = new Mock<SignInManager<NotiflexUser>>(MockUserManager().Object, null, null ,null, null ,null);
+            var userManager = MockUserManager().Object;
+            var accessor = new Mock<HttpContextAccessor>();
+
+            var options = new IdentityOptions();
+            IOptions<IdentityOptions> optionsAccessor = Options.Create(options);
+
+            var claimsFactory = new Mock<UserClaimsPrincipalFactory<NotiflexUser>>(userManager, optionsAccessor);
+
+            var manager = new Mock<SignInManager<NotiflexUser>>(userManager, accessor.Object, claimsFactory.Object, null, null ,null);
 
             manager.Setup(sm => sm.PasswordSignInAsync(It.IsAny<NotiflexUser>(), It.IsAny<string>(), false, false))!
                 .ReturnsAsync(SignInResult.Success);
