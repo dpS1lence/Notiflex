@@ -32,9 +32,11 @@ namespace Notiflex.UnitTests.Core
             UsersDataStorage = new UsersDataStorage();
             TriggersDataStorage = new TriggersDataStorage();
 
-            UserManager = IdentityMockProvider.MockUserManager(UsersDataStorage.Users, UsersDataStorage.UserRoles, UsersDataStorage.Roles);
-            SignInManager = IdentityMockProvider.MockSignInManager();
-            RoleManager = IdentityMockProvider.MockRoleManager(UsersDataStorage.Roles);
+            var identityMockProvider = new IdentityMockProvider(UsersDataStorage.Users, UsersDataStorage.UserRoles, UsersDataStorage.Roles);
+
+            UserManager = identityMockProvider.MockUserManager();
+            SignInManager = identityMockProvider.MockSignInManager();
+            RoleManager = identityMockProvider.MockRoleManager();
             ModelConfigurer = ModelConfigurerMockProvider.MockModelConfigurer();
             SchedulerFactory = SchedulerFactoryMockProvider.MockSchedulerFactory();
             Scheduler = SchedulerMockProvider.MockScheduler();
