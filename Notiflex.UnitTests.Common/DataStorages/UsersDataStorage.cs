@@ -57,7 +57,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = "pesho@abc.cba",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserDefault = notiflexUserDefault;
             Users.Add(notiflexUserDefault);
@@ -76,7 +77,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = "pesho@abc.cba",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserApproved = notiflexUserApproved;
             Users.Add(notiflexUserApproved);
@@ -95,7 +97,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = "pesho@abc.cba",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserNoTelegramInfo = notiflexUserNoTelegramInfo;
             Users.Add(notiflexUserNoTelegramInfo);
@@ -114,7 +117,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = null,
                 UserName = "peshkata",
                 Email = "pesho@abc.cba",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserNoHomeTown = notiflexUserNoHomeTown;
             Users.Add(notiflexUserNoHomeTown);
@@ -133,7 +137,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = "pesho@abc.cba",
-                EmailConfirmed = false
+                EmailConfirmed = false,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserEmailNotConfirmed = notiflexUserEmailNotConfirmed;
             Users.Add(notiflexUserEmailNotConfirmed);
@@ -152,7 +157,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = null,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserNoEmail = notiflexUserNoEmail;
             Users.Add(notiflexUserNoEmail);
@@ -171,7 +177,8 @@ namespace Notiflex.UnitTests.Common.DataStorages
                 HomeTown = "Sofia",
                 UserName = "peshkata",
                 Email = null,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Triggers = new TriggersDataStorage().Triggers
             };
             NotiflexUserNoId = notiflexUserNoId;
             Users.Add(notiflexUserNoEmail);

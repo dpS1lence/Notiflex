@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Notiflex.Core.Exceptions;
 using Notiflex.Core.Services.BotServices;
 using Notiflex.Core.Services.Contracts;
 using Notiflex.Core.Services.SchedulerServices;
@@ -75,7 +76,7 @@ namespace Notiflex.UnitTests.Core
                 .WithIdentity("ReportSenderJob", "fails")
                 .Build();
 
-            await Scheduler.Object.AddJob(job, false);
+            await Scheduler.Object.AddJob(job, false).ConfigureAwait(false);
 
             async Task CreateReport() => await triggerService
                 .CreateWeatherReportTriggerAsync(user.Id
@@ -84,7 +85,7 @@ namespace Notiflex.UnitTests.Core
                     , user.TelegramInfo
                     , new TimeOfDay(trigger.Hour
                         , int.Parse(trigger.Minutes))
-                    , daysSchedule.ToArray());
+                    , daysSchedule.ToArray()).ConfigureAwait(false);
 
             Assert.DoesNotThrowAsync(CreateReport);
         }
@@ -160,6 +161,90 @@ namespace Notiflex.UnitTests.Core
                     , new TimeOfDay(trigger.Hour
                         , int.Parse(trigger.Minutes))
                     , daysSchedule.ToArray()), "Invalid model!");
+        }
+
+        /// <summary>
+        /// Tests for GetAllTriggers method.
+        /// </summary>
+        [Test]
+        public async Task GetAllTriggersReturnsListOfTriggers()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            var triggers = await triggerService.GetAllTriggers(user.Id);
+
+            Assert.That(triggers.Any());
+        }
+        [Test]
+        public void ThrowsNotFoundExceptionGetAllTriggersIfUserNotFound()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            Assert.ThrowsAsync<NotFoundException>(() =>
+                triggerService.GetAllTriggers(userNoId.Id));
+        }
+
+        /// <summary>
+        /// Tests for DeleteTrigger(int triggerId, string userId)
+        /// </summary>
+        [Test]
+        public void DeleteTriggerDeletesGivenTrigger()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            var beforeDeleteTriggersCount = user.Triggers.Count;
+
+            Assert.DoesNotThrowAsync(() => triggerService.DeleteTrigger(trigger.Id, user.Id));
+            Assert.That(user.Triggers, Has.Count.Not.EqualTo(beforeDeleteTriggersCount));
+        }
+        [Test]
+        public void ThrowsNotFoundExceptionWhenTriggerIsNull()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            Assert.ThrowsAsync<NotFoundException>(() => triggerService.DeleteTrigger(-1, user.Id));
+        }
+        [Test]
+        public void ThrowsArgumentExceptionWhenUserIsNullOrTriggerDoesNotBelongToTHeGivenUser()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService.DeleteTrigger(trigger.Id, userNoId.Id), "Invalid user!");
+            Assert.ThrowsAsync<ArgumentException>(() => triggerService.DeleteTrigger(trigger.Id, "22"), "Invalid user!");
+        }
+
+        /// <summary>
+        /// Tests for GetHourUtc(string cityName, int hour)
+        /// </summary>
+        [Test]
+        public async Task GetHourUtcConvertsGivenTimeToUtc()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+
+            var hour = await triggerService.GetHourUtc(trigger.City, 14);
+            Assert.That(hour, Is.EqualTo(12));
+        }
+        [Test]
+        public void ThrowsArgumentExceptionWhenCityNameInvalid()
+        {
+            RepoMock = new Mock<IRepository>();
+
+            triggerService = new TriggerService(SchedulerFactory.Object, RepoMock.Object, ModelConfigurer.Object, UserManager.Object);
+            
+            Assert.ThrowsAsync<ArgumentException>(() =>
+                triggerService.GetHourUtc(triggerWrongCity.City, 14), "Invalid city name!");
         }
     }
 }
