@@ -12,11 +12,13 @@ namespace Notiflex.UnitTests.Core.Helpers
     {
         public static Mock<IScheduler> MockScheduler()
         {
-            var schedulerFactory = new Mock<IScheduler>();
+            var scheduler = new Mock<IScheduler>();
 
-            schedulerFactory.Setup(x => x.ScheduleJob(It.IsAny<ITrigger>(), It.IsAny<CancellationToken>()));
+            scheduler.Setup(x => x.ScheduleJob(It.IsAny<ITrigger>(), It.IsAny<CancellationToken>()));
 
-            return schedulerFactory;
+            scheduler.Setup(x => x.UnscheduleJob(It.IsAny<TriggerKey>(), It.IsAny<CancellationToken>()));
+
+            return scheduler;
         }
     }
 }
