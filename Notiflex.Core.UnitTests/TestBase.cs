@@ -29,12 +29,13 @@ namespace Notiflex.UnitTests.Core
         [SetUp]
         public void Setup()
         {
+            var identityMockProvider = new IdentityMockProvider(UsersDataStorage.Users, UsersDataStorage.UserRoles, UsersDataStorage.Roles);
             UsersDataStorage = new UsersDataStorage();
             TriggersDataStorage = new TriggersDataStorage();
 
-            UserManager = IdentityMockProvider.MockUserManager(UsersDataStorage.Users, UsersDataStorage.UserRoles, UsersDataStorage.Roles);
-            SignInManager = IdentityMockProvider.MockSignInManager();
-            RoleManager = IdentityMockProvider.MockRoleManager(UsersDataStorage.Roles);
+            UserManager = identityMockProvider.MockUserManager();
+            SignInManager = identityMockProvider.MockSignInManager();
+            RoleManager = identityMockProvider.MockRoleManager();
             ModelConfigurer = ModelConfigurerMockProvider.MockModelConfigurer();
             SchedulerFactory = SchedulerFactoryMockProvider.MockSchedulerFactory();
             Scheduler = SchedulerMockProvider.MockScheduler();

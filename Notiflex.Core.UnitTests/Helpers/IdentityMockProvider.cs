@@ -12,7 +12,16 @@ namespace Notiflex.UnitTests.Core.Helpers
 {
     public class IdentityMockProvider
     {
-        public static Mock<UserManager<NotiflexUser>> MockUserManager(List<NotiflexUser> ls, List<IdentityUserRole<string>> userRoles, List<IdentityRole> roles)
+        private List<NotiflexUser> ls;
+        private List<IdentityUserRole<string>> userRoles;
+        private List<IdentityRole> roles;
+        public IdentityMockProvider(List<NotiflexUser> ls, List<IdentityUserRole<string>> userRoles, List<IdentityRole> roles)
+        {
+            this.ls = ls;
+            this.userRoles = userRoles;
+            this.roles = roles; 
+        }
+        public Mock<UserManager<NotiflexUser>> MockUserManager()
         {
 
             var store = new Mock<IUserStore<NotiflexUser>>();
@@ -61,7 +70,7 @@ namespace Notiflex.UnitTests.Core.Helpers
 
 
             manager.Setup(um => um.Users)
-                .Returns(ls.AsQueryable());
+                .Returns(ls != null ? ls.AsQueryable() : null);
 
             manager.Setup(um => um.IsInRoleAsync(It.IsAny<NotiflexUser>(), It.IsAny<string>()))!
                 .ReturnsAsync((NotiflexUser user, string role) =>
@@ -80,22 +89,25 @@ namespace Notiflex.UnitTests.Core.Helpers
             return manager;
 
         }
-        public static Mock<SignInManager<NotiflexUser>> MockSignInManager()
+        public Mock<SignInManager<NotiflexUser>> MockSignInManager()
         {
-            var manager = new Mock<SignInManager<NotiflexUser>>();
+            
+            var manager = new Mock<SignInManager<NotiflexUser>>(MockUserManager().Object, null, null ,null, null ,null);
 
             manager.Setup(sm => sm.PasswordSignInAsync(It.IsAny<NotiflexUser>(), It.IsAny<string>(), false, false))!
                 .ReturnsAsync(SignInResult.Success);
             return manager;
         }
 
-        public static Mock<RoleManager<IdentityRole>> MockRoleManager(List<IdentityRole> ls)
+        public Mock<RoleManager<IdentityRole>> MockRoleManager()
         {
             var store = new Mock<IRoleStore<IdentityRole>>();
-            var manager = new Mock<RoleManager<IdentityRole>>(store.Object);
+            var manager = new Mock<RoleManager<IdentityRole>>(store.Object, null, null, null, null);
+
+            manager.Object.RoleValidators.Add(new RoleValidator<IdentityRole>());
 
             manager.Setup(rm => rm.RoleExistsAsync(It.IsAny<string>()))!
-                .ReturnsAsync((string rolename) => ls.Any(a => a.Name == rolename));
+                .ReturnsAsync((string rolename) => roles.Any(a => a.Name == rolename));
             return manager;
         }
     }
