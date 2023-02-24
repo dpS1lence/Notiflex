@@ -30,6 +30,7 @@ namespace Notiflex.UnitTests.Common.DataStorages
         {
             NotiflexTrigger trigger = new()
             {
+                Identity = "Identity",
                 Id = 1,
                 City = "Sofia",
                 Interval = 1000,
