@@ -1,5 +1,3 @@
-
-![alt text](https://media.discordapp.net/attachments/916963422707527700/1069622218075689000/NotiFlex_LOGO_01.png?width=1440&height=360)
 Notiflex is the ultimate weather app for anyone who wants to stay informed and prepared. Whether you're facing sunny skies or rainy weather, our app will provide you with the information and advice you need to dress appropriately and be one step ahead. Join us now!
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Notiflex)
